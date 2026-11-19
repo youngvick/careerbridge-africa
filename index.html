@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CareerBridge Africa — Production Portal</title>
+  <title>CareerBridge Africa — Verified Workforce & Talent Matching</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -16,11 +16,11 @@
         <div class="w-9 h-9 rounded-lg bg-amber-500 text-slate-950 font-extrabold flex items-center justify-center">CB</div>
         <div>
           <h1 class="font-bold text-base tracking-tight">CareerBridge Africa</h1>
-          <p class="text-[11px] text-slate-400">Verified Digital Workforce Infrastructure</p>
+          <p class="text-[11px] text-slate-400">Training • Proctored Verification • Employer Matching</p>
         </div>
       </div>
 
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3">
         <span id="connBadge" class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
           ● Online Sync Active
         </span>
@@ -33,65 +33,116 @@
 
   <main class="max-w-7xl mx-auto px-4 py-8">
 
-    <!-- AUTHENTICATION GATE (SIGN UP / LOGIN WITH NDPA 2023 CONSENT) -->
-    <section id="authSection" class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-      <div class="flex border-b border-slate-200 mb-5">
-        <button type="button" id="tabLogin" onclick="switchAuthTab('login')" class="flex-1 pb-2.5 text-sm font-semibold border-b-2 border-slate-900 text-slate-900">Sign In</button>
-        <button type="button" id="tabSignup" onclick="switchAuthTab('signup')" class="flex-1 pb-2.5 text-sm font-semibold border-b-2 border-transparent text-slate-500">Create Account</button>
+    <!-- AUTHENTICATION GATE + PLATFORM OVERVIEW -->
+    <section id="authSection" class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <!-- Value Proposition Side -->
+      <div class="space-y-4">
+        <span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-100 text-amber-900">
+          NDPA 2023 Compliant Infrastructure
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+          Bridge the Gap Between Technical Training & Verified Hiring.
+        </h2>
+        <p class="text-sm text-slate-600 leading-relaxed">
+          Learners follow structured, project-driven tracks and earn a blind dual-assessed <strong>CareerScore™ (0–1000)</strong>. Employers post roles and match directly with pre-vetted, work-ready African talent.
+        </p>
+        <div class="grid grid-cols-3 gap-3 pt-2">
+          <div class="bg-white p-3 rounded-xl border border-slate-200">
+            <div class="text-sm font-extrabold text-slate-900">7 Tracks</div>
+            <div class="text-[11px] text-slate-500">4-Module Roadmaps</div>
+          </div>
+          <div class="bg-white p-3 rounded-xl border border-slate-200">
+            <div class="text-sm font-extrabold text-emerald-700">IRR ≥ 0.70</div>
+            <div class="text-[11px] text-slate-500">Dual-Assessor Gate</div>
+          </div>
+          <div class="bg-white p-3 rounded-xl border border-slate-200">
+            <div class="text-sm font-extrabold text-amber-600">Auto-Match</div>
+            <div class="text-[11px] text-slate-500">Score-Ranked Hiring</div>
+          </div>
+        </div>
       </div>
 
-      <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
-        <div id="signupFields" class="hidden space-y-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name</label>
-            <input type="text" id="fullName" placeholder="e.g. Chinedu Okafor" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
+      <!-- Auth Card -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+        <div class="flex border-b border-slate-200 mb-5">
+          <button type="button" id="tabLogin" onclick="switchAuthTab('login')" class="flex-1 pb-2.5 text-sm font-semibold border-b-2 border-slate-900 text-slate-900">Sign In</button>
+          <button type="button" id="tabSignup" onclick="switchAuthTab('signup')" class="flex-1 pb-2.5 text-sm font-semibold border-b-2 border-transparent text-slate-500">Create Account</button>
+        </div>
+
+        <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
+          <div id="signupFields" class="hidden space-y-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name</label>
+              <input type="text" id="fullName" placeholder="e.g. Okore Victor" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Account Role</label>
+              <select id="userRole" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white">
+                <option value="learner">Learner / Candidate (Learning Path & CareerScore™)</option>
+                <option value="employer">Employer / Hiring Manager (Post Jobs & Match Talent)</option>
+                <option value="assessor">Certified Technical Assessor (Blind Grading Queue)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Company / Institution (Optional)</label>
+              <input type="text" id="orgName" placeholder="e.g. RBS / Paystack" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
+            </div>
           </div>
+
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Account Role</label>
-            <select id="userRole" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white">
-              <option value="learner">Learner / Candidate (Training & CareerScore™)</option>
-              <option value="employer">Employer / Hiring Manager (Talent Portal)</option>
-              <option value="assessor">Certified Technical Assessor (Grading Queue)</option>
-            </select>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Email Address</label>
+            <input type="email" id="email" required placeholder="you@example.com" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
           </div>
+
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Company / Institution (Optional)</label>
-            <input type="text" id="orgName" placeholder="e.g. Paystack / Unilag" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Password</label>
+            <input type="password" id="password" required minlength="6" placeholder="••••••••" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
           </div>
-        </div>
 
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Email Address</label>
-          <input type="email" id="email" required placeholder="you@example.com" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
-        </div>
+          <div id="ndpaBox" class="hidden bg-slate-50 p-3 rounded-lg border border-slate-200">
+            <label class="flex items-start gap-2 text-xs text-slate-600 cursor-pointer">
+              <input type="checkbox" id="ndpaConsent" class="mt-0.5 rounded border-slate-300" />
+              <span>I explicitly consent to CareerBridge Africa processing my assessment records and portfolio data in accordance with the <strong>Nigeria Data Protection Act (NDPA) 2023</strong>.</span>
+            </label>
+          </div>
 
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Password</label>
-          <input type="password" id="password" required minlength="6" placeholder="••••••••" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
-        </div>
+          <p id="authFeedback" class="text-xs text-rose-600 hidden"></p>
 
-        <div id="ndpaBox" class="hidden bg-slate-50 p-3 rounded-lg border border-slate-200">
-          <label class="flex items-start gap-2 text-xs text-slate-600 cursor-pointer">
-            <input type="checkbox" id="ndpaConsent" class="mt-0.5 rounded border-slate-300" />
-            <span>I explicitly consent to CareerBridge Africa processing my assessment records and portfolio data in accordance with the <strong>Nigeria Data Protection Act (NDPA) 2023</strong>.</span>
-          </label>
-        </div>
-
-        <p id="authFeedback" class="text-xs text-rose-600 hidden"></p>
-
-        <button type="submit" id="authSubmitBtn" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm py-2.5 rounded-lg transition">
-          Sign In to Platform
-        </button>
-      </form>
+          <button type="submit" id="authSubmitBtn" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm py-2.5 rounded-lg transition">
+            Sign In to Platform
+          </button>
+        </form>
+      </div>
     </section>
 
-    <!-- DASHBOARD CONTAINER (RENDERED AFTER AUTHENTICATION) -->
+    <!-- DASHBOARD CONTAINER -->
     <section id="dashboardSection" class="hidden space-y-6">
+
+      <!-- PILOT SANDBOX SWITCHER (Eliminates Logout/Login Friction During Testing) -->
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2 text-xs text-amber-950">
+          <span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-extrabold">PILOT SANDBOX</span>
+          <span>Preview any role workspace instantly without signing out:</span>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="switchPreviewRole('learner')" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-amber-300 hover:bg-amber-100">
+            1. Learner Path
+          </button>
+          <button onclick="switchPreviewRole('assessor')" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-amber-300 hover:bg-amber-100">
+            2. Assessor Queue
+          </button>
+          <button onclick="switchPreviewRole('employer')" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-amber-300 hover:bg-amber-100">
+            3. Employer Matching
+          </button>
+        </div>
+      </div>
+
+      <!-- PROFILE & KPI HEADER -->
       <div class="bg-white rounded-xl border border-slate-200 p-5 flex flex-wrap items-center justify-between gap-4">
         <div>
           <span id="roleBadge" class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-100 text-amber-900">LEARNER</span>
           <h2 id="welcomeHeading" class="text-xl font-bold mt-1">Welcome back</h2>
-          <p class="text-xs text-slate-500">All transactions are VAT-exclusive per Table 2.5 pricing schedule (Pilot Scholarship Mode Active).</p>
+          <p class="text-xs text-slate-500">VAT-exclusive pricing schedule • NDPA 2023 Consent Active • Pilot Scholarship Mode</p>
         </div>
         <div id="kpiStrip" class="flex gap-4 text-right"></div>
       </div>
@@ -108,14 +159,56 @@
     // =========================================================================
     const SUPABASE_URL = "https://mnzqwllkyepgxixtgafu.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_gO0gCmajqqHlq1l6H7yqfQ_duU8GmMB";
-
     const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     let authMode = "login";
     let currentUser = null;
     let currentProfile = null;
+    let activeRoleView = "learner";
+    let selectedTrackCode = null;
 
-    // Offline connectivity listener (Low-bandwidth PWA readiness)
+    // Structured 4-Module Curriculum & Capstone Blueprints for all 7 Tracks
+    const TRACK_CURRICULA = {
+      default: {
+        modules: [
+          "Module 1: Core Architecture, Tooling & Industry Standards",
+          "Module 2: Applied Problem Solving & Local Case Labs",
+          "Module 3: Production Optimization, QA & Documentation",
+          "Module 4: Proctored Capstone Build & 10-Min Executive Defense"
+        ],
+        capstoneBrief: "Build an end-to-end production artifact solving a real Nigerian/African enterprise workflow, accompanied by a 10-minute walkthrough video.",
+        rubric: "Technical Execution (400 pts) • Problem Solving (250 pts) • Production Readiness (200 pts) • Executive Defense (150 pts)"
+      },
+      "DATA": {
+        modules: [
+          "Module 1: Relational SQL, PostgreSQL Joins & Window Functions",
+          "Module 2: Python Data Wrangling & Exploratory Analysis (Pandas)",
+          "Module 3: Executive KPI Storytelling & BI Dashboards",
+          "Module 4: Proctored Fintech Retention Capstone & Defense"
+        ],
+        capstoneBrief: "Analyze a 100,000-row Nigerian mobile money transaction dataset, identify 90-day churn predictors, and publish an interactive BI dashboard.",
+        rubric: "SQL/Python Accuracy (400 pts) • Business Insights (250 pts) • Dashboard Clarity (200 pts) • Executive Defense (150 pts)"
+      },
+      "WEB": {
+        modules: [
+          "Module 1: Responsive UI Engineering (HTML5, Tailwind, Modern JS)",
+          "Module 2: RESTful APIs, Authentication & State Management",
+          "Module 3: PostgreSQL Schema Design, RLS & NDPA Data Security",
+          "Module 4: Full-Stack Deployment & Offline-Resilient Capstone"
+        ],
+        capstoneBrief: "Architect and deploy a multi-role web application with row-level database security, offline queue handling, and live cloud hosting.",
+        rubric: "Code & Architecture (400 pts) • Security & RLS (250 pts) • UX & Offline Handling (200 pts) • Executive Defense (150 pts)"
+      }
+    };
+
+    function getCurriculumForTrack(track) {
+      const key = Object.keys(TRACK_CURRICULA).find(k =>
+        (track.code || "").toUpperCase().includes(k) || (track.title || "").toUpperCase().includes(k)
+      );
+      return TRACK_CURRICULA[key || "default"];
+    }
+
+    // Offline connectivity listener
     window.addEventListener("online", () => updateConnStatus(true));
     window.addEventListener("offline", () => updateConnStatus(false));
 
@@ -210,7 +303,7 @@
 
       if (error || !profile) {
         const feedback = document.getElementById("authFeedback");
-        feedback.textContent = "Account created! If email confirmation is enabled in Supabase, please verify your email first, or disable 'Confirm email' in Supabase Auth settings.";
+        feedback.textContent = "Profile not found. Ensure 'Confirm email' is OFF in Supabase Auth settings.";
         feedback.classList.remove("hidden");
         return;
       }
@@ -219,11 +312,16 @@
       document.getElementById("authSection").classList.add("hidden");
       document.getElementById("dashboardSection").classList.remove("hidden");
       document.getElementById("btnSignOut").classList.remove("hidden");
-      document.getElementById("roleBadge").textContent = profile.role.toUpperCase();
       document.getElementById("welcomeHeading").textContent = `Welcome, ${profile.full_name}`;
 
-      if (profile.role === "learner") renderLearnerWorkspace();
-      else if (profile.role === "employer") renderEmployerWorkspace();
+      switchPreviewRole(profile.role);
+    }
+
+    function switchPreviewRole(role) {
+      activeRoleView = role;
+      document.getElementById("roleBadge").textContent = `${role.toUpperCase()} VIEW`;
+      if (role === "learner") renderLearnerWorkspace();
+      else if (role === "employer") renderEmployerWorkspace();
       else renderAssessorWorkspace();
     }
 
@@ -233,7 +331,7 @@
     }
 
     // =========================================================================
-    // 2. LEARNER WORKSPACE (PILOT ENROLMENT + OFFLINE SUBMISSION)
+    // 2. LEARNER WORKSPACE (LEARNING PATH + PROGRESS TRACKER + CAPSTONE)
     // =========================================================================
     async function renderLearnerWorkspace() {
       const container = document.getElementById("workspaceContent");
@@ -242,6 +340,12 @@
         .from("enrolments")
         .select("*, tracks(*)")
         .eq("learner_id", currentUser.id);
+
+      const { data: submissions } = await sbClient
+        .from("submissions")
+        .select("*")
+        .eq("learner_id", currentUser.id)
+        .order("created_at", { ascending: false });
 
       const { data: scores } = await sbClient
         .from("careerscores")
@@ -254,10 +358,71 @@
           <div class="text-base font-bold">${enrolments?.length || 0}</div>
         </div>
         <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
+          <div class="text-[11px] text-slate-500">Submissions</div>
+          <div class="text-base font-bold text-amber-700">${submissions?.length || 0}</div>
+        </div>
+        <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
           <div class="text-[11px] text-slate-500">Verified CareerScores</div>
           <div class="text-base font-bold text-emerald-700">${scores?.length || 0}</div>
         </div>
       `;
+
+      // Active Learning Path Viewer
+      const activeEnrolment = (enrolments || [])[0];
+      const activeTrack = activeEnrolment ? activeEnrolment.tracks : (tracks || [])[0];
+      let roadmapHtml = "";
+
+      if (activeTrack) {
+        const curr = getCurriculumForTrack(activeTrack);
+        const latestSub = (submissions || []).find(s => s.track_id === activeTrack.id);
+        const latestScore = (scores || []).find(s => s.track_id === activeTrack.id);
+
+        const stageIndex = latestScore ? 4 : latestSub ? (latestSub.status === "under_dual_review" ? 3 : 2) : activeEnrolment ? 1 : 0;
+        const stages = ["1. Enrol", "2. Complete 4 Modules", "3. Capstone Queued", "4. Dual Grading", "5. CareerScore™ Issued"];
+
+        const savedChecks = JSON.parse(localStorage.getItem(`cb_mods_${currentUser.id}_${activeTrack.id}`) || "[false,false,false,false]");
+
+        roadmapHtml = `
+          <div class="bg-white rounded-xl border border-slate-200 p-5 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+              <div>
+                <span class="text-[11px] font-bold uppercase text-amber-700">Active Learning Roadmap</span>
+                <h3 class="font-bold text-base">${activeTrack.code}: ${activeTrack.title}</h3>
+              </div>
+              <span class="text-xs px-2.5 py-1 rounded-full bg-slate-100 font-semibold">
+                ${activeEnrolment ? "Enrolled (Pilot Access)" : "Previewing Syllabus"}
+              </span>
+            </div>
+
+            <!-- 5-Stage Visual Pipeline -->
+            <div class="grid grid-cols-5 gap-1.5 text-center">
+              ${stages.map((st, idx) => `
+                <div class="p-2 rounded-lg text-[11px] font-semibold border ${idx <= stageIndex ? "bg-emerald-50 border-emerald-300 text-emerald-900" : "bg-slate-50 border-slate-200 text-slate-400"}">
+                  ${st}
+                </div>
+              `).join("")}
+            </div>
+
+            <!-- 4-Module Checklist -->
+            <div class="space-y-2">
+              <div class="text-xs font-bold text-slate-700">Structured 4-Week Module Checklist (Click to Track Progress):</div>
+              ${curr.modules.map((mod, i) => `
+                <label class="flex items-center gap-2.5 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs">
+                  <input type="checkbox" ${savedChecks[i] ? "checked" : ""} onchange="toggleModuleProgress('${activeTrack.id}', ${i}, this.checked)" class="rounded text-slate-900" />
+                  <span class="${savedChecks[i] ? "line-through text-slate-400" : "text-slate-800 font-medium"}">${mod}</span>
+                </label>
+              `).join("")}
+            </div>
+
+            <!-- Capstone Brief & Rubric -->
+            <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 space-y-1.5 text-xs">
+              <div class="font-bold text-slate-900">Proctored Capstone Brief:</div>
+              <p class="text-slate-600">${curr.capstoneBrief}</p>
+              <div class="pt-1 text-[11px] font-semibold text-amber-900">1,000-Pt Rubric: ${curr.rubric}</div>
+            </div>
+          </div>
+        `;
+      }
 
       const trackCards = (tracks || []).map(t => {
         const existing = (enrolments || []).find(e => e.track_id === t.id);
@@ -266,11 +431,11 @@
             <div>
               <span class="text-[11px] font-mono text-slate-500">${t.code}</span>
               <h4 class="font-bold text-sm mt-0.5">${t.title}</h4>
-              <p class="text-xs text-slate-600 mt-1">Standard Tuition: <strong>₦${Number(t.fee_ngn).toLocaleString()}</strong> (Pilot Waiver Active)</p>
+              <p class="text-xs text-slate-600 mt-1">Tuition: <strong>₦${Number(t.fee_ngn).toLocaleString()}</strong> (Pilot Waiver Active)</p>
             </div>
             <div class="mt-4">
               ${existing
-                ? `<span class="inline-block text-xs font-semibold px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Status: ${existing.payment_status}</span>`
+                ? `<span class="inline-block text-xs font-semibold px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Enrolled in Track</span>`
                 : `<button onclick="enrolInPilotTrack('${t.id}', '${t.title}')" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold py-2 rounded-lg">Enrol in Pilot Cohort</button>`
               }
             </div>
@@ -285,20 +450,25 @@
             <span class="text-lg font-extrabold text-emerald-700">${s.final_score} / 1000</span>
           </div>
           <p class="text-xs text-emerald-800 mt-1">${s.readiness_tier}</p>
-          <p class="text-[11px] font-mono text-emerald-700 mt-2">Portfolio ID: ${s.portfolio_slug}</p>
+          <p class="text-[11px] font-mono text-emerald-700 mt-2">Verify URL: careerbridge.africa/verify/${s.portfolio_slug}</p>
         </div>
-      `).join("") || `<p class="text-xs text-slate-500">No verified CareerScores yet. Complete a proctored capstone to generate your score.</p>`;
+      `).join("") || `<p class="text-xs text-slate-500">No verified CareerScores yet. Complete your modules and submit a capstone below.</p>`;
 
       container.innerHTML = `
-        <div class="lg:col-span-2 space-y-4">
-          <h3 class="font-bold text-base">Available Technical & Engineering Tracks (7 Pillars)</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${trackCards}</div>
+        <div class="lg:col-span-2 space-y-6">
+          ${roadmapHtml}
+          <div class="space-y-3">
+            <h3 class="font-bold text-base">All Technical & Engineering Tracks (7 Pillars)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${trackCards}</div>
+          </div>
         </div>
+
         <div class="space-y-4">
           <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
             <h3 class="font-bold text-sm">Verified CareerScore™ Credentials</h3>
             ${scoreCards}
           </div>
+
           <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
             <h3 class="font-bold text-sm">Submit Capstone Artifact (Offline-Ready)</h3>
             <select id="submitEnrolmentId" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
@@ -314,6 +484,14 @@
       `;
     }
 
+    function toggleModuleProgress(trackId, modIndex, checked) {
+      const key = `cb_mods_${currentUser.id}_${trackId}`;
+      const arr = JSON.parse(localStorage.getItem(key) || "[false,false,false,false]");
+      arr[modIndex] = checked;
+      localStorage.setItem(key, JSON.stringify(arr));
+      renderLearnerWorkspace();
+    }
+
     async function enrolInPilotTrack(trackId, trackTitle) {
       const { error } = await sbClient.from("enrolments").upsert({
         learner_id: currentUser.id,
@@ -322,13 +500,7 @@
         payment_status: "scholarship_approved",
         amount_paid_ngn: 0
       });
-
-      if (error) {
-        alert("Enrolment error: " + error.message);
-        return;
-      }
-
-      alert(`Enrolled in ${trackTitle} under Pilot Access! You can now submit your capstone artifact.`);
+      if (error) return alert("Enrolment error: " + error.message);
       renderLearnerWorkspace();
     }
 
@@ -353,12 +525,12 @@
         const queue = JSON.parse(localStorage.getItem("cb_offline_submissions") || "[]");
         queue.push(payload);
         localStorage.setItem("cb_offline_submissions", JSON.stringify(queue));
-        return alert("You are offline. Submission saved locally and will auto-sync when connectivity returns!");
+        return alert("Saved offline! Will auto-sync when internet returns.");
       }
 
       const { error } = await sbClient.from("submissions").insert(payload);
       if (error) return alert(error.message);
-      alert("Capstone submitted to blind dual-assessor queue!");
+      alert("Capstone submitted! Switch to '2. Assessor Queue' in the top yellow sandbox bar to test grading.");
       renderLearnerWorkspace();
     }
 
@@ -366,56 +538,144 @@
       if (!sbClient || !currentUser) return;
       const queue = JSON.parse(localStorage.getItem("cb_offline_submissions") || "[]");
       if (queue.length === 0) return;
-      for (const item of queue) {
-        await sbClient.from("submissions").insert(item);
-      }
+      for (const item of queue) await sbClient.from("submissions").insert(item);
       localStorage.removeItem("cb_offline_submissions");
-      alert(`Synced ${queue.length} offline capstone submission(s) to the cloud!`);
     }
 
     // =========================================================================
-    // 3. EMPLOYER WORKSPACE (FILTER VERIFIED TALENT + SHORTLIST)
+    // 3. EMPLOYER WORKSPACE (JOB POSTING + AUTO-MATCHING + HIRING PIPELINE)
     // =========================================================================
     async function renderEmployerWorkspace() {
       const container = document.getElementById("workspaceContent");
+      const { data: tracks } = await sbClient.from("tracks").select("*").order("code");
       const { data: verifiedPool } = await sbClient
         .from("careerscores")
-        .select("*, profiles(full_name, email), tracks(title), submissions(artifact_storage_path, defense_video_url)")
+        .select("*, profiles(full_name, email, organization_name), tracks(title, code), submissions(artifact_storage_path, defense_video_url)")
         .order("final_score", { ascending: false });
 
-      const cards = (verifiedPool || []).map(c => `
-        <div class="bg-white p-5 rounded-xl border border-slate-200 flex flex-col justify-between">
-          <div>
-            <div class="flex justify-between items-start gap-2">
-              <div>
-                <h4 class="font-bold text-sm">${c.profiles?.full_name}</h4>
-                <p class="text-xs text-slate-500">${c.tracks?.title}</p>
-              </div>
-              <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-amber-400 font-extrabold text-xs">
-                ${c.final_score}/1000
-              </span>
-            </div>
-            <p class="text-xs text-emerald-700 font-semibold mt-2">${c.readiness_tier}</p>
-            <div class="mt-3 flex gap-3 text-xs">
-              <a href="${c.submissions?.artifact_storage_path}" target="_blank" class="text-blue-600 underline">Inspect Work Sample</a>
-              ${c.submissions?.defense_video_url ? `<a href="${c.submissions.defense_video_url}" target="_blank" class="text-blue-600 underline">Watch Defense</a>` : ""}
-            </div>
-          </div>
-          <button onclick="shortlistCandidate('${c.id}', '${c.learner_id}')" class="mt-4 w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold py-2 rounded-lg">
-            Shortlist for Interview
-          </button>
-        </div>
-      `).join("") || `<p class="text-sm text-slate-500 col-span-3">No verified candidates published yet.</p>`;
+      const { data: shortlists } = await sbClient
+        .from("employer_shortlists")
+        .select("*, profiles(full_name), careerscores(final_score, tracks(title))")
+        .eq("employer_id", currentUser.id);
 
-      container.innerHTML = `
-        <div class="lg:col-span-3 space-y-4">
-          <div class="flex justify-between items-center">
-            <h3 class="font-bold text-base">Pre-Vetted Talent Pool (Proctored & Rubric-Verified)</h3>
-            <span class="text-xs text-slate-500">Showing ${verifiedPool?.length || 0} verified candidates</span>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">${cards}</div>
+      const { data: jobs } = await sbClient
+        .from("employer_jobs")
+        .select("*, tracks(title)")
+        .order("created_at", { ascending: false });
+
+      document.getElementById("kpiStrip").innerHTML = `
+        <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
+          <div class="text-[11px] text-slate-500">Verified Talent Pool</div>
+          <div class="text-base font-bold">${verifiedPool?.length || 0}</div>
+        </div>
+        <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
+          <div class="text-[11px] text-slate-500">Active Shortlists</div>
+          <div class="text-base font-bold text-emerald-700">${shortlists?.length || 0}</div>
         </div>
       `;
+
+      const activeJob = (jobs || [])[0];
+      const minScoreFilter = activeJob ? activeJob.min_careerscore : 700;
+
+      const candidateCards = (verifiedPool || []).map(c => {
+        const matchPct = Math.min(99, Math.round((c.final_score / 1000) * 100 + (activeJob && activeJob.track_id === c.track_id ? 8 : 0)));
+        const alreadyShortlisted = (shortlists || []).find(s => s.careerscore_id === c.id);
+
+        return `
+          <div class="bg-white p-5 rounded-xl border border-slate-200 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start gap-2">
+                <div>
+                  <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-emerald-100 text-emerald-900">
+                    ${matchPct}% Role Match
+                  </span>
+                  <h4 class="font-bold text-sm mt-1">${c.profiles?.full_name}</h4>
+                  <p class="text-xs text-slate-500">${c.tracks?.title}</p>
+                </div>
+                <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-amber-400 font-extrabold text-xs">
+                  ${c.final_score}/1000
+                </span>
+              </div>
+              <p class="text-xs text-emerald-700 font-semibold mt-2">${c.readiness_tier}</p>
+              <div class="mt-3 flex gap-3 text-xs">
+                <a href="${c.submissions?.artifact_storage_path}" target="_blank" class="text-blue-600 underline">Inspect Work Sample</a>
+                ${c.submissions?.defense_video_url ? `<a href="${c.submissions.defense_video_url}" target="_blank" class="text-blue-600 underline">Watch Defense</a>` : ""}
+              </div>
+            </div>
+            ${alreadyShortlisted
+              ? `<span class="mt-4 block text-center text-xs font-semibold py-2 rounded-lg bg-slate-100 text-slate-700">Stage: ${alreadyShortlisted.pipeline_stage || "Shortlisted"}</span>`
+              : `<button onclick="shortlistCandidate('${c.id}', '${c.learner_id}')" class="mt-4 w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold py-2 rounded-lg">Shortlist & Request Interview</button>`
+            }
+          </div>
+        `;
+      }).join("") || `<p class="text-sm text-slate-500 col-span-2 bg-white p-5 rounded-xl border border-slate-200">No verified candidates published yet. Grade a submission in the Assessor Queue first!</p>`;
+
+      const pipelineRows = (shortlists || []).map(s => `
+        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 space-y-2 text-xs">
+          <div class="flex justify-between font-bold">
+            <span>${s.profiles?.full_name}</span>
+            <span class="text-amber-700">${s.careerscores?.final_score}/1000</span>
+          </div>
+          <div class="text-[11px] text-slate-500">${s.careerscores?.tracks?.title}</div>
+          <select onchange="updateHiringStage('${s.id}', this.value)" class="w-full text-xs border border-slate-300 rounded p-1.5 bg-white font-semibold">
+            ${["Shortlisted", "Interview Scheduled", "Offer Extended", "Hired (90-Day Confirmed)"].map(st =>
+              `<option value="${st}" ${(s.pipeline_stage || "Shortlisted") === st ? "selected" : ""}>${st}</option>`
+            ).join("")}
+          </select>
+        </div>
+      `).join("") || `<p class="text-xs text-slate-500">No candidates in your hiring pipeline yet.</p>`;
+
+      container.innerHTML = `
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex flex-wrap justify-between items-center gap-2">
+            <div>
+              <h3 class="font-bold text-base">AI & Score-Matched Talent Pool</h3>
+              <p class="text-xs text-slate-500">Ranked by CareerScore™ & active requisition fit (Min threshold: ${minScoreFilter}/1000)</p>
+            </div>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded bg-white border border-slate-200">${verifiedPool?.length || 0} Verified Candidates</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${candidateCards}</div>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Post Role Requisition -->
+          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+            <h3 class="font-bold text-sm">Post Role & Auto-Match Criteria</h3>
+            <input type="text" id="jobTitle" placeholder="Role Title (e.g. Junior Data Analyst)" class="w-full text-xs border border-slate-300 rounded-lg p-2" />
+            <select id="jobTrackId" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
+              ${(tracks || []).map(t => `<option value="${t.id}">${t.title}</option>`).join("")}
+            </select>
+            <div class="grid grid-cols-2 gap-2">
+              <input type="number" id="jobMinScore" value="750" min="500" max="950" placeholder="Min CareerScore" class="text-xs border border-slate-300 rounded-lg p-2" />
+              <input type="text" id="jobSalary" value="₦400k - ₦650k/mo" class="text-xs border border-slate-300 rounded-lg p-2" />
+            </div>
+            <button onclick="postEmployerJob()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-2 rounded-lg">
+              Publish Requisition & Rank Matches
+            </button>
+          </div>
+
+          <!-- Hiring & 90-Day Placement Tracker -->
+          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+            <h3 class="font-bold text-sm">Interview & Placement Pipeline</h3>
+            ${pipelineRows}
+          </div>
+        </div>
+      `;
+    }
+
+    async function postEmployerJob() {
+      const title = document.getElementById("jobTitle").value.trim();
+      if (!title) return alert("Enter a job title first.");
+      const { error } = await sbClient.from("employer_jobs").insert({
+        employer_id: currentUser.id,
+        title,
+        track_id: document.getElementById("jobTrackId").value,
+        min_careerscore: parseInt(document.getElementById("jobMinScore").value, 10) || 750,
+        salary_band_ngn: document.getElementById("jobSalary").value.trim()
+      });
+      if (error) return alert("Run the Part 2 SQL snippet first to enable job postings: " + error.message);
+      alert("Role published! Talent pool re-ranked by match score.");
+      renderEmployerWorkspace();
     }
 
     async function shortlistCandidate(careerscoreId, learnerId) {
@@ -423,14 +683,22 @@
         employer_id: currentUser.id,
         careerscore_id: careerscoreId,
         learner_id: learnerId,
-        engagement_type: "portal_shortlist"
+        engagement_type: "portal_shortlist",
+        pipeline_stage: "Shortlisted"
       });
       if (error) return alert(error.message);
-      alert("Candidate added to your shortlist! Remember: placements are counted only after written employer confirmation within 90 days.");
+      renderEmployerWorkspace();
+    }
+
+    async function updateHiringStage(shortlistId, stage) {
+      await sbClient.from("employer_shortlists").update({ pipeline_stage: stage }).eq("id", shortlistId);
+      if (stage.includes("Hired")) {
+        alert("Placement recorded! 90-day employer verification milestone logged.");
+      }
     }
 
     // =========================================================================
-    // 4. ASSESSOR WORKSPACE (BLIND DUAL-GRADING + AUTOMATIC IRR >= 0.70 CHECK)
+    // 4. ASSESSOR WORKSPACE (BLIND DUAL-GRADING + 1-CLICK PILOT SIMULATOR)
     // =========================================================================
     async function renderAssessorWorkspace() {
       const container = document.getElementById("workspaceContent");
@@ -448,13 +716,16 @@
           <h4 class="font-bold text-sm">${sub.tracks?.title}</h4>
           <a href="${sub.artifact_storage_path}" target="_blank" class="inline-block text-xs text-blue-600 underline">Open Anonymized Submission Artifact →</a>
           <div class="grid grid-cols-2 gap-2 pt-2">
-            <input type="number" id="score_${sub.id}" min="0" max="1000" placeholder="Composite Score (0-1000)" class="text-xs border border-slate-300 rounded-lg p-2" />
+            <input type="number" id="score_${sub.id}" min="0" max="1000" value="850" placeholder="Score (0-1000)" class="text-xs border border-slate-300 rounded-lg p-2" />
             <button onclick="submitBlindGrade('${sub.id}')" class="bg-slate-900 text-white text-xs font-semibold rounded-lg px-3 py-2">
               Submit Blind Grade
             </button>
           </div>
+          <button onclick="simulateDualVerification('${sub.id}', '${sub.learner_id}', '${sub.track_id}')" class="w-full text-[11px] font-semibold py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100">
+            ⚡ Pilot Test: Simulate Dual-Assessor Pass & Issue CareerScore™
+          </button>
         </div>
-      `).join("") || `<p class="text-sm text-slate-500 col-span-3">Grading queue is clear.</p>`;
+      `).join("") || `<p class="text-sm text-slate-500 col-span-3 bg-white p-5 rounded-xl border border-slate-200">Grading queue is clear. Submit a capstone in the Learner Path tab to test grading!</p>`;
 
       container.innerHTML = `
         <div class="lg:col-span-3 space-y-4">
@@ -481,17 +752,37 @@
           assessor_1_total: score
         });
         await sbClient.from("submissions").update({ status: "under_dual_review" }).eq("id", submissionId);
-        alert("Assessor 1 grade recorded. Awaiting blind Assessor 2 review.");
+        alert("Assessor 1 grade recorded.");
       } else {
         if (existing.assessor_1_id === currentUser.id) {
-          return alert("Conflict of interest: You already submitted Assessor 1 grade. A second independent assessor must grade.");
+          return alert("Conflict of interest: Use a second assessor account or click the green Pilot Test button below to simulate dual verification.");
         }
         await sbClient.from("assessments").update({
           assessor_2_id: currentUser.id,
           assessor_2_total: score
         }).eq("id", existing.id);
-        alert("Assessor 2 grade recorded! Database trigger automatically evaluated IRR (>= 0.70) and published CareerScore if passed.");
+        alert("Assessor 2 grade recorded!");
       }
+      renderAssessorWorkspace();
+    }
+
+    async function simulateDualVerification(submissionId, learnerId, trackId) {
+      const score = parseInt(document.getElementById(`score_${submissionId}`).value, 10) || 850;
+      const tier = score >= 850 ? "Tier 1: Enterprise Ready (Distinction)" : score >= 700 ? "Tier 2: Job-Ready Certified" : "Tier 3: Developing Practitioner";
+      const slug = `CB-${score}-${submissionId.slice(0, 6).toUpperCase()}`;
+
+      await sbClient.from("submissions").update({ status: "verified" }).eq("id", submissionId);
+      const { error } = await sbClient.from("careerscores").insert({
+        submission_id: submissionId,
+        learner_id: learnerId,
+        track_id: trackId,
+        final_score: score,
+        readiness_tier: tier,
+        portfolio_slug: slug
+      });
+
+      if (error) return alert("Error issuing CareerScore: " + error.message);
+      alert(`Verified CareerScore™ (${score}/1000) issued! Switch to '1. Learner Path' or '3. Employer Matching' in the yellow bar to see it live.`);
       renderAssessorWorkspace();
     }
   </script>
