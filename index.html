@@ -10,6 +10,7 @@
   <title>CareerBridge Africa — Digital Skills Training, Competency Assessment & Employer Talent Matching</title>
   <link rel="icon" type="image/png" href="logo.png" />
   <link rel="apple-touch-icon" href="logo.png" />
+  <link rel="manifest" href="./manifest.json" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
@@ -351,45 +352,15 @@
     const EXTERNAL_AI_ENDPOINT = "";
 
     // =========================================================================
-    // PWA MANIFEST + SERVICE WORKER REGISTRATION (INSTALLABLE APP)
+    // PWA SERVICE WORKER REGISTRATION (STEP 3 — STATIC MANIFEST & SW.JS)
     // =========================================================================
     let deferredInstallPrompt = null;
 
-    (function initPWA() {
-      const manifest = {
-        name: "CareerBridge Africa",
-        short_name: "CareerBridge",
-        description: "Digital skills training, independent competency assessment, verified digital portfolios and employer talent matching.",
-        start_url: "./",
-        display: "standalone",
-        background_color: "#0F172A",
-        theme_color: "#0F172A",
-        icons: [
-          { src: new URL("logo.png", window.location.href).href, sizes: "512x512", type: "image/png", purpose: "any maskable" }
-        ]
-      };
-      const manifestBlob = new Blob([JSON.stringify(manifest)], { type: "application/manifest+json" });
-      const manifestLink = document.createElement("link");
-      manifestLink.rel = "manifest";
-      manifestLink.href = URL.createObjectURL(manifestBlob);
-      document.head.appendChild(manifestLink);
-
-      if ("serviceWorker" in navigator) {
-        const swCode = `
-          const CACHE_NAME = 'cb-africa-v1';
-          self.addEventListener('install', (e) => {
-            e.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(['./'])));
-            self.skipWaiting();
-          });
-          self.addEventListener('fetch', (e) => {
-            if (e.request.method !== 'GET') return;
-            e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
-          });
-        `;
-        const swBlob = new Blob([swCode], { type: "application/javascript" });
-        navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(() => {});
-      }
-    })();
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      });
+    }
 
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
