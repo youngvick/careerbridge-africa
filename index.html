@@ -164,9 +164,8 @@
     let selectedTrackId = null;
     let activeQuizModule = null;
 
-    // Exact 7 Tracks from Section 2.1.5 of the Rome Business School Capstone Business Plan
     const TRACK_CURRICULA = {
-      SOFTWARE: {
+      "TRK-01": {
         partnerBadge: "freeCodeCamp • Supabase • MDN Web Docs",
         duration: "3 Months • Beginner to Intermediate",
         salaryRange: "Nigeria: ₦5.5M–₦11M/yr • Remote/Global: $70k–$120k USD",
@@ -223,7 +222,7 @@
         rubric: "Code & Architecture (400 pts) • Security & RLS (250 pts) • UX & Offline Handling (200 pts) • Executive Defense (150 pts)"
       },
 
-      DATA: {
+      "TRK-02": {
         partnerBadge: "Google • Microsoft Learn • Coursera • Kaggle",
         duration: "3 Months • Beginner to Intermediate",
         salaryRange: "Nigeria: ₦4.8M–₦8M/yr • Remote/Global: $60k–$100k USD",
@@ -291,7 +290,7 @@
         rubric: "SQL/Python Accuracy (400 pts) • Business Insights (250 pts) • Dashboard Clarity (200 pts) • Executive Defense (150 pts)"
       },
 
-      DESIGN: {
+      "TRK-03": {
         partnerBadge: "Google UX Design • Figma Learn",
         duration: "3 Months • Beginner to Intermediate",
         salaryRange: "Nigeria: ₦5.5M–₦10M/yr • Remote/Global: $75k–$120k USD",
@@ -348,7 +347,7 @@
         rubric: "UX Research & Flows (400 pts) • Visual & Design System (250 pts) • Accessibility & Testing (200 pts) • Executive Defense (150 pts)"
       },
 
-      AUTOCAD: {
+      "TRK-04": {
         partnerBadge: "Autodesk Academy • CAD Drafter Pathways",
         duration: "3 Months • Beginner to Intermediate",
         salaryRange: "Nigeria: ₦4.5M–₦8.5M/yr • Remote/Global: $60k–$95k USD",
@@ -405,7 +404,7 @@
         rubric: "Geometric Precision & Standards (400 pts) • Layer & Block Organization (250 pts) • Annotation & Plotting (200 pts) • Executive Defense (150 pts)"
       },
 
-      SOLIDWORKS: {
+      "TRK-05": {
         partnerBadge: "Dassault Systèmes • SolidWorks Learning • MIT OCW",
         duration: "3 Months • Beginner to Intermediate",
         salaryRange: "Nigeria: ₦5.5M–₦10M/yr • Remote/Global: $75k–$115k USD",
@@ -462,7 +461,7 @@
         rubric: "Parametric Modeling & Assembly (400 pts) • FEA Simulation Rigor (250 pts) • Production Drawings & BOM (200 pts) • Executive Defense (150 pts)"
       },
 
-      BIM: {
+      "TRK-06": {
         partnerBadge: "Autodesk Revit Academy • buildingSMART BIM",
         duration: "3 Months • Beginner to Intermediate",
         salaryRange: "Nigeria: ₦6.0M–₦11M/yr • Remote/Global: $80k–$125k USD",
@@ -519,7 +518,7 @@
         rubric: "BIM Modeling Accuracy (400 pts) • Parametric Families & Schedules (250 pts) • Coordination & Sheets (200 pts) • Executive Defense (150 pts)"
       },
 
-      MEP: {
+      "TRK-07": {
         partnerBadge: "Autodesk Revit MEP • Civil 3D • CIBSE/ASHRAE",
         duration: "3 Months • Beginner to Intermediate",
         salaryRange: "Nigeria: ₦6.0M–₦11.5M/yr • Remote/Global: $80k–$130k USD",
@@ -578,14 +577,17 @@
     };
 
     function getCurriculumForTrack(track) {
-      const text = `${track.code || ""} ${track.title || ""}`.toUpperCase();
-      if (text.includes("DATA") || text.includes("SQL") || text.includes("ANALYTICS")) return TRACK_CURRICULA.DATA;
-      if (text.includes("DESIGN") || text.includes("UX") || text.includes("UI")) return TRACK_CURRICULA.DESIGN;
-      if (text.includes("AUTOCAD") || text.includes("DRAFTING")) return TRACK_CURRICULA.AUTOCAD;
-      if (text.includes("SOLIDWORKS") || text.includes("MECHANICAL") || text.includes("THREE-DIMENSIONAL")) return TRACK_CURRICULA.SOLIDWORKS;
-      if (text.includes("BIM") || text.includes("REVIT") || text.includes("BUILDING INFORMATION")) return TRACK_CURRICULA.BIM;
-      if (text.includes("MEP") || text.includes("CIVIL") || text.includes("PLUMBING")) return TRACK_CURRICULA.MEP;
-      return TRACK_CURRICULA.SOFTWARE;
+      const code = (track.code || "").toUpperCase().trim();
+      if (TRACK_CURRICULA[code]) return TRACK_CURRICULA[code];
+
+      const text = (track.title || "").toUpperCase();
+      if (text.includes("AUTOCAD") || text.includes("DRAFTING")) return TRACK_CURRICULA["TRK-04"];
+      if (text.includes("SOLIDWORKS") || text.includes("THREE-DIMENSIONAL")) return TRACK_CURRICULA["TRK-05"];
+      if (text.includes("BIM") || text.includes("REVIT")) return TRACK_CURRICULA["TRK-06"];
+      if (text.includes("MEP") || text.includes("CIVIL")) return TRACK_CURRICULA["TRK-07"];
+      if (text.includes("DATA") || text.includes("SQL")) return TRACK_CURRICULA["TRK-02"];
+      if (text.includes("UI/UX")) return TRACK_CURRICULA["TRK-03"];
+      return TRACK_CURRICULA["TRK-01"];
     }
 
     function getModuleProgress(trackId, moduleCount) {
@@ -729,7 +731,7 @@
     }
 
     // =========================================================================
-    // 2. LEARNER WORKSPACE (BROCHURE CURRICULA + SEQUENTIAL MASTERY GATES)
+    // 2. LEARNER WORKSPACE
     // =========================================================================
     async function renderLearnerWorkspace() {
       const container = document.getElementById("workspaceContent");
