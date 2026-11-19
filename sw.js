@@ -1,5 +1,5 @@
-const CACHE_NAME = 'careerbridge-africa-v2';
-const ASSETS = ['./', './index.html', './manifest.json', './logo.png'];
+const CACHE_NAME = 'careerbridge-africa-v3';
+const ASSETS = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
