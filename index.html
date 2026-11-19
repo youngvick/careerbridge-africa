@@ -92,15 +92,6 @@
           <option value="warm">📜 Warm Ivory</option>
         </select>
 
-        <!-- Install PWA App Button -->
-        <button
-          id="btnInstallApp"
-          onclick="triggerPWAInstall()"
-          class="min-h-[38px] text-xs font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-3 py-1.5 rounded-xl flex items-center gap-1 transition"
-        >
-          <span>📲 Install App</span>
-        </button>
-
         <button onclick="toggleAICoach(true)" class="min-h-[38px] text-xs font-bold bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 px-3 py-1.5 rounded-xl flex items-center gap-1.5 transition">
           <span>✦ AI Coach</span>
         </button>
@@ -344,34 +335,12 @@
     const EXTERNAL_AI_ENDPOINT = "";
 
     // =========================================================================
-    // PWA SERVICE WORKER REGISTRATION
+    // PWA SERVICE WORKER REGISTRATION (BACKGROUND OFFLINE & INSTALL SUPPORT)
     // =========================================================================
-    let deferredInstallPrompt = null;
-
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("./sw.js").catch(() => {});
       });
-    }
-
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      deferredInstallPrompt = e;
-    });
-
-    async function triggerPWAInstall() {
-      if (deferredInstallPrompt) {
-        deferredInstallPrompt.prompt();
-        await deferredInstallPrompt.userChoice;
-        deferredInstallPrompt = null;
-        return;
-      }
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-      if (isIOS) {
-        alert("To install CareerBridge Africa on iPhone/iPad: tap the Safari Share icon (↑) at the bottom of your screen, then select 'Add to Home Screen'.");
-      } else {
-        alert("To install CareerBridge Africa as an app: open your browser menu (⋮) and select 'Install app' or 'Add to Home screen'.");
-      }
     }
 
     // =========================================================================
