@@ -16,7 +16,7 @@
         <div class="w-9 h-9 rounded-lg bg-amber-500 text-slate-950 font-extrabold flex items-center justify-center">CB</div>
         <div>
           <h1 class="font-bold text-base tracking-tight">CareerBridge Africa</h1>
-          <p class="text-[11px] text-slate-400">Training • Proctored Verification • Employer Matching</p>
+          <p class="text-[11px] text-slate-400">Partner-Curated Training • Proctored Verification • Employer Matching</p>
         </div>
       </div>
 
@@ -35,21 +35,20 @@
 
     <!-- AUTHENTICATION GATE + PLATFORM OVERVIEW -->
     <section id="authSection" class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-      <!-- Value Proposition Side -->
       <div class="space-y-4">
         <span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-100 text-amber-900">
-          NDPA 2023 Compliant Infrastructure
+          NDPA 2023 Compliant Workforce Infrastructure
         </span>
         <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
-          Bridge the Gap Between Technical Training & Verified Hiring.
+          Global Curriculum. Proctored Verification. Direct Hiring.
         </h2>
         <p class="text-sm text-slate-600 leading-relaxed">
-          Learners follow structured, project-driven tracks and earn a blind dual-assessed <strong>CareerScore™ (0–1000)</strong>. Employers post roles and match directly with pre-vetted, work-ready African talent.
+          Master job-ready technical tracks powered by curriculum pathways from <strong>Google, Coursera, AWS, and Microsoft</strong>—then prove your mastery through a blind dual-assessed <strong>CareerScore™ (0–1000)</strong> to match directly with verified employers.
         </p>
         <div class="grid grid-cols-3 gap-3 pt-2">
           <div class="bg-white p-3 rounded-xl border border-slate-200">
             <div class="text-sm font-extrabold text-slate-900">7 Tracks</div>
-            <div class="text-[11px] text-slate-500">4-Module Roadmaps</div>
+            <div class="text-[11px] text-slate-500">Global Partner Labs</div>
           </div>
           <div class="bg-white p-3 rounded-xl border border-slate-200">
             <div class="text-sm font-extrabold text-emerald-700">IRR ≥ 0.70</div>
@@ -118,11 +117,11 @@
     <!-- DASHBOARD CONTAINER -->
     <section id="dashboardSection" class="hidden space-y-6">
 
-      <!-- PILOT SANDBOX SWITCHER (Eliminates Logout/Login Friction During Testing) -->
+      <!-- PILOT SANDBOX SWITCHER -->
       <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-2 text-xs text-amber-950">
           <span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-extrabold">PILOT SANDBOX</span>
-          <span>Preview any role workspace instantly without signing out:</span>
+          <span>Switch workspaces anytime to test the full ecosystem:</span>
         </div>
         <div class="flex flex-wrap gap-2">
           <button onclick="switchPreviewRole('learner')" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-amber-300 hover:bg-amber-100">
@@ -142,7 +141,7 @@
         <div>
           <span id="roleBadge" class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-100 text-amber-900">LEARNER</span>
           <h2 id="welcomeHeading" class="text-xl font-bold mt-1">Welcome back</h2>
-          <p class="text-xs text-slate-500">VAT-exclusive pricing schedule • NDPA 2023 Consent Active • Pilot Scholarship Mode</p>
+          <p class="text-xs text-slate-500">Partner-Curated Learning Paths • NDPA 2023 Consent Active • Pilot Scholarship Mode</p>
         </div>
         <div id="kpiStrip" class="flex gap-4 text-right"></div>
       </div>
@@ -165,47 +164,100 @@
     let currentUser = null;
     let currentProfile = null;
     let activeRoleView = "learner";
-    let selectedTrackCode = null;
+    let selectedTrackId = null;
 
-    // Structured 4-Module Curriculum & Capstone Blueprints for all 7 Tracks
+    // Partner-Curated Training Modules & Official Course Links for all 7 Tracks
     const TRACK_CURRICULA = {
-      default: {
+      "TRK-01": {
+        partnerBadge: "Google • Coursera • Kaggle",
         modules: [
-          "Module 1: Core Architecture, Tooling & Industry Standards",
-          "Module 2: Applied Problem Solving & Local Case Labs",
-          "Module 3: Production Optimization, QA & Documentation",
-          "Module 4: Proctored Capstone Build & 10-Min Executive Defense"
-        ],
-        capstoneBrief: "Build an end-to-end production artifact solving a real Nigerian/African enterprise workflow, accompanied by a 10-minute walkthrough video.",
-        rubric: "Technical Execution (400 pts) • Problem Solving (250 pts) • Production Readiness (200 pts) • Executive Defense (150 pts)"
-      },
-      "DATA": {
-        modules: [
-          "Module 1: Relational SQL, PostgreSQL Joins & Window Functions",
-          "Module 2: Python Data Wrangling & Exploratory Analysis (Pandas)",
-          "Module 3: Executive KPI Storytelling & BI Dashboards",
-          "Module 4: Proctored Fintech Retention Capstone & Defense"
+          { title: "Module 1: Foundations of Data & SQL Querying", provider: "Google Data Analytics (Coursera)", url: "https://www.coursera.org/professional-certificates/google-data-analytics" },
+          { title: "Module 2: Relational Databases & PostgreSQL Joins", provider: "Microsoft Learn SQL Path", url: "https://learn.microsoft.com/en-us/training/paths/get-started-querying-with-transact-sql/" },
+          { title: "Module 3: Python Data Wrangling & Visualization (Pandas)", provider: "Kaggle Learn (Free Interactive)", url: "https://www.kaggle.com/learn/pandas" },
+          { title: "Module 4: Proctored Fintech Retention Capstone & Defense", provider: "CareerBridge Africa Verification Lab", url: "#submitCapstoneCard" }
         ],
         capstoneBrief: "Analyze a 100,000-row Nigerian mobile money transaction dataset, identify 90-day churn predictors, and publish an interactive BI dashboard.",
         rubric: "SQL/Python Accuracy (400 pts) • Business Insights (250 pts) • Dashboard Clarity (200 pts) • Executive Defense (150 pts)"
       },
-      "WEB": {
+      "TRK-02": {
+        partnerBadge: "freeCodeCamp • Harvard CS50 • Supabase",
         modules: [
-          "Module 1: Responsive UI Engineering (HTML5, Tailwind, Modern JS)",
-          "Module 2: RESTful APIs, Authentication & State Management",
-          "Module 3: PostgreSQL Schema Design, RLS & NDPA Data Security",
-          "Module 4: Full-Stack Deployment & Offline-Resilient Capstone"
+          { title: "Module 1: Responsive UI Engineering (HTML5, CSS, Tailwind)", provider: "freeCodeCamp Web Curriculum", url: "https://www.freecodecamp.org/learn/2022/responsive-web-design/" },
+          { title: "Module 2: Modern JavaScript ES6+ & REST APIs", provider: "freeCodeCamp JS Algorithms", url: "https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/" },
+          { title: "Module 3: PostgreSQL Auth, RLS & Cloud Deployment", provider: "Supabase Official Quickstarts", url: "https://supabase.com/docs/guides/getting-started" },
+          { title: "Module 4: Full-Stack Deployment & Offline-Resilient Capstone", provider: "CareerBridge Africa Verification Lab", url: "#submitCapstoneCard" }
         ],
         capstoneBrief: "Architect and deploy a multi-role web application with row-level database security, offline queue handling, and live cloud hosting.",
         rubric: "Code & Architecture (400 pts) • Security & RLS (250 pts) • UX & Offline Handling (200 pts) • Executive Defense (150 pts)"
+      },
+      "TRK-03": {
+        partnerBadge: "AWS Skill Builder • Linux Foundation • GitHub",
+        modules: [
+          { title: "Module 1: Cloud Computing Foundations & IAM Security", provider: "AWS Skill Builder (Free Tier)", url: "https://explore.skillbuilder.aws/learn" },
+          { title: "Module 2: Linux Administration, Bash & Cloud Networking", provider: "Cisco Networking Academy", url: "https://www.netacad.com/courses/os-it/ndg-linux-unhatched" },
+          { title: "Module 3: Containers, Docker & Automated CI/CD Pipelines", provider: "GitHub Actions Learning Lab", url: "https://skills.github.com/" },
+          { title: "Module 4: Zero-Downtime Cloud Infrastructure Capstone", provider: "CareerBridge Africa Verification Lab", url: "#submitCapstoneCard" }
+        ],
+        capstoneBrief: "Containerize a multi-tier web service with automated GitHub Actions CI/CD, health monitoring, and zero-downtime cloud rollout.",
+        rubric: "Infrastructure Reliability (400 pts) • CI/CD Automation (250 pts) • Security Hardening (200 pts) • Executive Defense (150 pts)"
+      },
+      "TRK-04": {
+        partnerBadge: "Google Cybersecurity • Microsoft Learn • NDPC",
+        modules: [
+          { title: "Module 1: Foundations of Cybersecurity & Threat Defense", provider: "Google Cybersecurity (Coursera)", url: "https://www.coursera.org/professional-certificates/google-cybersecurity" },
+          { title: "Module 2: Security Operations & Vulnerability Management", provider: "Microsoft Learn Security", url: "https://learn.microsoft.com/en-us/training/career-paths/security-operations-analyst" },
+          { title: "Module 3: NDPA 2023 Data Privacy & ISO 27001 Governance", provider: "Nigeria Data Protection Commission", url: "https://ndpc.gov.ng/" },
+          { title: "Module 4: Live Portal Vulnerability Audit & DPIA Capstone", provider: "CareerBridge Africa Verification Lab", url: "#submitCapstoneCard" }
+        ],
+        capstoneBrief: "Conduct a structured vulnerability assessment on a web portal and author an NDPA 2023 Data Protection Impact Assessment (DPIA).",
+        rubric: "Vulnerability Detection (400 pts) • NDPA/GRC Rigor (250 pts) • Remediation Plan (200 pts) • Executive Defense (150 pts)"
+      },
+      "TRK-05": {
+        partnerBadge: "Google UX Design • Figma Learn",
+        modules: [
+          { title: "Module 1: UX Research, User Interviews & Empathy Mapping", provider: "Google UX Design (Coursera)", url: "https://www.coursera.org/professional-certificates/google-ux-design" },
+          { title: "Module 2: Wireframing & Low-Bandwidth Mobile User Flows", provider: "Figma Official Design Course", url: "https://help.figma.com/hc/en-us/categories/360002051613" },
+          { title: "Module 3: Scalable Design Systems & Interactive Prototyping", provider: "Figma Design Systems Guide", url: "https://www.figma.com/resource-library/design-systems/" },
+          { title: "Module 4: End-to-End Product Prototype & Usability Capstone", provider: "CareerBridge Africa Verification Lab", url: "#submitCapstoneCard" }
+        ],
+        capstoneBrief: "Design a mobile-first, accessible fintech or logistics prototype in Figma validated with 5 documented user testing sessions.",
+        rubric: "UX Research & Flows (400 pts) • Visual & Design System (250 pts) • Accessibility & Testing (200 pts) • Executive Defense (150 pts)"
+      },
+      "TRK-06": {
+        partnerBadge: "Grow with Google AI • AWS Skill Builder • DeepLearning.AI",
+        modules: [
+          { title: "Module 1: Applied AI Workflows & Prompt Engineering", provider: "Google AI Essentials (Coursera)", url: "https://grow.google/ai-essentials/" },
+          { title: "Module 2: Machine Learning Foundations & Foundation Models", provider: "AWS Skill Builder AI Path", url: "https://explore.skillbuilder.aws/learn" },
+          { title: "Module 3: Retrieval-Augmented Generation (RAG) & Evaluation", provider: "Microsoft Learn AI Engineer", url: "https://learn.microsoft.com/en-us/training/career-paths/ai-engineer" },
+          { title: "Module 4: Domain RAG Assistant & Latency Benchmark Capstone", provider: "CareerBridge Africa Verification Lab", url: "#submitCapstoneCard" }
+        ],
+        capstoneBrief: "Build and evaluate a domain-specific AI assistant (e.g., agriculture, legal, or healthcare) with accuracy and bias benchmarks.",
+        rubric: "Model/RAG Accuracy (400 pts) • Evaluation & Guardrails (250 pts) • Practical Utility (200 pts) • Executive Defense (150 pts)"
+      },
+      "TRK-07": {
+        partnerBadge: "Autodesk Academy • MIT OpenCourseWare",
+        modules: [
+          { title: "Module 1: Parametric 3D CAD Modeling & Assemblies", provider: "Autodesk Fusion 360 Learning", url: "https://www.autodesk.com/learn/ondemand/collection/self-paced-learning-for-fusion" },
+          { title: "Module 2: Structural Simulation, FEA & Tolerance Analysis", provider: "Autodesk Simulation Tutorials", url: "https://www.autodesk.com/learn" },
+          { title: "Module 3: Embedded Control Systems & Local BOM Costing", provider: "MIT OpenCourseWare Engineering", url: "https://ocw.mit.edu/" },
+          { title: "Module 4: Manufacturable Assembly & Nigerian Supply BOM", provider: "CareerBridge Africa Verification Lab", url: "#submitCapstoneCard" }
+        ],
+        capstoneBrief: "Deliver a manufacturable 3D mechanical assembly, stress-analysis report, and localized Nigerian supply-chain Bill of Materials.",
+        rubric: "CAD Precision & Tolerance (400 pts) • Simulation Analysis (250 pts) • Local BOM Feasibility (200 pts) • Executive Defense (150 pts)"
       }
     };
 
     function getCurriculumForTrack(track) {
-      const key = Object.keys(TRACK_CURRICULA).find(k =>
-        (track.code || "").toUpperCase().includes(k) || (track.title || "").toUpperCase().includes(k)
-      );
-      return TRACK_CURRICULA[key || "default"];
+      const code = (track.code || "").toUpperCase();
+      if (TRACK_CURRICULA[code]) return TRACK_CURRICULA[code];
+      const title = (track.title || "").toUpperCase();
+      if (title.includes("DATA")) return TRACK_CURRICULA["TRK-01"];
+      if (title.includes("WEB") || title.includes("STACK")) return TRACK_CURRICULA["TRK-02"];
+      if (title.includes("CLOUD") || title.includes("DEVOPS")) return TRACK_CURRICULA["TRK-03"];
+      if (title.includes("CYBER")) return TRACK_CURRICULA["TRK-04"];
+      if (title.includes("DESIGN") || title.includes("UX")) return TRACK_CURRICULA["TRK-05"];
+      if (title.includes("AI") || title.includes("MACHINE")) return TRACK_CURRICULA["TRK-06"];
+      return TRACK_CURRICULA["TRK-07"];
     }
 
     // Offline connectivity listener
@@ -331,7 +383,7 @@
     }
 
     // =========================================================================
-    // 2. LEARNER WORKSPACE (LEARNING PATH + PROGRESS TRACKER + CAPSTONE)
+    // 2. LEARNER WORKSPACE (PARTNER MODULES + PROGRESS TRACKER + CAPSTONE)
     // =========================================================================
     async function renderLearnerWorkspace() {
       const container = document.getElementById("workspaceContent");
@@ -367,30 +419,33 @@
         </div>
       `;
 
-      // Active Learning Path Viewer
-      const activeEnrolment = (enrolments || [])[0];
-      const activeTrack = activeEnrolment ? activeEnrolment.tracks : (tracks || [])[0];
-      let roadmapHtml = "";
+      // Determine which track's syllabus is currently open in the viewer
+      const activeTrack = (tracks || []).find(t => t.id === selectedTrackId)
+        || ((enrolments || [])[0] ? enrolments[0].tracks : (tracks || [])[0]);
 
+      let roadmapHtml = "";
       if (activeTrack) {
+        const isEnrolled = (enrolments || []).some(e => e.track_id === activeTrack.id);
         const curr = getCurriculumForTrack(activeTrack);
         const latestSub = (submissions || []).find(s => s.track_id === activeTrack.id);
         const latestScore = (scores || []).find(s => s.track_id === activeTrack.id);
 
-        const stageIndex = latestScore ? 4 : latestSub ? (latestSub.status === "under_dual_review" ? 3 : 2) : activeEnrolment ? 1 : 0;
-        const stages = ["1. Enrol", "2. Complete 4 Modules", "3. Capstone Queued", "4. Dual Grading", "5. CareerScore™ Issued"];
-
+        const stageIndex = latestScore ? 4 : latestSub ? (latestSub.status === "under_dual_review" ? 3 : 2) : isEnrolled ? 1 : 0;
+        const stages = ["1. Enrol", "2. Partner Modules", "3. Capstone Queued", "4. Dual Grading", "5. CareerScore™"];
         const savedChecks = JSON.parse(localStorage.getItem(`cb_mods_${currentUser.id}_${activeTrack.id}`) || "[false,false,false,false]");
 
         roadmapHtml = `
           <div class="bg-white rounded-xl border border-slate-200 p-5 space-y-4">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
               <div>
-                <span class="text-[11px] font-bold uppercase text-amber-700">Active Learning Roadmap</span>
-                <h3 class="font-bold text-base">${activeTrack.code}: ${activeTrack.title}</h3>
+                <div class="flex items-center gap-2">
+                  <span class="text-[11px] font-bold uppercase text-amber-700">Partner-Curated Syllabus</span>
+                  <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">${curr.partnerBadge}</span>
+                </div>
+                <h3 class="font-bold text-base mt-0.5">${activeTrack.code}: ${activeTrack.title}</h3>
               </div>
-              <span class="text-xs px-2.5 py-1 rounded-full bg-slate-100 font-semibold">
-                ${activeEnrolment ? "Enrolled (Pilot Access)" : "Previewing Syllabus"}
+              <span class="text-xs px-2.5 py-1 rounded-full ${isEnrolled ? "bg-emerald-50 text-emerald-800 border border-emerald-200" : "bg-slate-100 text-slate-600"} font-semibold">
+                ${isEnrolled ? "✓ Enrolled (Pilot Access)" : "Previewing Curriculum"}
               </span>
             </div>
 
@@ -403,14 +458,22 @@
               `).join("")}
             </div>
 
-            <!-- 4-Module Checklist -->
+            <!-- 4-Module Training Links + Progress Checkboxes -->
             <div class="space-y-2">
-              <div class="text-xs font-bold text-slate-700">Structured 4-Week Module Checklist (Click to Track Progress):</div>
+              <div class="text-xs font-bold text-slate-700">Training Modules (Complete Partner Coursework & Check Off Progress):</div>
               ${curr.modules.map((mod, i) => `
-                <label class="flex items-center gap-2.5 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs">
-                  <input type="checkbox" ${savedChecks[i] ? "checked" : ""} onchange="toggleModuleProgress('${activeTrack.id}', ${i}, this.checked)" class="rounded text-slate-900" />
-                  <span class="${savedChecks[i] ? "line-through text-slate-400" : "text-slate-800 font-medium"}">${mod}</span>
-                </label>
+                <div class="flex flex-wrap items-center justify-between gap-2 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 text-xs">
+                  <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                    <input type="checkbox" ${savedChecks[i] ? "checked" : ""} onchange="toggleModuleProgress('${activeTrack.id}',${i}, this.checked)" class="mt-0.5 rounded text-slate-900" />
+                    <div>
+                      <div class="${savedChecks[i] ? "line-through text-slate-400" : "text-slate-900 font-semibold"}">${mod.title}</div>
+                      <div class="text-[11px] text-slate-500">Partner Content: ${mod.provider}</div>
+                    </div>
+                  </label>
+                  <a href="${mod.url}" ${mod.url.startsWith("http") ? 'target="_blank" rel="noopener"' : ""} class="shrink-0 text-[11px] font-bold px-2.5 py-1.5 rounded-lg bg-slate-900 text-white hover:bg-slate-700">
+                    ${mod.url.startsWith("http") ? "Launch Course ↗" : "Submit Below ↓"}
+                  </a>
+                </div>
               `).join("")}
             </div>
 
@@ -426,17 +489,25 @@
 
       const trackCards = (tracks || []).map(t => {
         const existing = (enrolments || []).find(e => e.track_id === t.id);
+        const curr = getCurriculumForTrack(t);
+        const isViewing = activeTrack && activeTrack.id === t.id;
         return `
-          <div class="border border-slate-200 rounded-xl p-4 flex flex-col justify-between bg-white">
+          <div class="border ${isViewing ? "border-amber-400 ring-1 ring-amber-300" : "border-slate-200"} rounded-xl p-4 flex flex-col justify-between bg-white">
             <div>
-              <span class="text-[11px] font-mono text-slate-500">${t.code}</span>
+              <div class="flex justify-between items-center gap-1">
+                <span class="text-[11px] font-mono text-slate-500">${t.code}</span>
+                <span class="text-[10px] font-semibold text-slate-500">${curr.partnerBadge.split("•")[0]}</span>
+              </div>
               <h4 class="font-bold text-sm mt-0.5">${t.title}</h4>
               <p class="text-xs text-slate-600 mt-1">Tuition: <strong>₦${Number(t.fee_ngn).toLocaleString()}</strong> (Pilot Waiver Active)</p>
             </div>
-            <div class="mt-4">
+            <div class="mt-4 flex gap-2">
+              <button onclick="viewTrackSyllabus('${t.id}')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 rounded-lg">
+                View Modules
+              </button>
               ${existing
-                ? `<span class="inline-block text-xs font-semibold px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Enrolled in Track</span>`
-                : `<button onclick="enrolInPilotTrack('${t.id}', '${t.title}')" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold py-2 rounded-lg">Enrol in Pilot Cohort</button>`
+                ? `<span class="flex-1 text-center text-xs font-semibold py-2 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Enrolled</span>`
+                : `<button onclick="enrolInPilotTrack('${t.id}', '${t.title}')" class="flex-1 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold py-2 rounded-lg">Enrol Free</button>`
               }
             </div>
           </div>
@@ -452,7 +523,7 @@
           <p class="text-xs text-emerald-800 mt-1">${s.readiness_tier}</p>
           <p class="text-[11px] font-mono text-emerald-700 mt-2">Verify URL: careerbridge.africa/verify/${s.portfolio_slug}</p>
         </div>
-      `).join("") || `<p class="text-xs text-slate-500">No verified CareerScores yet. Complete your modules and submit a capstone below.</p>`;
+      `).join("") || `<p class="text-xs text-slate-500">No verified CareerScores yet. Complete your partner modules and submit a capstone below.</p>`;
 
       container.innerHTML = `
         <div class="lg:col-span-2 space-y-6">
@@ -469,7 +540,7 @@
             ${scoreCards}
           </div>
 
-          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+          <div id="submitCapstoneCard" class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
             <h3 class="font-bold text-sm">Submit Capstone Artifact (Offline-Ready)</h3>
             <select id="submitEnrolmentId" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
               ${(enrolments || []).map(e => `<option value="${e.id}|${e.track_id}">${e.tracks?.title}</option>`).join("") || `<option value="">Enrol in a track first</option>`}
@@ -484,6 +555,11 @@
       `;
     }
 
+    function viewTrackSyllabus(trackId) {
+      selectedTrackId = trackId;
+      renderLearnerWorkspace();
+    }
+
     function toggleModuleProgress(trackId, modIndex, checked) {
       const key = `cb_mods_${currentUser.id}_${trackId}`;
       const arr = JSON.parse(localStorage.getItem(key) || "[false,false,false,false]");
@@ -493,6 +569,7 @@
     }
 
     async function enrolInPilotTrack(trackId, trackTitle) {
+      selectedTrackId = trackId;
       const { error } = await sbClient.from("enrolments").upsert({
         learner_id: currentUser.id,
         track_id: trackId,
@@ -608,183 +685,4 @@
             }
           </div>
         `;
-      }).join("") || `<p class="text-sm text-slate-500 col-span-2 bg-white p-5 rounded-xl border border-slate-200">No verified candidates published yet. Grade a submission in the Assessor Queue first!</p>`;
-
-      const pipelineRows = (shortlists || []).map(s => `
-        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 space-y-2 text-xs">
-          <div class="flex justify-between font-bold">
-            <span>${s.profiles?.full_name}</span>
-            <span class="text-amber-700">${s.careerscores?.final_score}/1000</span>
-          </div>
-          <div class="text-[11px] text-slate-500">${s.careerscores?.tracks?.title}</div>
-          <select onchange="updateHiringStage('${s.id}', this.value)" class="w-full text-xs border border-slate-300 rounded p-1.5 bg-white font-semibold">
-            ${["Shortlisted", "Interview Scheduled", "Offer Extended", "Hired (90-Day Confirmed)"].map(st =>
-              `<option value="${st}" ${(s.pipeline_stage || "Shortlisted") === st ? "selected" : ""}>${st}</option>`
-            ).join("")}
-          </select>
-        </div>
-      `).join("") || `<p class="text-xs text-slate-500">No candidates in your hiring pipeline yet.</p>`;
-
-      container.innerHTML = `
-        <div class="lg:col-span-2 space-y-4">
-          <div class="flex flex-wrap justify-between items-center gap-2">
-            <div>
-              <h3 class="font-bold text-base">AI & Score-Matched Talent Pool</h3>
-              <p class="text-xs text-slate-500">Ranked by CareerScore™ & active requisition fit (Min threshold: ${minScoreFilter}/1000)</p>
-            </div>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded bg-white border border-slate-200">${verifiedPool?.length || 0} Verified Candidates</span>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${candidateCards}</div>
-        </div>
-
-        <div class="space-y-4">
-          <!-- Post Role Requisition -->
-          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
-            <h3 class="font-bold text-sm">Post Role & Auto-Match Criteria</h3>
-            <input type="text" id="jobTitle" placeholder="Role Title (e.g. Junior Data Analyst)" class="w-full text-xs border border-slate-300 rounded-lg p-2" />
-            <select id="jobTrackId" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
-              ${(tracks || []).map(t => `<option value="${t.id}">${t.title}</option>`).join("")}
-            </select>
-            <div class="grid grid-cols-2 gap-2">
-              <input type="number" id="jobMinScore" value="750" min="500" max="950" placeholder="Min CareerScore" class="text-xs border border-slate-300 rounded-lg p-2" />
-              <input type="text" id="jobSalary" value="₦400k - ₦650k/mo" class="text-xs border border-slate-300 rounded-lg p-2" />
-            </div>
-            <button onclick="postEmployerJob()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-2 rounded-lg">
-              Publish Requisition & Rank Matches
-            </button>
-          </div>
-
-          <!-- Hiring & 90-Day Placement Tracker -->
-          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
-            <h3 class="font-bold text-sm">Interview & Placement Pipeline</h3>
-            ${pipelineRows}
-          </div>
-        </div>
-      `;
-    }
-
-    async function postEmployerJob() {
-      const title = document.getElementById("jobTitle").value.trim();
-      if (!title) return alert("Enter a job title first.");
-      const { error } = await sbClient.from("employer_jobs").insert({
-        employer_id: currentUser.id,
-        title,
-        track_id: document.getElementById("jobTrackId").value,
-        min_careerscore: parseInt(document.getElementById("jobMinScore").value, 10) || 750,
-        salary_band_ngn: document.getElementById("jobSalary").value.trim()
-      });
-      if (error) return alert("Run the Part 2 SQL snippet first to enable job postings: " + error.message);
-      alert("Role published! Talent pool re-ranked by match score.");
-      renderEmployerWorkspace();
-    }
-
-    async function shortlistCandidate(careerscoreId, learnerId) {
-      const { error } = await sbClient.from("employer_shortlists").insert({
-        employer_id: currentUser.id,
-        careerscore_id: careerscoreId,
-        learner_id: learnerId,
-        engagement_type: "portal_shortlist",
-        pipeline_stage: "Shortlisted"
-      });
-      if (error) return alert(error.message);
-      renderEmployerWorkspace();
-    }
-
-    async function updateHiringStage(shortlistId, stage) {
-      await sbClient.from("employer_shortlists").update({ pipeline_stage: stage }).eq("id", shortlistId);
-      if (stage.includes("Hired")) {
-        alert("Placement recorded! 90-day employer verification milestone logged.");
-      }
-    }
-
-    // =========================================================================
-    // 4. ASSESSOR WORKSPACE (BLIND DUAL-GRADING + 1-CLICK PILOT SIMULATOR)
-    // =========================================================================
-    async function renderAssessorWorkspace() {
-      const container = document.getElementById("workspaceContent");
-      const { data: queue } = await sbClient
-        .from("submissions")
-        .select("*, tracks(title), assessments(*)")
-        .in("status", ["queued_for_grading", "under_dual_review", "moderation_flagged"]);
-
-      const items = (queue || []).map(sub => `
-        <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-mono bg-slate-100 px-2 py-0.5 rounded">Blind ID: ${sub.id.slice(0, 8)}</span>
-            <span class="text-xs font-semibold text-amber-700">${sub.status}</span>
-          </div>
-          <h4 class="font-bold text-sm">${sub.tracks?.title}</h4>
-          <a href="${sub.artifact_storage_path}" target="_blank" class="inline-block text-xs text-blue-600 underline">Open Anonymized Submission Artifact →</a>
-          <div class="grid grid-cols-2 gap-2 pt-2">
-            <input type="number" id="score_${sub.id}" min="0" max="1000" value="850" placeholder="Score (0-1000)" class="text-xs border border-slate-300 rounded-lg p-2" />
-            <button onclick="submitBlindGrade('${sub.id}')" class="bg-slate-900 text-white text-xs font-semibold rounded-lg px-3 py-2">
-              Submit Blind Grade
-            </button>
-          </div>
-          <button onclick="simulateDualVerification('${sub.id}', '${sub.learner_id}', '${sub.track_id}')" class="w-full text-[11px] font-semibold py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100">
-            ⚡ Pilot Test: Simulate Dual-Assessor Pass & Issue CareerScore™
-          </button>
-        </div>
-      `).join("") || `<p class="text-sm text-slate-500 col-span-3 bg-white p-5 rounded-xl border border-slate-200">Grading queue is clear. Submit a capstone in the Learner Path tab to test grading!</p>`;
-
-      container.innerHTML = `
-        <div class="lg:col-span-3 space-y-4">
-          <h3 class="font-bold text-base">Blind Dual-Assessor Queue (IRR ≥ 0.70 Governance Gate)</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${items}</div>
-        </div>
-      `;
-    }
-
-    async function submitBlindGrade(submissionId) {
-      const score = parseInt(document.getElementById(`score_${submissionId}`).value, 10);
-      if (isNaN(score) || score < 0 || score > 1000) return alert("Enter a valid score between 0 and 1000.");
-
-      const { data: existing } = await sbClient
-        .from("assessments")
-        .select("*")
-        .eq("submission_id", submissionId)
-        .maybeSingle();
-
-      if (!existing) {
-        await sbClient.from("assessments").insert({
-          submission_id: submissionId,
-          assessor_1_id: currentUser.id,
-          assessor_1_total: score
-        });
-        await sbClient.from("submissions").update({ status: "under_dual_review" }).eq("id", submissionId);
-        alert("Assessor 1 grade recorded.");
-      } else {
-        if (existing.assessor_1_id === currentUser.id) {
-          return alert("Conflict of interest: Use a second assessor account or click the green Pilot Test button below to simulate dual verification.");
-        }
-        await sbClient.from("assessments").update({
-          assessor_2_id: currentUser.id,
-          assessor_2_total: score
-        }).eq("id", existing.id);
-        alert("Assessor 2 grade recorded!");
-      }
-      renderAssessorWorkspace();
-    }
-
-    async function simulateDualVerification(submissionId, learnerId, trackId) {
-      const score = parseInt(document.getElementById(`score_${submissionId}`).value, 10) || 850;
-      const tier = score >= 850 ? "Tier 1: Enterprise Ready (Distinction)" : score >= 700 ? "Tier 2: Job-Ready Certified" : "Tier 3: Developing Practitioner";
-      const slug = `CB-${score}-${submissionId.slice(0, 6).toUpperCase()}`;
-
-      await sbClient.from("submissions").update({ status: "verified" }).eq("id", submissionId);
-      const { error } = await sbClient.from("careerscores").insert({
-        submission_id: submissionId,
-        learner_id: learnerId,
-        track_id: trackId,
-        final_score: score,
-        readiness_tier: tier,
-        portfolio_slug: slug
-      });
-
-      if (error) return alert("Error issuing CareerScore: " + error.message);
-      alert(`Verified CareerScore™ (${score}/1000) issued! Switch to '1. Learner Path' or '3. Employer Matching' in the yellow bar to see it live.`);
-      renderAssessorWorkspace();
-    }
-  </script>
-</body>
-</html>
+      }).
