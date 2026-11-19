@@ -153,9 +153,6 @@
   </main>
 
   <script>
-    // =========================================================================
-    // 1. LIVE SUPABASE CONFIGURATION
-    // =========================================================================
     const SUPABASE_URL = "https://mnzqwllkyepgxixtgafu.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_gO0gCmajqqHlq1l6H7yqfQ_duU8GmMB";
     const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -166,7 +163,6 @@
     let activeRoleView = "learner";
     let selectedTrackId = null;
 
-    // Partner-Curated Training Modules & Official Course Links for all 7 Tracks
     const TRACK_CURRICULA = {
       "TRK-01": {
         partnerBadge: "Google • Coursera • Kaggle",
@@ -260,7 +256,13 @@
       return TRACK_CURRICULA["TRK-07"];
     }
 
-    // Offline connectivity listener
+    window.addEventListener("DOMContentLoaded", async () => {
+      const { data } = await sbClient.auth.getSession();
+      if (data?.session?.user) {
+        await loadUserSession(data.session.user);
+      }
+    });
+
     window.addEventListener("online", () => updateConnStatus(true));
     window.addEventListener("offline", () => updateConnStatus(false));
 
@@ -382,9 +384,6 @@
       location.reload();
     }
 
-    // =========================================================================
-    // 2. LEARNER WORKSPACE (PARTNER MODULES + PROGRESS TRACKER + CAPSTONE)
-    // =========================================================================
     async function renderLearnerWorkspace() {
       const container = document.getElementById("workspaceContent");
       const { data: tracks } = await sbClient.from("tracks").select("*").order("code");
@@ -419,7 +418,6 @@
         </div>
       `;
 
-      // Determine which track's syllabus is currently open in the viewer
       const activeTrack = (tracks || []).find(t => t.id === selectedTrackId)
         || ((enrolments || [])[0] ? enrolments[0].tracks : (tracks || [])[0]);
 
@@ -449,7 +447,6 @@
               </span>
             </div>
 
-            <!-- 5-Stage Visual Pipeline -->
             <div class="grid grid-cols-5 gap-1.5 text-center">
               ${stages.map((st, idx) => `
                 <div class="p-2 rounded-lg text-[11px] font-semibold border ${idx <= stageIndex ? "bg-emerald-50 border-emerald-300 text-emerald-900" : "bg-slate-50 border-slate-200 text-slate-400"}">
@@ -458,13 +455,12 @@
               `).join("")}
             </div>
 
-            <!-- 4-Module Training Links + Progress Checkboxes -->
             <div class="space-y-2">
               <div class="text-xs font-bold text-slate-700">Training Modules (Complete Partner Coursework & Check Off Progress):</div>
               ${curr.modules.map((mod, i) => `
                 <div class="flex flex-wrap items-center justify-between gap-2 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 text-xs">
                   <label class="flex items-start gap-2.5 cursor-pointer flex-1">
-                    <input type="checkbox" ${savedChecks[i] ? "checked" : ""} onchange="toggleModuleProgress('${activeTrack.id}',${i}, this.checked)" class="mt-0.5 rounded text-slate-900" />
+                    <input type="checkbox" ${savedChecks[i] ? "checked" : ""} onchange="toggleModuleProgress('${activeTrack.id}', ${i}, this.checked)" class="mt-0.5 rounded text-slate-900" />
                     <div>
                       <div class="${savedChecks[i] ? "line-through text-slate-400" : "text-slate-900 font-semibold"}">${mod.title}</div>
                       <div class="text-[11px] text-slate-500">Partner Content: ${mod.provider}</div>
@@ -477,7 +473,6 @@
               `).join("")}
             </div>
 
-            <!-- Capstone Brief & Rubric -->
             <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 space-y-1.5 text-xs">
               <div class="font-bold text-slate-900">Proctored Capstone Brief:</div>
               <p class="text-slate-600">${curr.capstoneBrief}</p>
@@ -619,9 +614,6 @@
       localStorage.removeItem("cb_offline_submissions");
     }
 
-    // =========================================================================
-    // 3. EMPLOYER WORKSPACE (JOB POSTING + AUTO-MATCHING + HIRING PIPELINE)
-    // =========================================================================
     async function renderEmployerWorkspace() {
       const container = document.getElementById("workspaceContent");
       const { data: tracks } = await sbClient.from("tracks").select("*").order("code");
@@ -685,4 +677,178 @@
             }
           </div>
         `;
-      }).
+      }).join("") || `<p class="text-sm text-slate-500 col-span-2 bg-white p-5 rounded-xl border border-slate-200">No verified candidates published yet. Grade a submission in the Assessor Queue first!</p>`;
+
+      const pipelineRows = (shortlists || []).map(s => `
+        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 space-y-2 text-xs">
+          <div class="flex justify-between font-bold">
+            <span>${s.profiles?.full_name}</span>
+            <span class="text-amber-700">${s.careerscores?.final_score}/1000</span>
+          </div>
+          <div class="text-[11px] text-slate-500">${s.careerscores?.tracks?.title}</div>
+          <select onchange="updateHiringStage('${s.id}', this.value)" class="w-full text-xs border border-slate-300 rounded p-1.5 bg-white font-semibold">
+            ${["Shortlisted", "Interview Scheduled", "Offer Extended", "Hired (90-Day Confirmed)"].map(st =>
+              `<option value="${st}" ${(s.pipeline_stage || "Shortlisted") === st ? "selected" : ""}>${st}</option>`
+            ).join("")}
+          </select>
+        </div>
+      `).join("") || `<p class="text-xs text-slate-500">No candidates in your hiring pipeline yet.</p>`;
+
+      container.innerHTML = `
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex flex-wrap justify-between items-center gap-2">
+            <div>
+              <h3 class="font-bold text-base">Score-Matched Verified Talent Pool</h3>
+              <p class="text-xs text-slate-500">Ranked by CareerScore™ & active requisition fit (Min threshold: ${minScoreFilter}/1000)</p>
+            </div>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded bg-white border border-slate-200">${verifiedPool?.length || 0} Verified Candidates</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${candidateCards}</div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+            <h3 class="font-bold text-sm">Post Role & Auto-Match Criteria</h3>
+            <input type="text" id="jobTitle" placeholder="Role Title (e.g. Junior Data Analyst)" class="w-full text-xs border border-slate-300 rounded-lg p-2" />
+            <select id="jobTrackId" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
+              ${(tracks || []).map(t => `<option value="${t.id}">${t.title}</option>`).join("")}
+            </select>
+            <div class="grid grid-cols-2 gap-2">
+              <input type="number" id="jobMinScore" value="750" min="500" max="950" placeholder="Min CareerScore" class="text-xs border border-slate-300 rounded-lg p-2" />
+              <input type="text" id="jobSalary" value="₦400k - ₦650k/mo" class="text-xs border border-slate-300 rounded-lg p-2" />
+            </div>
+            <button onclick="postEmployerJob()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-2 rounded-lg">
+              Publish Requisition & Rank Matches
+            </button>
+          </div>
+
+          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+            <h3 class="font-bold text-sm">Interview & Placement Pipeline</h3>
+            ${pipelineRows}
+          </div>
+        </div>
+      `;
+    }
+
+    async function postEmployerJob() {
+      const title = document.getElementById("jobTitle").value.trim();
+      if (!title) return alert("Enter a job title first.");
+      const { error } = await sbClient.from("employer_jobs").insert({
+        employer_id: currentUser.id,
+        title,
+        track_id: document.getElementById("jobTrackId").value,
+        min_careerscore: parseInt(document.getElementById("jobMinScore").value, 10) || 750,
+        salary_band_ngn: document.getElementById("jobSalary").value.trim()
+      });
+      if (error) return alert("Error posting role: " + error.message);
+      alert("Role published! Talent pool re-ranked by match score.");
+      renderEmployerWorkspace();
+    }
+
+    async function shortlistCandidate(careerscoreId, learnerId) {
+      const { error } = await sbClient.from("employer_shortlists").insert({
+        employer_id: currentUser.id,
+        careerscore_id: careerscoreId,
+        learner_id: learnerId,
+        engagement_type: "portal_shortlist",
+        pipeline_stage: "Shortlisted"
+      });
+      if (error) return alert(error.message);
+      renderEmployerWorkspace();
+    }
+
+    async function updateHiringStage(shortlistId, stage) {
+      await sbClient.from("employer_shortlists").update({ pipeline_stage: stage }).eq("id", shortlistId);
+      if (stage.includes("Hired")) {
+        alert("Placement recorded! 90-day employer verification milestone logged.");
+      }
+    }
+
+    async function renderAssessorWorkspace() {
+      const container = document.getElementById("workspaceContent");
+      const { data: queue } = await sbClient
+        .from("submissions")
+        .select("*, tracks(title), assessments(*)")
+        .in("status", ["queued_for_grading", "under_dual_review", "moderation_flagged"]);
+
+      const items = (queue || []).map(sub => `
+        <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-mono bg-slate-100 px-2 py-0.5 rounded">Blind ID: ${sub.id.slice(0, 8)}</span>
+            <span class="text-xs font-semibold text-amber-700">${sub.status}</span>
+          </div>
+          <h4 class="font-bold text-sm">${sub.tracks?.title}</h4>
+          <a href="${sub.artifact_storage_path}" target="_blank" class="inline-block text-xs text-blue-600 underline">Open Anonymized Submission Artifact →</a>
+          <div class="grid grid-cols-2 gap-2 pt-2">
+            <input type="number" id="score_${sub.id}" min="0" max="1000" value="850" placeholder="Score (0-1000)" class="text-xs border border-slate-300 rounded-lg p-2" />
+            <button onclick="submitBlindGrade('${sub.id}')" class="bg-slate-900 text-white text-xs font-semibold rounded-lg px-3 py-2">
+              Submit Blind Grade
+            </button>
+          </div>
+          <button onclick="simulateDualVerification('${sub.id}', '${sub.learner_id}', '${sub.track_id}')" class="w-full text-[11px] font-semibold py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100">
+            ⚡ Pilot Test: Simulate Dual-Assessor Pass & Issue CareerScore™
+          </button>
+        </div>
+      `).join("") || `<p class="text-sm text-slate-500 col-span-3 bg-white p-5 rounded-xl border border-slate-200">Grading queue is clear. Submit a capstone in the Learner Path tab to test grading!</p>`;
+
+      container.innerHTML = `
+        <div class="lg:col-span-3 space-y-4">
+          <h3 class="font-bold text-base">Blind Dual-Assessor Queue (IRR ≥ 0.70 Governance Gate)</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${items}</div>
+        </div>
+      `;
+    }
+
+    async function submitBlindGrade(submissionId) {
+      const score = parseInt(document.getElementById(`score_${submissionId}`).value, 10);
+      if (isNaN(score) || score < 0 || score > 1000) return alert("Enter a valid score between 0 and 1000.");
+
+      const { data: existing } = await sbClient
+        .from("assessments")
+        .select("*")
+        .eq("submission_id", submissionId)
+        .maybeSingle();
+
+      if (!existing) {
+        await sbClient.from("assessments").insert({
+          submission_id: submissionId,
+          assessor_1_id: currentUser.id,
+          assessor_1_total: score
+        });
+        await sbClient.from("submissions").update({ status: "under_dual_review" }).eq("id", submissionId);
+        alert("Assessor 1 grade recorded.");
+      } else {
+        if (existing.assessor_1_id === currentUser.id) {
+          return alert("Conflict of interest: Use a second assessor account or click the green Pilot Test button below to simulate dual verification.");
+        }
+        await sbClient.from("assessments").update({
+          assessor_2_id: currentUser.id,
+          assessor_2_total: score
+        }).eq("id", existing.id);
+        alert("Assessor 2 grade recorded!");
+      }
+      renderAssessorWorkspace();
+    }
+
+    async function simulateDualVerification(submissionId, learnerId, trackId) {
+      const score = parseInt(document.getElementById(`score_${submissionId}`).value, 10) || 850;
+      const tier = score >= 850 ? "Tier 1: Enterprise Ready (Distinction)" : score >= 700 ? "Tier 2: Job-Ready Certified" : "Tier 3: Developing Practitioner";
+      const slug = `CB-${score}-${submissionId.slice(0, 6).toUpperCase()}`;
+
+      await sbClient.from("submissions").update({ status: "verified" }).eq("id", submissionId);
+      const { error } = await sbClient.from("careerscores").insert({
+        submission_id: submissionId,
+        learner_id: learnerId,
+        track_id: trackId,
+        final_score: score,
+        readiness_tier: tier,
+        portfolio_slug: slug
+      });
+
+      if (error) return alert("Error issuing CareerScore: " + error.message);
+      alert(`Verified CareerScore™ (${score}/1000) issued! Switch to '1. Learner Path' or '3. Employer Matching' in the yellow bar to see it live.`);
+      renderAssessorWorkspace();
+    }
+  </script>
+</body>
+</html>
