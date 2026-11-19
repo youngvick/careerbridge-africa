@@ -2,12 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0F172A" />
   <title>CareerBridge Africa — Interactive Training, AI Mentor & Proctored CareerScore™</title>
   <link rel="icon" type="image/png" href="logo.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
+    html, body { max-width: 100%; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+    .safe-bottom { padding-bottom: calc(1.25rem + env(safe-area-inset-bottom)); }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     @keyframes pulseGlow {
       0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.45); }
       50% { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
@@ -20,12 +25,12 @@
     }
   </style>
 </head>
-<body class="bg-slate-100 text-slate-900 font-sans antialiased">
+<body class="bg-slate-100 text-slate-900 font-sans antialiased min-h-[100dvh] flex flex-col">
 
   <!-- TOP NAVIGATION WITH LOGO & LIVE AI MENTOR TRIGGER -->
   <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-30 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-2.5">
+      <div class="flex items-center gap-2.5 min-w-0">
         <div class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shadow-sm overflow-hidden shrink-0">
           <img
             src="logo.png"
@@ -39,37 +44,37 @@
             <path d="M22 36L31 45L54 18" stroke="#10B981" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <div>
+        <div class="min-w-0">
           <div class="flex items-center gap-2">
-            <h1 class="font-bold text-base tracking-tight">CareerBridge Africa</h1>
-            <span class="hidden sm:inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
-              AI-GUIDED STUDIO
+            <h1 class="font-bold text-sm sm:text-base tracking-tight truncate">CareerBridge Africa</h1>
+            <span class="hidden md:inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+              ALL-DEVICE STUDIO
             </span>
           </div>
-          <p class="text-[11px] text-slate-400">1. Diagnostic Baseline • 2. Guided Training & Lab • 3. Proctored CareerScore™ (0–1000)</p>
+          <p class="text-[11px] text-slate-400 truncate">1. Diagnostic • 2. Training & Lab • 3. CareerScore™ (0–1000)</p>
         </div>
       </div>
 
-      <div class="flex items-center gap-2 sm:gap-3">
-        <span id="connBadge" class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-          ● Low-Data Mode • Sync Active
+      <div class="flex items-center gap-2 shrink-0">
+        <span id="connBadge" class="hidden sm:inline-flex text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+          ● Low-Data Sync Active
         </span>
-        <button onclick="toggleAICoach(true)" class="text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition">
-          <span>✦ Ask AI Coach</span>
+        <button onclick="toggleAICoach(true)" class="min-h-[38px] text-xs font-bold bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 px-3 py-1.5 rounded-xl flex items-center gap-1.5 transition">
+          <span>✦ AI Coach</span>
         </button>
-        <button id="btnSignOut" onclick="handleSignOut()" class="hidden text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-700">
+        <button id="btnSignOut" onclick="handleSignOut()" class="hidden min-h-[38px] text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-xl border border-slate-700">
           Sign Out
         </button>
       </div>
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 py-8">
+  <main class="flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 pt-6 sm:pt-8 pb-28">
 
     <!-- AUTHENTICATION GATE + INTERACTIVE PLATFORM OVERVIEW -->
-    <section id="authSection" class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-      <div class="lg:col-span-7 space-y-5">
-        <div class="flex items-center gap-3">
+    <section id="authSection" class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+      <div class="lg:col-span-7 space-y-4 sm:space-y-5">
+        <div class="flex flex-wrap items-center gap-3">
           <div class="w-12 h-12 rounded-2xl bg-white border border-slate-200 p-1.5 shadow-sm flex items-center justify-center shrink-0">
             <img
               src="logo.png"
@@ -83,12 +88,12 @@
               <path d="M22 36L31 45L54 18" stroke="#10B981" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-100 text-amber-900">
+          <span class="inline-block text-[11px] sm:text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-100 text-amber-900">
             NDPA 2023 & FCCPA 2018 Compliant Workforce Platform
           </span>
         </div>
 
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
           Africa's Most Trusted Bridge Between Digital Talent & Opportunity.
         </h2>
         <p class="text-sm text-slate-600 leading-relaxed">
@@ -99,43 +104,43 @@
           <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm hover:border-amber-400 transition">
             <div class="text-xs font-extrabold uppercase text-amber-700">Step 01</div>
             <div class="text-sm font-bold text-slate-900 mt-0.5">Diagnostic & AI Guide</div>
-            <div class="text-[11px] text-slate-500 mt-1">Measure your starting baseline with live step-by-step AI mentoring.</div>
+            <div class="text-xs text-slate-500 mt-1">Measure your starting baseline with live step-by-step AI mentoring.</div>
           </div>
           <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm hover:border-amber-400 transition">
             <div class="text-xs font-extrabold uppercase text-slate-700">Step 02</div>
             <div class="text-sm font-bold text-slate-900 mt-0.5">Hands-On Labs</div>
-            <div class="text-[11px] text-slate-500 mt-1">Build real code, dashboards, Figma systems, and CAD/BIM models.</div>
+            <div class="text-xs text-slate-500 mt-1">Build real code, dashboards, Figma systems, and CAD/BIM models.</div>
           </div>
           <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm hover:border-emerald-400 transition">
             <div class="text-xs font-extrabold uppercase text-emerald-700">Step 03</div>
             <div class="text-sm font-bold text-slate-900 mt-0.5">Proctored Score</div>
-            <div class="text-[11px] text-slate-500 mt-1">IRR ≥ 0.70 dual grading & score-ranked employer matching.</div>
+            <div class="text-xs text-slate-500 mt-1">IRR ≥ 0.70 dual grading & score-ranked employer matching.</div>
           </div>
         </div>
 
         <div class="bg-slate-900 text-slate-200 p-4 rounded-2xl text-xs space-y-1.5">
           <div class="font-bold text-amber-400">Operating Hours & Proctored Assessment Schedule (Section 2.12.7):</div>
-          <p>• <strong>AI Coach, Lessons & Offline Submission Queue:</strong> Available 24/7/365</p>
+          <p>• <strong>AI Coach, Lessons & Offline Submission Queue:</strong> Available 24/7/365 on Mobile & Desktop</p>
           <p>• <strong>Live Proctored Sessions (Lagos Hub & Virtual):</strong> Mon–Fri 8:00 a.m.–6:00 p.m. WAT | Sat 9:00 a.m.–1:00 p.m. WAT</p>
         </div>
       </div>
 
-      <!-- Auth Card -->
-      <div class="lg:col-span-5 bg-white rounded-2xl shadow-md border border-slate-200 p-6">
+      <!-- Auth Card (16px mobile inputs prevent iOS Safari zoom) -->
+      <div class="lg:col-span-5 bg-white rounded-2xl shadow-md border border-slate-200 p-5 sm:p-6">
         <div class="flex border-b border-slate-200 mb-5">
-          <button type="button" id="tabLogin" onclick="switchAuthTab('login')" class="flex-1 pb-2.5 text-sm font-semibold border-b-2 border-slate-900 text-slate-900">Sign In</button>
-          <button type="button" id="tabSignup" onclick="switchAuthTab('signup')" class="flex-1 pb-2.5 text-sm font-semibold border-b-2 border-transparent text-slate-500">Create Account</button>
+          <button type="button" id="tabLogin" onclick="switchAuthTab('login')" class="flex-1 min-h-[44px] pb-2.5 text-sm font-semibold border-b-2 border-slate-900 text-slate-900">Sign In</button>
+          <button type="button" id="tabSignup" onclick="switchAuthTab('signup')" class="flex-1 min-h-[44px] pb-2.5 text-sm font-semibold border-b-2 border-transparent text-slate-500">Create Account</button>
         </div>
 
         <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
           <div id="signupFields" class="hidden space-y-3">
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name</label>
-              <input type="text" id="fullName" placeholder="e.g. Okore Victor" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-400 focus:outline-none" />
+              <input type="text" id="fullName" placeholder="e.g. Okore Victor" class="w-full px-3.5 py-2.5 text-base sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-400 focus:outline-none" />
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Account Role</label>
-              <select id="userRole" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white">
+              <select id="userRole" class="w-full px-3.5 py-2.5 text-base sm:text-sm border border-slate-300 rounded-xl bg-white">
                 <option value="learner">Learner / Candidate (Diagnostic, Training & CareerScore™)</option>
                 <option value="employer">Employer / Hiring Manager (Talent Portal & Managed Placement)</option>
                 <option value="assessor">Certified Proctor / Assessor (Blind Rubric Grading Queue)</option>
@@ -143,30 +148,30 @@
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Company / Institution (Optional)</label>
-              <input type="text" id="orgName" placeholder="e.g. Lagos SME / Engineering Firm" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
+              <input type="text" id="orgName" placeholder="e.g. Lagos SME / Engineering Firm" class="w-full px-3.5 py-2.5 text-base sm:text-sm border border-slate-300 rounded-xl" />
             </div>
           </div>
 
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Email Address</label>
-            <input type="email" id="email" required placeholder="you@example.com" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-400 focus:outline-none" />
+            <input type="email" id="email" required placeholder="you@example.com" class="w-full px-3.5 py-2.5 text-base sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-400 focus:outline-none" />
           </div>
 
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Password</label>
-            <input type="password" id="password" required minlength="6" placeholder="••••••••" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-400 focus:outline-none" />
+            <input type="password" id="password" required minlength="6" placeholder="••••••••" class="w-full px-3.5 py-2.5 text-base sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-400 focus:outline-none" />
           </div>
 
-          <div id="ndpaBox" class="hidden bg-slate-50 p-3 rounded-lg border border-slate-200">
-            <label class="flex items-start gap-2 text-xs text-slate-600 cursor-pointer">
-              <input type="checkbox" id="ndpaConsent" class="mt-0.5 rounded border-slate-300" />
+          <div id="ndpaBox" class="hidden bg-slate-50 p-3 rounded-xl border border-slate-200">
+            <label class="flex items-start gap-2.5 text-xs text-slate-600 cursor-pointer">
+              <input type="checkbox" id="ndpaConsent" class="mt-0.5 w-4 h-4 rounded border-slate-300 shrink-0" />
               <span>I explicitly consent to CareerBridge Africa processing my assessment records and portfolio data in accordance with the <strong>Nigeria Data Protection Act (NDPA) 2023</strong> and published Terms under <strong>FCCPA 2018</strong>.</span>
             </label>
           </div>
 
           <p id="authFeedback" class="text-xs text-rose-600 hidden"></p>
 
-          <button type="submit" id="authSubmitBtn" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm py-2.5 rounded-lg transition shadow-sm">
+          <button type="submit" id="authSubmitBtn" class="w-full min-h-[44px] bg-slate-900 hover:bg-slate-800 active:scale-[0.99] text-white font-semibold text-sm py-2.5 rounded-xl transition shadow-sm">
             Sign In to Interactive Studio
           </button>
         </form>
@@ -174,53 +179,53 @@
     </section>
 
     <!-- DASHBOARD CONTAINER -->
-    <section id="dashboardSection" class="hidden space-y-6">
+    <section id="dashboardSection" class="hidden space-y-5 sm:space-y-6">
 
-      <!-- PILOT SANDBOX & ROLE SWITCHER -->
-      <div class="bg-gradient-to-r from-amber-50 via-amber-100/70 to-emerald-50 border border-amber-200 rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-3 shadow-sm">
-        <div class="flex items-center gap-2 text-xs text-amber-950">
+      <!-- PILOT SANDBOX & ROLE SWITCHER (Responsive Touch Strip) -->
+      <div class="bg-gradient-to-r from-amber-50 via-amber-100/70 to-emerald-50 border border-amber-200 rounded-2xl p-3.5 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
+        <div class="flex flex-wrap items-center gap-2 text-xs text-amber-950">
           <span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-extrabold tracking-wide">LAGOS PILOT STUDIO</span>
           <span class="font-medium">Switch ecosystem views anytime:</span>
         </div>
-        <div class="flex flex-wrap gap-2">
-          <button onclick="switchPreviewRole('learner')" id="navBtn_learner" class="text-xs font-bold px-3.5 py-1.5 rounded-xl bg-slate-900 text-white shadow-sm transition">
-            1. Learner Classroom & AI Coach
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full md:w-auto">
+          <button onclick="switchPreviewRole('learner')" id="navBtn_learner" class="min-h-[40px] text-xs font-bold px-3.5 py-2 rounded-xl bg-slate-900 text-white shadow-sm transition text-center">
+            1. Learner Studio
           </button>
-          <button onclick="switchPreviewRole('assessor')" id="navBtn_assessor" class="text-xs font-bold px-3.5 py-1.5 rounded-xl bg-white text-slate-800 border border-amber-300 hover:bg-amber-100 transition">
-            2. Proctor & Assessor Queue
+          <button onclick="switchPreviewRole('assessor')" id="navBtn_assessor" class="min-h-[40px] text-xs font-bold px-3.5 py-2 rounded-xl bg-white text-slate-800 border border-amber-300 hover:bg-amber-100 transition text-center">
+            2. Proctor Queue
           </button>
-          <button onclick="switchPreviewRole('employer')" id="navBtn_employer" class="text-xs font-bold px-3.5 py-1.5 rounded-xl bg-white text-slate-800 border border-amber-300 hover:bg-amber-100 transition">
-            3. Employer Talent Portal
+          <button onclick="switchPreviewRole('employer')" id="navBtn_employer" class="min-h-[40px] text-xs font-bold px-3.5 py-2 rounded-xl bg-white text-slate-800 border border-amber-300 hover:bg-amber-100 transition text-center">
+            3. Employer Portal
           </button>
         </div>
       </div>
 
       <!-- INTERACTIVE PROFILE, NEXT-STEP BANNER & KPI HEADER -->
-      <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
-        <div class="flex flex-wrap items-center justify-between gap-4">
-          <div class="flex items-center gap-3.5">
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5 min-w-0">
             <div class="w-12 h-12 rounded-2xl bg-slate-900 text-amber-400 font-extrabold text-lg flex items-center justify-center shrink-0" id="avatarInitials">CB</div>
-            <div>
-              <div class="flex items-center gap-2">
+            <div class="min-w-0">
+              <div class="flex flex-wrap items-center gap-2">
                 <span id="roleBadge" class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900">LEARNER</span>
                 <span class="text-[11px] text-emerald-700 font-semibold">● NDPA 2023 Verified</span>
               </div>
-              <h2 id="welcomeHeading" class="text-xl font-extrabold text-slate-900 mt-0.5">Welcome back</h2>
+              <h2 id="welcomeHeading" class="text-lg sm:text-xl font-extrabold text-slate-900 mt-0.5 truncate">Welcome back</h2>
             </div>
           </div>
-          <div id="kpiStrip" class="flex flex-wrap gap-3 text-right"></div>
+          <div id="kpiStrip" class="grid grid-cols-3 gap-2 sm:flex sm:gap-3 text-center sm:text-right"></div>
         </div>
 
         <!-- LIVE AI NEXT-BEST-ACTION BAR -->
-        <div id="aiNextStepBanner" class="bg-slate-900 text-white rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
-          <div class="flex items-center gap-3 text-xs">
-            <span class="w-7 h-7 rounded-lg bg-amber-500 text-slate-950 font-extrabold flex items-center justify-center shrink-0">✦</span>
+        <div id="aiNextStepBanner" class="bg-slate-900 text-white rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-start sm:items-center gap-3 text-xs">
+            <span class="w-7 h-7 rounded-lg bg-amber-500 text-slate-950 font-extrabold flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">✦</span>
             <div>
               <div class="text-[10px] font-bold uppercase tracking-wider text-amber-400">AI Learning Navigator • Recommended Next Step</div>
-              <p id="aiNextStepText" class="text-slate-100 mt-0.5">Select a track below and click "Enrol Free" to begin your Module 1 Diagnostic Baseline.</p>
+              <p id="aiNextStepText" class="text-slate-100 mt-0.5 leading-relaxed">Select a track below and click "Enrol Free" to begin your Module 1 Diagnostic Baseline.</p>
             </div>
           </div>
-          <button onclick="toggleAICoach(true)" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 shrink-0 transition">
+          <button onclick="toggleAICoach(true)" class="min-h-[38px] w-full sm:w-auto text-xs font-bold px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 shrink-0 transition">
             Chat With AI Mentor →
           </button>
         </div>
@@ -232,47 +237,47 @@
 
   </main>
 
-  <!-- FLOATING LIVE AI ASSISTANT WIDGET (CONTEXT-AWARE LEARNER GUIDE) -->
-  <div id="aiCoachDrawer" class="fixed bottom-5 right-5 z-50 w-[92vw] max-w-md bg-white rounded-2xl shadow-2xl border border-slate-300 overflow-hidden hidden flex-col">
-    <div class="bg-slate-900 text-white px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-2.5">
-        <div class="w-8 h-8 rounded-lg bg-amber-500 text-slate-950 font-extrabold flex items-center justify-center text-sm">✦</div>
-        <div>
+  <!-- FLOATING LIVE AI ASSISTANT WIDGET (FULL MOBILE SHEET ON SMALL SCREENS, FLOATING CARD ON TABLET/DESKTOP) -->
+  <div id="aiCoachDrawer" class="fixed inset-x-0 bottom-0 sm:inset-x-auto sm:bottom-5 sm:right-5 z-50 w-full sm:w-[400px] bg-white rounded-t-3xl sm:rounded-2xl shadow-2xl border border-slate-300 overflow-hidden hidden flex-col safe-bottom">
+    <div class="bg-slate-900 text-white px-4 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <div class="w-8 h-8 rounded-lg bg-amber-500 text-slate-950 font-extrabold flex items-center justify-center text-sm shrink-0">✦</div>
+        <div class="min-w-0">
           <div class="font-bold text-xs flex items-center gap-1.5">
             <span>CareerBridge AI Mentor</span>
             <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
           </div>
-          <div class="text-[10px] text-slate-400" id="aiContextLabel">Context: Platform Guide</div>
+          <div class="text-[10px] text-slate-400 truncate" id="aiContextLabel">Context: Platform Guide</div>
         </div>
       </div>
-      <button onclick="toggleAICoach(false)" class="text-slate-400 hover:text-white text-sm font-bold px-2 py-1">✕</button>
+      <button onclick="toggleAICoach(false)" aria-label="Close AI Mentor" class="min-w-[36px] min-h-[36px] flex items-center justify-center rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 text-sm font-bold">✕</button>
     </div>
 
     <!-- Chat Messages -->
-    <div id="aiChatMessages" class="p-4 h-72 overflow-y-auto space-y-3 bg-slate-50 text-xs leading-relaxed"></div>
+    <div id="aiChatMessages" class="p-4 h-[45dvh] sm:h-72 overflow-y-auto space-y-3 bg-slate-50 text-xs leading-relaxed"></div>
 
     <!-- One-Tap Smart Prompts -->
-    <div class="px-3 py-2 bg-white border-t border-slate-200 flex gap-1.5 overflow-x-auto">
-      <button onclick="askAIQuick('What should I do next?')" class="shrink-0 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100">
+    <div class="px-3 py-2 bg-white border-t border-slate-200 flex gap-1.5 overflow-x-auto no-scrollbar">
+      <button onclick="askAIQuick('What should I do next?')" class="shrink-0 min-h-[32px] text-[11px] font-semibold px-3 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100">
         What should I do next?
       </button>
-      <button onclick="askAIQuick('Explain my current lab task')" class="shrink-0 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-100 text-slate-800 border border-slate-200 hover:bg-slate-200">
+      <button onclick="askAIQuick('Explain my current lab task')" class="shrink-0 min-h-[32px] text-[11px] font-semibold px-3 py-1 rounded-full bg-slate-100 text-slate-800 border border-slate-200 hover:bg-slate-200">
         Explain current lab
       </button>
-      <button onclick="askAIQuick('How is CareerScore calculated?')" class="shrink-0 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-900 border border-emerald-200 hover:bg-emerald-100">
+      <button onclick="askAIQuick('How is CareerScore calculated?')" class="shrink-0 min-h-[32px] text-[11px] font-semibold px-3 py-1 rounded-full bg-emerald-50 text-emerald-900 border border-emerald-200 hover:bg-emerald-100">
         CareerScore™ rubric
       </button>
     </div>
 
-    <!-- Input Box -->
+    <!-- Input Box (16px text on mobile prevents Safari auto-zoom) -->
     <form onsubmit="handleAIChatSubmit(event)" class="p-2.5 bg-white border-t border-slate-200 flex gap-2">
       <input
         type="text"
         id="aiChatInput"
         placeholder="Ask for help with commands, labs, or next steps..."
-        class="flex-1 text-xs px-3 py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400"
+        class="flex-1 text-base sm:text-xs px-3 py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400"
       />
-      <button type="submit" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3.5 py-2 rounded-xl">
+      <button type="submit" class="min-h-[40px] bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2 rounded-xl shrink-0">
         Send
       </button>
     </form>
@@ -282,7 +287,8 @@
   <button
     id="aiCoachFab"
     onclick="toggleAICoach(true)"
-    class="fixed bottom-5 right-5 z-40 ai-pulse bg-slate-900 hover:bg-slate-800 text-white border-2 border-amber-400 px-4 py-3 rounded-full shadow-xl flex items-center gap-2.5 text-xs font-bold transition"
+    style="bottom: calc(1.25rem + env(safe-area-inset-bottom));"
+    class="fixed right-4 sm:right-5 z-40 ai-pulse bg-slate-900 hover:bg-slate-800 active:scale-95 text-white border-2 border-amber-400 px-4 py-3 rounded-full shadow-xl flex items-center gap-2.5 text-xs font-bold transition"
   >
     <span class="w-6 h-6 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-extrabold">✦</span>
     <span>AI Study Coach</span>
@@ -293,7 +299,6 @@
     const SUPABASE_ANON_KEY = "sb_publishable_gO0gCmajqqHlq1l6H7yqfQ_duU8GmMB";
     const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // Optional External LLM Edge Function Hook (Leave empty to use built-in zero-latency Capstone AI Mentor)
     const EXTERNAL_AI_ENDPOINT = "";
 
     let authMode = "login";
@@ -305,11 +310,14 @@
     let trackCategoryFilter = "ALL";
     let activeTrackContext = null;
 
-    // Timed Proctored Drill Session State
     let proctorTimerInterval = null;
     let proctorSecondsRemaining = 1800;
     let proctorTabSwitches = 0;
     let proctorSessionActive = false;
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") toggleAICoach(false);
+    });
 
     document.addEventListener("visibilitychange", () => {
       if (document.hidden && proctorSessionActive) {
@@ -322,9 +330,6 @@
       }
     });
 
-    // =========================================================================
-    // FULL CURRICULA FOR ALL 7 CAPSTONE TRACKS (SECTION 2.1.5)
-    // =========================================================================
     const TRACK_CURRICULA = {
       "TRK-01": {
         group: "DIGITAL",
@@ -1097,9 +1102,6 @@
       localStorage.setItem(key, JSON.stringify(state));
     }
 
-    // =========================================================================
-    // LIVE AI STUDY COACH & LEARNING NAVIGATOR
-    // =========================================================================
     let aiChatHistory = [
       {
         sender: "ai",
@@ -1160,7 +1162,7 @@
             renderAIChatHistory();
             return;
           }
-        } catch (err) { /* Fall back cleanly to built-in Capstone AI Mentor */ }
+        } catch (err) { /* Fallback to built-in mentor */ }
       }
 
       const reply = generateContextAwareAIReply(question);
@@ -1201,7 +1203,7 @@
       }
 
       if (ctx.allModulesPassed) {
-        return `You have completed all <strong>${ctx.prereqCount} training modules</strong> in <strong>${ctx.track.title}</strong>! Scroll to the <strong>Proctored Assessment Center</strong> on the right, choose your proctoring mode (Timed Drill or Live WAT Proctor), paste your final capstone + defense video links, and submit for your 0–1000 CareerScore™.`;
+        return `You have completed all <strong>${ctx.prereqCount} training modules</strong> in <strong>${ctx.track.title}</strong>! Scroll to the <strong>Proctored Assessment Center</strong>, choose your proctoring mode (Timed Drill or Live WAT Proctor), paste your final capstone + defense video links, and submit for your 0–1000 CareerScore™.`;
       }
 
       const mod = ctx.currentModule;
@@ -1215,7 +1217,7 @@
         return `Here is how to complete your <strong>Module ${modNum} Hands-On Lab</strong>:<br/>${stepsHtml}<br/><br/><strong>Deliverable:</strong> ${mod.practicalTask}<br/>Once finished, upload your file/repo to Google Drive, GitHub, or Figma and paste the share link into the Module ${modNum} submission box.`;
       }
 
-      return `You are in <strong>Stage 2 (Guided Training & Lab)</strong> for <strong>${mod.title}</strong>. Read the syntax/command reference cards in Part 2, follow the step-by-step lab instructions (<em>${mod.practicalTask}</em>), and submit your deliverable link to unlock Module ${modNum + 1}!`;
+      return `You are in <strong>Stage 2 (Guided Training & Lab)</strong> for <strong>${mod.title}</strong>. Read the syntax/command reference cards in Stage 2, follow the step-by-step lab instructions (<em>${mod.practicalTask}</em>), and submit your deliverable link to unlock Module ${modNum + 1}!`;
     }
 
     function updateAINavigatorBanner() {
@@ -1241,7 +1243,7 @@
       if (!ctx.isEnrolled) {
         bannerText.innerHTML = `Click <strong>Enrol Free to Begin Diagnostic</strong> on <strong>${ctx.track.code}: ${ctx.track.title}</strong> to unlock Module 1.`;
       } else if (ctx.allModulesPassed) {
-        bannerText.innerHTML = `All ${ctx.prereqCount} modules trained! Complete your <strong>Proctored Capstone Assessment</strong> on the right to earn your 0–1000 CareerScore™.`;
+        bannerText.innerHTML = `All ${ctx.prereqCount} modules trained! Complete your <strong>Proctored Capstone Assessment</strong> to earn your 0–1000 CareerScore™.`;
       } else if (!ctx.currentDiagnosed) {
         bannerText.innerHTML = `<strong>Module ${ctx.currentModuleIndex + 1} (Stage 1):</strong> Complete the quick Diagnostic Baseline Check to unlock your Training Lessons.`;
       } else {
@@ -1275,12 +1277,12 @@
     function updateConnStatus(online) {
       const badge = document.getElementById("connBadge");
       if (online) {
-        badge.className = "text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
-        badge.textContent = "● Low-Data Mode • Sync Active";
+        badge.className = "hidden sm:inline-flex text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+        badge.textContent = "● Low-Data Sync Active";
         syncOfflineQueue();
       } else {
-        badge.className = "text-xs px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30";
-        badge.textContent = "● Offline Mode (Local Queue)";
+        badge.className = "inline-flex text-xs px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30";
+        badge.textContent = "● Offline Queue";
       }
     }
 
@@ -1291,11 +1293,11 @@
       document.getElementById("ndpaBox").classList.toggle("hidden", !isSignup);
       document.getElementById("authSubmitBtn").textContent = isSignup ? "Register & Record NDPA Consent" : "Sign In to Interactive Studio";
       document.getElementById("tabLogin").className = isSignup
-        ? "flex-1 pb-2.5 text-sm font-semibold border-b-2 border-transparent text-slate-500"
-        : "flex-1 pb-2.5 text-sm font-semibold border-b-2 border-slate-900 text-slate-900";
+        ? "flex-1 min-h-[44px] pb-2.5 text-sm font-semibold border-b-2 border-transparent text-slate-500"
+        : "flex-1 min-h-[44px] pb-2.5 text-sm font-semibold border-b-2 border-slate-900 text-slate-900";
       document.getElementById("tabSignup").className = isSignup
-        ? "flex-1 pb-2.5 text-sm font-semibold border-b-2 border-slate-900 text-slate-900"
-        : "flex-1 pb-2.5 text-sm font-semibold border-b-2 border-transparent text-slate-500";
+        ? "flex-1 min-h-[44px] pb-2.5 text-sm font-semibold border-b-2 border-slate-900 text-slate-900"
+        : "flex-1 min-h-[44px] pb-2.5 text-sm font-semibold border-b-2 border-transparent text-slate-500";
     }
 
     async function handleAuthSubmit(e) {
@@ -1388,8 +1390,8 @@
         const btn = document.getElementById(`navBtn_${r}`);
         if (!btn) return;
         btn.className = r === role
-          ? "text-xs font-bold px-3.5 py-1.5 rounded-xl bg-slate-900 text-white shadow-sm transition"
-          : "text-xs font-bold px-3.5 py-1.5 rounded-xl bg-white text-slate-800 border border-amber-300 hover:bg-amber-100 transition";
+          ? "min-h-[40px] text-xs font-bold px-3.5 py-2 rounded-xl bg-slate-900 text-white shadow-sm transition text-center"
+          : "min-h-[40px] text-xs font-bold px-3.5 py-2 rounded-xl bg-white text-slate-800 border border-amber-300 hover:bg-amber-100 transition text-center";
       });
 
       if (role === "learner") renderLearnerWorkspace();
@@ -1425,17 +1427,17 @@
         .eq("learner_id", currentUser.id);
 
       document.getElementById("kpiStrip").innerHTML = `
-        <div class="bg-slate-50 px-3.5 py-2 rounded-xl border border-slate-200">
+        <div class="bg-slate-50 px-3 py-2 rounded-xl border border-slate-200">
           <div class="text-[10px] font-bold uppercase text-slate-500">Enrolled</div>
-          <div class="text-base font-extrabold text-slate-900">${enrolments?.length || 0} Tracks</div>
+          <div class="text-sm sm:text-base font-extrabold text-slate-900">${enrolments?.length || 0} Tracks</div>
         </div>
-        <div class="bg-amber-50 px-3.5 py-2 rounded-xl border border-amber-200">
+        <div class="bg-amber-50 px-3 py-2 rounded-xl border border-amber-200">
           <div class="text-[10px] font-bold uppercase text-amber-800">Capstones</div>
-          <div class="text-base font-extrabold text-amber-700">${submissions?.length || 0}</div>
+          <div class="text-sm sm:text-base font-extrabold text-amber-700">${submissions?.length || 0}</div>
         </div>
-        <div class="bg-emerald-50 px-3.5 py-2 rounded-xl border border-emerald-200">
-          <div class="text-[10px] font-bold uppercase text-emerald-800">Verified Scores</div>
-          <div class="text-base font-extrabold text-emerald-700">${scores?.length || 0}</div>
+        <div class="bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200">
+          <div class="text-[10px] font-bold uppercase text-emerald-800">Verified</div>
+          <div class="text-sm sm:text-base font-extrabold text-emerald-700">${scores?.length || 0}</div>
         </div>
       `;
 
@@ -1474,22 +1476,22 @@
         const latestScore = (scores || []).find(s => s.track_id === activeTrack.id);
 
         const stageIndex = latestScore ? 4 : latestSub ? (latestSub.status === "under_dual_review" ? 3 : 2) : allModulesPassedForActive ? 1 : 0;
-        const stages = ["1. Enrol", `2. Baseline → Train 1–${prereqCount}`, "3. Proctored Eval", "4. IRR ≥ 0.70 Grading", "5. CareerScore™"];
+        const stages = ["1. Enrol", `2. Train 1–${prereqCount}`, "3. Proctored", "4. IRR ≥ 0.70", "5. Score™"];
 
         roadmapHtml = `
-          <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-5 fade-in">
-            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
-              <div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm space-y-5 fade-in">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+              <div class="min-w-0">
                 <div class="flex flex-wrap items-center gap-2">
                   <span class="text-[11px] font-bold uppercase text-amber-700">${curr.pillar}</span>
                   <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">${completionPct}% Studio Progress</span>
                 </div>
-                <h3 class="font-extrabold text-xl text-slate-900 mt-0.5">${activeTrack.code}: ${activeTrack.title}</h3>
+                <h3 class="font-extrabold text-lg sm:text-xl text-slate-900 mt-0.5 break-words">${activeTrack.code}: ${activeTrack.title}</h3>
                 <p class="text-xs text-slate-500">${curr.duration} • ${curr.salaryRange}</p>
               </div>
               ${isEnrolled
-                ? `<span class="text-xs px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold">✓ Active Studio Seat</span>`
-                : `<button onclick="enrolInPilotTrack('${activeTrack.id}', '${activeTrack.title}')" class="text-xs px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold shadow-sm">Enrol Free to Begin Diagnostic</button>`
+                ? `<span class="self-start sm:self-center text-xs px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold shrink-0">✓ Active Studio Seat</span>`
+                : `<button onclick="enrolInPilotTrack('${activeTrack.id}', '${activeTrack.title}')" class="min-h-[42px] w-full sm:w-auto text-xs px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold shadow-sm shrink-0">Enrol Free to Begin Diagnostic</button>`
               }
             </div>
 
@@ -1520,8 +1522,8 @@
               </div>
             </div>
 
-            <!-- 5-Stage Visual Pipeline -->
-            <div class="grid grid-cols-5 gap-1.5 text-center">
+            <!-- 5-Stage Visual Pipeline (2 cols on small phones, 5 cols on tablets/desktop) -->
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-1.5 text-center">
               ${stages.map((st, idx) => `
                 <div class="p-2 rounded-xl text-[11px] font-bold border ${idx <= stageIndex ? "bg-emerald-50 border-emerald-300 text-emerald-900" : "bg-slate-50 border-slate-200 text-slate-400"}">
                   ${st}
@@ -1531,7 +1533,7 @@
 
             <!-- Interactive Modules -->
             <div class="space-y-3">
-              <div class="flex items-center justify-between">
+              <div class="flex flex-wrap items-center justify-between gap-2">
                 <span class="text-xs font-bold text-slate-700">Interactive Curriculum (${passedCount}/${prereqCount} Prerequisite Modules Verified):</span>
                 <button onclick="askAIQuick('Explain my current lab task')" class="text-[11px] font-bold text-amber-700 hover:underline">✦ Need help? Ask AI Mentor</button>
               </div>
@@ -1545,26 +1547,26 @@
                 const savedArtifact = !mod.isCapstone ? (progress.artifacts[i] || "") : "";
 
                 return `
-                  <div class="p-4 rounded-2xl border ${isPassed ? "border-emerald-300 bg-emerald-50/40" : isUnlocked ? "border-slate-300 bg-white shadow-sm" : "border-slate-200 bg-slate-50 opacity-80"} space-y-3 transition">
-                    <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
-                      <div class="flex flex-wrap items-center gap-2">
-                        <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full ${isPassed ? "bg-emerald-600 text-white" : isUnlocked ? "bg-amber-100 text-amber-900" : "bg-slate-200 text-slate-600"}">
-                          ${isPassed ? "✓ Trained & Verified" : isUnlocked ? (isDiagnosed ? "Stage 2: In Training" : "Stage 1: Diagnostic") : "🔒 Locked"}
+                  <div class="p-3.5 sm:p-4 rounded-2xl border ${isPassed ? "border-emerald-300 bg-emerald-50/40" : isUnlocked ? "border-slate-300 bg-white shadow-sm" : "border-slate-200 bg-slate-50 opacity-80"} space-y-3 transition">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
+                      <div class="flex flex-wrap items-center gap-2 min-w-0">
+                        <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full shrink-0 ${isPassed ? "bg-emerald-600 text-white" : isUnlocked ? "bg-amber-100 text-amber-900" : "bg-slate-200 text-slate-600"}">
+                          ${isPassed ? "✓ Verified" : isUnlocked ? (isDiagnosed ? "Stage 2: Training" : "Stage 1: Diagnostic") : "🔒 Locked"}
                         </span>
-                        <span class="font-bold text-sm text-slate-900">${mod.title}</span>
+                        <span class="font-bold text-sm text-slate-900 break-words">${mod.title}</span>
                       </div>
 
-                      <div class="flex items-center gap-2">
+                      <div class="flex items-center gap-2 shrink-0">
                         ${!isUnlocked ? `
                           <span class="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg">
                             ${!isEnrolled ? "Enrol first" : `Complete Module ${i} first`}
                           </span>
                         ` : mod.isCapstone ? `
-                          <a href="#proctoredAssessmentCard" class="text-[11px] font-bold px-3 py-1.5 rounded-xl bg-amber-500 text-slate-950 hover:bg-amber-600">
+                          <a href="#proctoredAssessmentCard" class="min-h-[38px] inline-flex items-center text-[11px] font-bold px-3 py-1.5 rounded-xl bg-amber-500 text-slate-950 hover:bg-amber-600">
                             Proceed to Proctored Assessment ↓
                           </a>
                         ` : `
-                          <button onclick="toggleLessonDrawer('${activeTrack.id}', ${i})" class="text-[11px] font-bold px-3 py-1.5 rounded-xl bg-slate-900 text-white hover:bg-slate-700">
+                          <button onclick="toggleLessonDrawer('${activeTrack.id}', ${i})" class="min-h-[38px] w-full sm:w-auto text-[11px] font-bold px-3.5 py-1.5 rounded-xl bg-slate-900 text-white hover:bg-slate-700">
                             ${isDrawerOpen ? "Hide Module" : "Open Module"}
                           </button>
                         `}
@@ -1572,10 +1574,10 @@
                     </div>
 
                     ${isUnlocked && isDrawerOpen && !mod.isCapstone ? `
-                      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4 text-xs fade-in">
+                      <div class="bg-slate-50 p-3 sm:p-4 rounded-xl border border-slate-200 space-y-4 text-xs fade-in">
 
                         <!-- STAGE 1: DIAGNOSTIC BASELINE QUIZ -->
-                        <div class="bg-white p-4 rounded-xl border border-amber-200 space-y-3">
+                        <div class="bg-white p-3.5 sm:p-4 rounded-xl border border-amber-200 space-y-3">
                           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2">
                             <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-800">
                               Stage 1: Diagnostic Baseline Check & Initial Intake
@@ -1587,10 +1589,10 @@
                           ${mod.quiz.map((item, qIdx) => `
                             <div class="space-y-1.5">
                               <div class="font-semibold text-slate-800">${qIdx + 1}. ${item.q}</div>
-                              <div class="space-y-1 pl-2">
+                              <div class="space-y-1.5 pl-1">
                                 ${item.options.map((opt, oIdx) => `
-                                  <label class="flex items-center gap-2 cursor-pointer text-slate-700 hover:text-slate-950">
-                                    <input type="radio" name="diag_${activeTrack.id}_${i}_${qIdx}" value="${oIdx}" />
+                                  <label class="flex items-start gap-2.5 p-2 rounded-lg border border-slate-100 hover:bg-slate-50 cursor-pointer text-slate-700">
+                                    <input type="radio" class="mt-0.5 w-4 h-4 shrink-0" name="diag_${activeTrack.id}_${i}_${qIdx}" value="${oIdx}" />
                                     <span>${opt}</span>
                                   </label>
                                 `).join("")}
@@ -1600,10 +1602,10 @@
 
                           <div class="space-y-1">
                             <label class="block font-semibold text-slate-700">Optional Prior Skill Sample Link (If you already have a draft before training):</label>
-                            <input type="url" id="diagSample_${activeTrack.id}_${i}" value="${savedArtifact}" placeholder="Optional: Paste existing draft/repo URL or leave blank to train from scratch..." class="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg bg-slate-50" />
+                            <input type="url" id="diagSample_${activeTrack.id}_${i}" value="${savedArtifact}" placeholder="Optional: Paste existing draft/repo URL or leave blank to train from scratch..." class="w-full px-3 py-2 text-base sm:text-xs border border-slate-300 rounded-xl bg-slate-50" />
                           </div>
 
-                          <button onclick="submitDiagnosticBaseline('${activeTrack.id}', ${i})" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-4 py-2 rounded-xl">
+                          <button onclick="submitDiagnosticBaseline('${activeTrack.id}', ${i})" class="min-h-[42px] w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white font-bold px-4 py-2 rounded-xl">
                             ${isDiagnosed ? "Re-submit Diagnostic Baseline" : "Submit Diagnostic & Start Training Lessons ↓"}
                           </button>
                         </div>
@@ -1611,7 +1613,7 @@
                         <!-- STAGE 2 & 3: GUIDED TRAINING LESSONS + LAB DELIVERABLE -->
                         ${isDiagnosed ? `
                           <div class="space-y-4 pt-2 border-t-2 border-emerald-200 fade-in">
-                            <div class="flex items-center justify-between">
+                            <div class="flex flex-wrap items-center justify-between gap-1">
                               <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-800">
                                 Stage 2: Guided Training Lessons & Technical Reference
                               </span>
@@ -1623,19 +1625,19 @@
                                 <div class="font-bold text-slate-900 text-xs">${lsn.heading}</div>
                                 <p class="text-slate-700 leading-relaxed">${lsn.body}</p>
                                 <div class="relative">
-                                  <button type="button" onclick="copyCodeBlock(this, '${encodeURIComponent(lsn.syntax)}')" class="absolute top-2 right-2 text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-200 hover:bg-slate-700">
+                                  <button type="button" onclick="copyCodeBlock(this, '${encodeURIComponent(lsn.syntax)}')" class="absolute top-2 right-2 text-[10px] font-bold px-2.5 py-1 rounded bg-slate-800 text-slate-200 hover:bg-slate-700">
                                     Copy
                                   </button>
-                                  <pre class="bg-slate-900 text-amber-300 font-mono text-[11px] p-3 rounded-lg overflow-x-auto whitespace-pre-wrap">${lsn.syntax}</pre>
+                                  <pre class="bg-slate-900 text-amber-300 font-mono text-[11px] p-3 pt-8 sm:pt-3 pr-16 rounded-lg overflow-x-auto whitespace-pre-wrap break-words">${lsn.syntax}</pre>
                                 </div>
                               </div>
                             `).join("")}
 
                             <!-- Guided Hands-On Practice Lab -->
                             <div class="bg-amber-50 border border-amber-200 rounded-xl p-3.5 space-y-2">
-                              <div class="flex items-center justify-between">
+                              <div class="flex flex-wrap items-center justify-between gap-2">
                                 <div class="font-bold text-amber-950">Stage 3: Guided Hands-On Practice Lab (Step-by-Step):</div>
-                                <button type="button" onclick="askAIQuick('Explain my current lab task')" class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500 text-slate-950">✦ AI Hint</button>
+                                <button type="button" onclick="askAIQuick('Explain my current lab task')" class="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950">✦ AI Hint</button>
                               </div>
                               <ol class="list-decimal pl-4 space-y-1 text-amber-900">
                                 ${(mod.labSteps || []).map(st => `<li>${st}</li>`).join("")}
@@ -1644,10 +1646,10 @@
                             </div>
 
                             <!-- Final Trained Deliverable Submission -->
-                            <div class="bg-white p-4 rounded-xl border border-emerald-300 space-y-2.5">
+                            <div class="bg-white p-3.5 sm:p-4 rounded-xl border border-emerald-300 space-y-2.5">
                               <label class="block font-bold text-slate-900">Submit Your Completed Module ${i + 1} Practical Deliverable URL:</label>
-                              <input type="url" id="modArtifact_${activeTrack.id}_${i}" value="${savedArtifact}" placeholder="${mod.deliverablePlaceholder}" class="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg bg-slate-50" />
-                              <button onclick="completeTrainedModule('${activeTrack.id}', ${i})" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-xl">
+                              <input type="url" id="modArtifact_${activeTrack.id}_${i}" value="${savedArtifact}" placeholder="${mod.deliverablePlaceholder}" class="w-full px-3 py-2 text-base sm:text-xs border border-slate-300 rounded-xl bg-slate-50" />
+                              <button onclick="completeTrainedModule('${activeTrack.id}', ${i})" class="min-h-[42px] w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-xl">
                                 Complete Training & Unlock Module ${i + 2}
                               </button>
                             </div>
@@ -1659,7 +1661,7 @@
                         `}
                       </div>
                     ` : isPassed && savedArtifact ? `
-                      <div class="text-[11px] text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200">
+                      <div class="text-[11px] text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200 break-all">
                         ✓ Trained Deliverable Recorded: <a href="${savedArtifact}" target="_blank" class="underline font-mono">${savedArtifact}</a>
                       </div>
                     ` : ""}
@@ -1699,12 +1701,12 @@
               <p class="text-xs text-slate-600 mt-1.5">Tuition: <strong>₦${Number(t.fee_ngn).toLocaleString()}</strong> excl. VAT (Pilot Waiver)</p>
             </div>
             <div class="mt-4 flex gap-2">
-              <button onclick="viewTrackSyllabus('${t.id}')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold py-2 rounded-xl">
+              <button onclick="viewTrackSyllabus('${t.id}')" class="flex-1 min-h-[40px] bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold py-2 rounded-xl">
                 Open Studio
               </button>
               ${existing
-                ? `<span class="flex-1 text-center text-xs font-bold py-2 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Enrolled</span>`
-                : `<button onclick="enrolInPilotTrack('${t.id}', '${t.title}')" class="flex-1 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-2 rounded-xl">Enrol Free</button>`
+                ? `<span class="flex-1 min-h-[40px] inline-flex items-center justify-center text-xs font-bold py-2 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Enrolled</span>`
+                : `<button onclick="enrolInPilotTrack('${t.id}', '${t.title}')" class="flex-1 min-h-[40px] bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-2 rounded-xl">Enrol Free</button>`
               }
             </div>
           </div>
@@ -1713,12 +1715,12 @@
 
       const scoreCards = (scores || []).map(s => `
         <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 space-y-2">
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between items-center gap-2">
             <span class="text-xs font-bold text-emerald-900">${s.tracks?.title}</span>
-            <span class="text-lg font-extrabold text-emerald-700">${s.final_score} / 1000</span>
+            <span class="text-base sm:text-lg font-extrabold text-emerald-700 shrink-0">${s.final_score} / 1000</span>
           </div>
           <p class="text-xs text-emerald-800">${s.readiness_tier}</p>
-          <p class="text-[11px] font-mono text-emerald-700">Verify URL: careerbridge.africa/verify/${s.portfolio_slug}</p>
+          <p class="text-[11px] font-mono text-emerald-700 break-all">Verify URL: careerbridge.africa/verify/${s.portfolio_slug}</p>
           <div class="pt-1 border-t border-emerald-200/80 flex items-center justify-between text-[11px]">
             ${s.appeal_status === "requested"
               ? `<span class="font-semibold text-amber-800">⚖ Appeal Under Moderation Review</span>`
@@ -1732,39 +1734,39 @@
         <div class="lg:col-span-2 space-y-6">
           ${roadmapHtml}
           <div class="space-y-3">
-            <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <h3 class="font-bold text-base text-slate-900">All Seven Technical & Engineering Tracks (Section 2.1.5)</h3>
-              <div class="flex gap-1.5 text-xs">
-                <button onclick="setTrackFilter('ALL')" class="px-3 py-1 rounded-full font-bold ${trackCategoryFilter === "ALL" ? "bg-slate-900 text-white" : "bg-white border border-slate-200 text-slate-700"}">All (7)</button>
-                <button onclick="setTrackFilter('DIGITAL')" class="px-3 py-1 rounded-full font-bold ${trackCategoryFilter === "DIGITAL" ? "bg-slate-900 text-white" : "bg-white border border-slate-200 text-slate-700"}">Digital & Data (3)</button>
-                <button onclick="setTrackFilter('ENGINEERING')" class="px-3 py-1 rounded-full font-bold ${trackCategoryFilter === "ENGINEERING" ? "bg-slate-900 text-white" : "bg-white border border-slate-200 text-slate-700"}">CAD / BIM / MEP (4)</button>
+              <div class="flex gap-1.5 overflow-x-auto no-scrollbar text-xs">
+                <button onclick="setTrackFilter('ALL')" class="shrink-0 min-h-[34px] px-3 py-1 rounded-full font-bold ${trackCategoryFilter === "ALL" ? "bg-slate-900 text-white" : "bg-white border border-slate-200 text-slate-700"}">All (7)</button>
+                <button onclick="setTrackFilter('DIGITAL')" class="shrink-0 min-h-[34px] px-3 py-1 rounded-full font-bold ${trackCategoryFilter === "DIGITAL" ? "bg-slate-900 text-white" : "bg-white border border-slate-200 text-slate-700"}">Digital & Data (3)</button>
+                <button onclick="setTrackFilter('ENGINEERING')" class="shrink-0 min-h-[34px] px-3 py-1 rounded-full font-bold ${trackCategoryFilter === "ENGINEERING" ? "bg-slate-900 text-white" : "bg-white border border-slate-200 text-slate-700"}">CAD / BIM / MEP (4)</button>
               </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${trackCards}</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">${trackCards}</div>
           </div>
         </div>
 
         <div class="space-y-4">
-          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
             <h3 class="font-bold text-sm">Verified CareerScore™ Credentials</h3>
             ${scoreCards}
           </div>
 
-          <div id="proctoredAssessmentCard" class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-            <div class="flex items-center justify-between">
+          <div id="proctoredAssessmentCard" class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <div class="flex items-center justify-between gap-2">
               <h3 class="font-bold text-sm">Proctored Assessment Center</h3>
-              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full ${allModulesPassedForActive ? "bg-emerald-100 text-emerald-800" : "bg-slate-200 text-slate-600"}">
+              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full shrink-0 ${allModulesPassedForActive ? "bg-emerald-100 text-emerald-800" : "bg-slate-200 text-slate-600"}">
                 ${allModulesPassedForActive ? "Unlocked" : "🔒 Complete Modules 1–3"}
               </span>
             </div>
 
-            <select id="submitEnrolmentId" onchange="onSubmissionTrackChange(this.value)" class="w-full text-xs border border-slate-300 rounded-xl p-2 bg-white">
+            <select id="submitEnrolmentId" onchange="onSubmissionTrackChange(this.value)" class="w-full text-base sm:text-xs border border-slate-300 rounded-xl p-2.5 bg-white">
               ${(enrolments || []).map(e => `<option value="${e.id}|${e.track_id}" ${activeTrack && e.track_id === activeTrack.id ? "selected" : ""}>${e.tracks?.title}</option>`).join("") || `<option value="">Enrol in a track first</option>`}
             </select>
 
             <div class="space-y-1">
               <label class="block text-[11px] font-bold text-slate-700">Proctored Verification Mode (Section 2.12.7):</label>
-              <select id="assessmentMode" onchange="toggleProctorModeUI(this.value)" class="w-full text-xs border border-slate-300 rounded-xl p-2 bg-white">
+              <select id="assessmentMode" onchange="toggleProctorModeUI(this.value)" class="w-full text-base sm:text-xs border border-slate-300 rounded-xl p-2.5 bg-white">
                 <option value="timed_proctored_drill">1. Timed Proctored Practical Drill (Browser Integrity + Countdown)</option>
                 <option value="live_virtual_proctor">2. Live Virtual Proctored Session (Mon–Fri 8am–6pm / Sat 9am–1pm WAT)</option>
                 <option value="lagos_hub_proctor">3. Lagos Physical Assessment Hub (In-Person Proctored Terminal)</option>
@@ -1778,9 +1780,9 @@
                 <span id="proctorTimerDisplay" class="font-mono font-bold text-sm text-emerald-400">30:00</span>
               </div>
               <p class="text-[11px] text-slate-300 leading-relaxed">${activeCurr ? activeCurr.proctoredPrompt : ""}</p>
-              <div class="flex items-center justify-between pt-1">
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
                 <span id="proctorIntegrityStatus" class="text-[11px] text-emerald-300">● Integrity Ready (0 tab switches)</span>
-                <button type="button" onclick="startTimedProctorDrill()" class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 hover:bg-amber-400">
+                <button type="button" onclick="startTimedProctorDrill()" class="min-h-[34px] text-[11px] font-bold px-3 py-1 rounded-lg bg-amber-500 text-slate-950 hover:bg-amber-400">
                   Start 30-Min Timer
                 </button>
               </div>
@@ -1788,22 +1790,22 @@
 
             <div id="watSlotBox" class="hidden space-y-1">
               <label class="block text-[11px] font-bold text-slate-700">Select Live Proctoring Window (WAT):</label>
-              <select id="proctorSlotWat" class="w-full text-xs border border-slate-300 rounded-xl p-2 bg-white">
+              <select id="proctorSlotWat" class="w-full text-base sm:text-xs border border-slate-300 rounded-xl p-2.5 bg-white">
                 <option value="Mon–Fri • 09:00 AM – 11:00 AM WAT">Mon–Fri • 09:00 AM – 11:00 AM WAT</option>
                 <option value="Mon–Fri • 02:00 PM – 04:00 PM WAT">Mon–Fri • 02:00 PM – 04:00 PM WAT</option>
                 <option value="Saturday • 10:00 AM – 12:00 PM WAT">Saturday • 10:00 AM – 12:00 PM WAT</option>
               </select>
             </div>
 
-            <input type="url" id="artifactLink" placeholder="Capstone Repo / Figma / Drive CAD / Revit Model URL" class="w-full text-xs border border-slate-300 rounded-xl p-2" />
-            <input type="url" id="defenseLink" placeholder="10-Min Executive Defense Video / Live Room URL" class="w-full text-xs border border-slate-300 rounded-xl p-2" />
+            <input type="url" id="artifactLink" placeholder="Capstone Repo / Figma / Drive CAD / Revit Model URL" class="w-full text-base sm:text-xs border border-slate-300 rounded-xl p-2.5" />
+            <input type="url" id="defenseLink" placeholder="10-Min Executive Defense Video / Live Room URL" class="w-full text-base sm:text-xs border border-slate-300 rounded-xl p-2.5" />
 
-            <label class="flex items-start gap-2 text-[11px] text-slate-600 cursor-pointer">
-              <input type="checkbox" id="honorPledge" class="mt-0.5 rounded border-slate-300" />
+            <label class="flex items-start gap-2.5 text-[11px] text-slate-600 cursor-pointer">
+              <input type="checkbox" id="honorPledge" class="mt-0.5 w-4 h-4 rounded border-slate-300 shrink-0" />
               <span>I verify this work sample is my original work completed under CareerBridge Africa proctoring standards.</span>
             </label>
 
-            <button onclick="submitCapstoneArtifact()" class="w-full ${allModulesPassedForActive ? "bg-amber-500 hover:bg-amber-600 text-slate-950" : "bg-slate-300 text-slate-600 cursor-not-allowed"} font-bold text-xs py-2.5 rounded-xl">
+            <button onclick="submitCapstoneArtifact()" class="w-full min-h-[44px] ${allModulesPassedForActive ? "bg-amber-500 hover:bg-amber-600 text-slate-950" : "bg-slate-300 text-slate-600 cursor-not-allowed"} font-bold text-xs py-2.5 rounded-xl">
               ${allModulesPassedForActive ? "Submit Proctored Capstone for Grading" : "Complete Training Modules 1–3 First"}
             </button>
           </div>
@@ -2005,7 +2007,7 @@
 
       const { error } = await sbClient.from("submissions").insert(payload);
       if (error) return alert(error.message);
-      alert("Proctored Capstone submitted! Switch to '2. Proctor & Assessor Queue' in the top yellow sandbox bar to grade it.");
+      alert("Proctored Capstone submitted! Switch to '2. Proctor Queue' in the top bar to grade it.");
       renderLearnerWorkspace();
     }
 
@@ -2053,17 +2055,17 @@
       const confirmedHires = (shortlists || []).filter(s => (s.pipeline_stage || "").includes("Hired")).length;
 
       document.getElementById("kpiStrip").innerHTML = `
-        <div class="bg-slate-50 px-3.5 py-2 rounded-xl border border-slate-200">
-          <div class="text-[10px] font-bold uppercase text-slate-500">Verified Pool</div>
-          <div class="text-base font-extrabold">${verifiedPool?.length || 0}</div>
+        <div class="bg-slate-50 px-3 py-2 rounded-xl border border-slate-200">
+          <div class="text-[10px] font-bold uppercase text-slate-500">Verified</div>
+          <div class="text-sm sm:text-base font-extrabold">${verifiedPool?.length || 0}</div>
         </div>
-        <div class="bg-amber-50 px-3.5 py-2 rounded-xl border border-amber-200">
+        <div class="bg-amber-50 px-3 py-2 rounded-xl border border-amber-200">
           <div class="text-[10px] font-bold uppercase text-amber-800">Shortlisted</div>
-          <div class="text-base font-extrabold text-amber-700">${shortlists?.length || 0}</div>
+          <div class="text-sm sm:text-base font-extrabold text-amber-700">${shortlists?.length || 0}</div>
         </div>
-        <div class="bg-emerald-50 px-3.5 py-2 rounded-xl border border-emerald-200">
+        <div class="bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200">
           <div class="text-[10px] font-bold uppercase text-emerald-800">90-Day Hires</div>
-          <div class="text-base font-extrabold text-emerald-700">${confirmedHires}</div>
+          <div class="text-sm sm:text-base font-extrabold text-emerald-700">${confirmedHires}</div>
         </div>
       `;
 
@@ -2076,34 +2078,34 @@
         const sampleCount = (c.submissions?.module_artifacts_count || 3) + 1;
 
         return `
-          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-3">
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-3">
             <div>
               <div class="flex justify-between items-start gap-2">
                 <div>
                   <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900">
-                    ${matchPct}% Role Match • ${sampleCount} Verified Samples
+                    ${matchPct}% Match • ${sampleCount} Samples
                   </span>
                   <h4 class="font-bold text-sm mt-1">${c.profiles?.full_name}</h4>
                   <p class="text-xs text-slate-500">${c.tracks?.title}</p>
                 </div>
-                <span class="px-2.5 py-1 rounded-xl bg-slate-900 text-amber-400 font-extrabold text-xs">
+                <span class="px-2.5 py-1 rounded-xl bg-slate-900 text-amber-400 font-extrabold text-xs shrink-0">
                   ${c.final_score}/1000
                 </span>
               </div>
               <p class="text-xs text-emerald-700 font-semibold mt-2">${c.readiness_tier}</p>
               <p class="text-[11px] text-slate-500 mt-1">Proctor Record: ${c.submissions?.proctor_integrity_log || "Verified"}</p>
-              <div class="mt-3 flex gap-3 text-xs">
+              <div class="mt-3 flex flex-wrap gap-3 text-xs">
                 <a href="${c.submissions?.artifact_storage_path}" target="_blank" class="text-blue-600 underline">Inspect Work Sample</a>
                 ${c.submissions?.defense_video_url ? `<a href="${c.submissions.defense_video_url}" target="_blank" class="text-blue-600 underline">Watch Defense</a>` : ""}
               </div>
             </div>
             ${alreadyShortlisted
               ? `<span class="mt-2 block text-center text-xs font-semibold py-2 rounded-xl bg-slate-100 text-slate-700">Stage: ${alreadyShortlisted.pipeline_stage || "Shortlisted"}</span>`
-              : `<button onclick="shortlistCandidate('${c.id}', '${c.learner_id}')" class="mt-2 w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-2 rounded-xl">Shortlist & Request Interview</button>`
+              : `<button onclick="shortlistCandidate('${c.id}', '${c.learner_id}')" class="mt-2 w-full min-h-[42px] bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-2 rounded-xl">Shortlist & Request Interview</button>`
             }
           </div>
         `;
-      }).join("") || `<p class="text-sm text-slate-500 col-span-2 bg-white p-5 rounded-2xl border border-slate-200">No verified candidates published yet. Grade a submission in the Proctor & Assessor Queue first!</p>`;
+      }).join("") || `<p class="text-sm text-slate-500 col-span-2 bg-white p-5 rounded-2xl border border-slate-200">No verified candidates published yet. Grade a submission in the Proctor Queue first!</p>`;
 
       const pipelineRows = (shortlists || []).map(s => `
         <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 space-y-2 text-xs">
@@ -2112,7 +2114,7 @@
             <span class="text-amber-700">${s.careerscores?.final_score}/1000</span>
           </div>
           <div class="text-[11px] text-slate-500">${s.careerscores?.tracks?.title}</div>
-          <select onchange="updateHiringStage('${s.id}', this.value)" class="w-full text-xs border border-slate-300 rounded-lg p-1.5 bg-white font-semibold">
+          <select onchange="updateHiringStage('${s.id}', this.value)" class="w-full text-base sm:text-xs border border-slate-300 rounded-lg p-2 bg-white font-semibold">
             ${["Shortlisted", "Interview Scheduled", "Offer Extended", "Hired (90-Day Confirmed)"].map(st =>
               `<option value="${st}" ${(s.pipeline_stage || "Shortlisted") === st ? "selected" : ""}>${st}</option>`
             ).join("")}
@@ -2129,27 +2131,27 @@
             </div>
             <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border border-slate-200">${verifiedPool?.length || 0} Verified Candidates</span>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${candidateCards}</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">${candidateCards}</div>
         </div>
 
         <div class="space-y-4">
-          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
             <h3 class="font-bold text-sm">Post Role & Auto-Match Criteria</h3>
             <p class="text-[11px] text-slate-500">Portal Tier: ₦50,000–₦400,000/mo • Managed Placement: 8%–12% annual gross salary (excl. VAT, Table 2.5)</p>
-            <input type="text" id="jobTitle" placeholder="Role Title (e.g. CAD Technician / Revit BIM Modeler)" class="w-full text-xs border border-slate-300 rounded-xl p-2" />
-            <select id="jobTrackId" class="w-full text-xs border border-slate-300 rounded-xl p-2 bg-white">
+            <input type="text" id="jobTitle" placeholder="Role Title (e.g. CAD Technician / Revit BIM Modeler)" class="w-full text-base sm:text-xs border border-slate-300 rounded-xl p-2.5" />
+            <select id="jobTrackId" class="w-full text-base sm:text-xs border border-slate-300 rounded-xl p-2.5 bg-white">
               ${(tracks || []).map(t => `<option value="${t.id}">${t.title}</option>`).join("")}
             </select>
             <div class="grid grid-cols-2 gap-2">
-              <input type="number" id="jobMinScore" value="700" min="500" max="950" placeholder="Min CareerScore" class="text-xs border border-slate-300 rounded-xl p-2" />
-              <input type="text" id="jobSalary" value="₦400k - ₦650k/mo" class="text-xs border border-slate-300 rounded-xl p-2" />
+              <input type="number" id="jobMinScore" value="700" min="500" max="950" placeholder="Min CareerScore" class="text-base sm:text-xs border border-slate-300 rounded-xl p-2.5" />
+              <input type="text" id="jobSalary" value="₦400k - ₦650k/mo" class="text-base sm:text-xs border border-slate-300 rounded-xl p-2.5" />
             </div>
-            <button onclick="postEmployerJob()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-2.5 rounded-xl">
+            <button onclick="postEmployerJob()" class="w-full min-h-[44px] bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-2.5 rounded-xl">
               Publish Requisition & Rank Matches
             </button>
           </div>
 
-          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
             <h3 class="font-bold text-sm">Interview & 90-Day Placement Pipeline (O-02)</h3>
             ${pipelineRows}
           </div>
@@ -2209,20 +2211,20 @@
         .eq("appeal_status", "requested");
 
       document.getElementById("kpiStrip").innerHTML = `
-        <div class="bg-amber-50 px-3.5 py-2 rounded-xl border border-amber-200">
-          <div class="text-[10px] font-bold uppercase text-amber-800">Pending Queue</div>
-          <div class="text-base font-extrabold text-amber-700">${queue?.length || 0}</div>
+        <div class="bg-amber-50 px-3 py-2 rounded-xl border border-amber-200">
+          <div class="text-[10px] font-bold uppercase text-amber-800">Queue</div>
+          <div class="text-sm sm:text-base font-extrabold text-amber-700">${queue?.length || 0}</div>
         </div>
-        <div class="bg-emerald-50 px-3.5 py-2 rounded-xl border border-emerald-200">
-          <div class="text-[10px] font-bold uppercase text-emerald-800">IRR Target</div>
-          <div class="text-base font-extrabold text-emerald-700">≥ 0.70</div>
+        <div class="bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200">
+          <div class="text-[10px] font-bold uppercase text-emerald-800">IRR Gate</div>
+          <div class="text-sm sm:text-base font-extrabold text-emerald-700">≥ 0.70</div>
         </div>
       `;
 
       const items = (queue || []).map(sub => {
         const curr = getCurriculumForTrack(sub.tracks || {});
         return `
-          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
             <div class="flex flex-wrap justify-between items-center gap-1">
               <span class="text-xs font-mono bg-slate-100 px-2.5 py-0.5 rounded-lg">Blind ID: ${sub.id.slice(0, 8)}</span>
               <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900">${sub.assessment_mode || "proctored"}</span>
@@ -2232,28 +2234,28 @@
               <div><strong>Proctor Log:</strong> ${sub.proctor_integrity_log || "Verified"}</div>
               <div><strong>Rubric:</strong> ${curr.rubric}</div>
             </div>
-            <div class="flex gap-3 text-xs">
+            <div class="flex flex-wrap gap-3 text-xs">
               <a href="${sub.artifact_storage_path}" target="_blank" class="text-blue-600 underline">Open Anonymized Artifact →</a>
               ${sub.defense_video_url ? `<a href="${sub.defense_video_url}" target="_blank" class="text-blue-600 underline">Open Defense / Proctor Room →</a>` : ""}
             </div>
-            <div class="grid grid-cols-2 gap-2 pt-1">
-              <input type="number" id="score_${sub.id}" min="0" max="1000" value="850" placeholder="Score (0-1000)" class="text-xs border border-slate-300 rounded-xl p-2" />
-              <button onclick="submitBlindGrade('${sub.id}')" class="bg-slate-900 text-white text-xs font-bold rounded-xl px-3 py-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+              <input type="number" id="score_${sub.id}" min="0" max="1000" value="850" placeholder="Score (0-1000)" class="text-base sm:text-xs border border-slate-300 rounded-xl p-2.5" />
+              <button onclick="submitBlindGrade('${sub.id}')" class="min-h-[42px] bg-slate-900 text-white text-xs font-bold rounded-xl px-3 py-2">
                 Submit Blind Grade
               </button>
             </div>
-            <button onclick="simulateDualVerification('${sub.id}', '${sub.learner_id}', '${sub.track_id}')" class="w-full text-[11px] font-bold py-2 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100">
+            <button onclick="simulateDualVerification('${sub.id}', '${sub.learner_id}', '${sub.track_id}')" class="w-full min-h-[42px] text-[11px] font-bold py-2 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100">
               ⚡ Pilot Test: Simulate Dual-Assessor IRR ≥ 0.70 Pass & Issue CareerScore™
             </button>
           </div>
         `;
-      }).join("") || `<p class="text-sm text-slate-500 col-span-2 bg-white p-5 rounded-2xl border border-slate-200">Proctored grading queue is clear. Submit a capstone in the Learner Classroom tab to test grading!</p>`;
+      }).join("") || `<p class="text-sm text-slate-500 col-span-2 bg-white p-5 rounded-2xl border border-slate-200">Proctored grading queue is clear. Submit a capstone in the Learner Studio tab to test grading!</p>`;
 
       const appealCards = (appeals || []).map(ap => `
         <div class="bg-rose-50 border border-rose-200 p-4 rounded-2xl space-y-2 text-xs">
           <div class="font-bold text-rose-900">Appeal Request • ${ap.tracks?.title} (Current: ${ap.final_score}/1000)</div>
           <p class="text-rose-800">Reason: "${ap.appeal_reason}"</p>
-          <button onclick="resolveAppeal('${ap.id}', ${ap.final_score})" class="bg-slate-900 text-white font-semibold px-3 py-1.5 rounded-xl">
+          <button onclick="resolveAppeal('${ap.id}', ${ap.final_score})" class="min-h-[40px] bg-slate-900 text-white font-semibold px-3.5 py-2 rounded-xl">
             Complete Moderation Review
           </button>
         </div>
@@ -2329,7 +2331,7 @@
       });
 
       if (error) return alert("Error issuing CareerScore: " + error.message);
-      alert(`Verified CareerScore™ (${score}/1000) issued! Switch to '1. Learner Classroom & AI Coach' or '3. Employer Talent Portal' in the top bar to see it live.`);
+      alert(`Verified CareerScore™ (${score}/1000) issued! Switch to '1. Learner Studio' or '3. Employer Portal' in the top bar to see it live.`);
       renderAssessorWorkspace();
     }
   </script>
