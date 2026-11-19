@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CareerBridge Africa — Verified Workforce & Talent Matching</title>
+  <title>CareerBridge Africa — Digital Skills, CareerScore™ Verification & Talent Matching</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -16,13 +16,13 @@
         <div class="w-9 h-9 rounded-lg bg-amber-500 text-slate-950 font-extrabold flex items-center justify-center">CB</div>
         <div>
           <h1 class="font-bold text-base tracking-tight">CareerBridge Africa</h1>
-          <p class="text-[11px] text-slate-400">Digital & Engineering Training • CareerScore™ Verification • Employer Matching</p>
+          <p class="text-[11px] text-slate-400">Project-Centred Training • 0–1000 CareerScore™ • Verified Talent Matching</p>
         </div>
       </div>
 
       <div class="flex items-center gap-2 sm:gap-3">
         <span id="connBadge" class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-          ● Online Sync Active
+          ● Low-Data Mode • Sync Active
         </span>
         <button id="btnSignOut" onclick="handleSignOut()" class="hidden text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-700">
           Sign Out
@@ -33,30 +33,30 @@
 
   <main class="max-w-7xl mx-auto px-4 py-8">
 
-    <!-- AUTHENTICATION GATE + PLATFORM OVERVIEW -->
+    <!-- AUTHENTICATION GATE + VALUE PROPOSITION -->
     <section id="authSection" class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
       <div class="space-y-4">
         <span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-100 text-amber-900">
-          NDPA 2023 Compliant Workforce Infrastructure
+          NDPA 2023 Compliant • Low-Bandwidth Architecture
         </span>
         <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
-          Africa's Most Trusted Bridge Between Digital Talent & Opportunity.
+          Observable Competence, Not Unverified Claims.
         </h2>
         <p class="text-sm text-slate-600 leading-relaxed">
-          Master 7 project-centred tracks across <strong>Software, Data, UI/UX, AutoCAD, SolidWorks, Revit/BIM, and MEP & Civil Design</strong>—pass sequential module mastery gates, and earn a proctored <strong>CareerScore™ (0–1000)</strong> to match directly with verified employers.
+          Every module across our 7 tracks requires a <strong>practical deliverable</strong>—code, a dataset analysis, a design file, or a CAD/BIM engineering model—assessed against employer co-designed rubrics into a verified <strong>0–1000 CareerScore™</strong>.
         </p>
         <div class="grid grid-cols-3 gap-3 pt-2">
           <div class="bg-white p-3 rounded-xl border border-slate-200">
             <div class="text-sm font-extrabold text-slate-900">7 Tracks</div>
-            <div class="text-[11px] text-slate-500">Digital & CAD/BIM</div>
+            <div class="text-[11px] text-slate-500">100% Practical Outputs</div>
           </div>
           <div class="bg-white p-3 rounded-xl border border-slate-200">
             <div class="text-sm font-extrabold text-emerald-700">IRR ≥ 0.70</div>
             <div class="text-[11px] text-slate-500">Dual-Assessor Gate</div>
           </div>
           <div class="bg-white p-3 rounded-xl border border-slate-200">
-            <div class="text-sm font-extrabold text-amber-600">Auto-Match</div>
-            <div class="text-[11px] text-slate-500">Score-Ranked Hiring</div>
+            <div class="text-sm font-extrabold text-amber-600">0–1000</div>
+            <div class="text-[11px] text-slate-500">Verified CareerScore™</div>
           </div>
         </div>
       </div>
@@ -77,14 +77,14 @@
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Account Role</label>
               <select id="userRole" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white">
-                <option value="learner">Learner / Candidate (Learning Path & CareerScore™)</option>
-                <option value="employer">Employer / Hiring Manager (Post Jobs & Match Talent)</option>
-                <option value="assessor">Certified Technical Assessor (Blind Grading Queue)</option>
+                <option value="learner">Learner / Candidate (Project Modules & CareerScore™)</option>
+                <option value="employer">Employer / Hiring Manager (Post Roles & Inspect Portfolios)</option>
+                <option value="assessor">Certified Technical Assessor / Proctor (IRR ≥ 0.70 Grading)</option>
               </select>
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Company / Institution (Optional)</label>
-              <input type="text" id="orgName" placeholder="e.g. RBS / Paystack" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
+              <input type="text" id="orgName" placeholder="e.g. Lagos Tech Hub / SME" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
             </div>
           </div>
 
@@ -120,8 +120,8 @@
       <!-- PILOT SANDBOX SWITCHER -->
       <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-2 text-xs text-amber-950">
-          <span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-extrabold">PILOT SANDBOX</span>
-          <span>Switch workspaces anytime to test the full ecosystem:</span>
+          <span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-extrabold">LAGOS PILOT SANDBOX</span>
+          <span>Switch workspaces to test the Train → Verify → Match pipeline:</span>
         </div>
         <div class="flex flex-wrap gap-2">
           <button onclick="switchPreviewRole('learner')" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-amber-300 hover:bg-amber-100">
@@ -131,7 +131,7 @@
             2. Assessor Queue
           </button>
           <button onclick="switchPreviewRole('employer')" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-amber-300 hover:bg-amber-100">
-            3. Employer Matching
+            3. Employer Portal
           </button>
         </div>
       </div>
@@ -141,7 +141,7 @@
         <div>
           <span id="roleBadge" class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-100 text-amber-900">LEARNER</span>
           <h2 id="welcomeHeading" class="text-xl font-bold mt-1">Welcome back</h2>
-          <p class="text-xs text-slate-500">VAT-Exclusive Rate Card • Sequential Mastery Gate Active • NDPA 2023 Consent Verified</p>
+          <p class="text-xs text-slate-500">Native Practical Curriculum • Sequential Output Gate • NDPA 2023 Compliant • VAT-Exclusive Schedule</p>
         </div>
         <div id="kpiStrip" class="flex gap-4 text-right"></div>
       </div>
@@ -162,59 +162,58 @@
     let currentProfile = null;
     let activeRoleView = "learner";
     let selectedTrackId = null;
-    let activeQuizModule = null;
+    let openLessonModule = null;
 
+    // Native CareerBridge Africa Curricula (Section 2.1.2 & 2.1.5 — Self-Contained, Low-Bandwidth, Practical Output Per Module)
     const TRACK_CURRICULA = {
       "TRK-01": {
-        partnerBadge: "freeCodeCamp • Supabase • MDN Web Docs",
-        duration: "3 Months • Beginner to Intermediate",
+        pillar: "Pillar 1: Project-Centred Technical Training • Track 1 of 7",
+        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored Labs",
         salaryRange: "Nigeria: ₦5.5M–₦11M/yr • Remote/Global: $70k–$120k USD",
         pathways: ["Full-Stack Software Developer", "Frontend Web Engineer", "Backend API Engineer", "Cloud Application Developer"],
-        trackIntro: "Build responsive, low-bandwidth-resilient web applications, design RESTful APIs, and implement row-level PostgreSQL database security compliant with NDPA 2023.",
+        trackIntro: "Build production-grade, low-bandwidth-resilient web applications from scratch. Every module requires a verifiable code artifact tested against employer co-designed engineering rubrics.",
         outcomes: [
-          "Architect responsive mobile-first interfaces using semantic HTML5, CSS Grid, and Tailwind CSS.",
+          "Architect mobile-first interfaces optimized for low-bandwidth Nigerian mobile networks.",
           "Develop asynchronous JavaScript ES6+ applications consuming authenticated REST APIs.",
-          "Configure PostgreSQL authentication, Row-Level Security (RLS), and offline queue synchronization."
+          "Implement PostgreSQL Row-Level Security (RLS) and offline submission queues under NDPA 2023."
         ],
         modules: [
           {
-            title: "Module 1: Semantic HTML5, Responsive CSS & Tailwind UI",
-            provider: "freeCodeCamp Responsive Web Design",
-            url: "https://www.freecodecamp.org/learn/2022/responsive-web-design/",
-            intro: "Build accessible, mobile-first layouts optimized for intermittent 3G/4G connections using semantic HTML landmarks and Tailwind CSS breakpoints.",
-            topics: ["Semantic HTML (<nav>, <main>, <section>)", "Flexbox & CSS Grid layouts", "Responsive Tailwind breakpoints (sm:, md:, lg:)"],
+            title: "Module 1: Low-Bandwidth Responsive UI Architecture",
+            lessonSummary: "In African markets where learners and customers rely on prepaid mobile data, heavy frontends fail. Learn semantic HTML5 landmarks (<nav>, <main>, <section>), CSS Grid/Flexbox, and utility-first Tailwind CSS to build sub-100KB responsive interfaces.",
+            keyConcepts: ["Semantic HTML5 & Accessibility", "Mobile-First CSS Grid & Flexbox", "Tailwind Responsive Breakpoints (sm:, md:, lg:)"],
+            practicalTask: "Build and host a responsive 3-page SME service portal with mobile navigation and <150KB page weight.",
+            deliverablePlaceholder: "Paste GitHub Repo or Live Preview URL for Module 1 UI...",
             quiz: [
               { q: "Which semantic HTML tag should wrap primary page navigation links?", options: ["<div>", "<nav>", "<aside>"], ans: 1 },
               { q: "Which Tailwind prefix applies styles on medium (≥768px) screens and up?", options: ["sm:", "md:", "lg:"], ans: 1 }
             ]
           },
           {
-            title: "Module 2: Modern JavaScript ES6+ & Asynchronous APIs",
-            provider: "freeCodeCamp JS Algorithms & Data Structures",
-            url: "https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/",
-            intro: "Master DOM state management, array transformations, async/await Promises, and structured API error handling.",
-            topics: ["ES6+ arrow functions & destructuring", "Async/Await & Fetch API", "HTTP status codes & JSON error handling"],
+            title: "Module 2: Asynchronous JavaScript ES6+ & REST API Integration",
+            lessonSummary: "Connect frontend interfaces to live backend services using async/await Promises, Fetch API error boundaries, local caching, and clean state transitions.",
+            keyConcepts: ["ES6+ Destructuring & Array Methods", "Async/Await & Fetch API Error Handling", "Client-Side State & LocalStorage Caching"],
+            practicalTask: "Build an interactive API-driven dashboard module with loading states, retry handling, and offline fallback.",
+            deliverablePlaceholder: "Paste GitHub Repo / CodeSandbox URL for Module 2 JS App...",
             quiz: [
               { q: "Which keyword pauses execution inside an async function until a Promise settles?", options: ["defer", "await", "yield"], ans: 1 },
               { q: "Which HTTP status code indicates a resource was successfully created?", options: ["200", "201", "403"], ans: 1 }
             ]
           },
           {
-            title: "Module 3: PostgreSQL Auth, Row-Level Security & Cloud Deployment",
-            provider: "Supabase Official Quickstarts",
-            url: "https://supabase.com/docs/guides/getting-started",
-            intro: "Design relational schemas, enforce per-user Row-Level Security (RLS) policies, and deploy live cloud applications.",
-            topics: ["Relational table design & foreign keys", "Row-Level Security (RLS) policies", "Public anon keys vs. secret service keys"],
+            title: "Module 3: PostgreSQL Schemas, Auth & Row-Level Security (RLS)",
+            lessonSummary: "Design normalized relational tables with foreign keys, configure token authentication, and enforce PostgreSQL Row-Level Security (RLS) so user records remain protected under NDPA 2023.",
+            keyConcepts: ["Normalized PostgreSQL Schemas & Keys", "Row-Level Security (RLS) Policies", "Public Anon Keys vs. Secret Server Keys"],
+            practicalTask: "Create an authenticated multi-user CRUD database schema with active RLS policies and test unauthorized access blocking.",
+            deliverablePlaceholder: "Paste SQL Schema / GitHub Repo URL for Module 3 Database...",
             quiz: [
               { q: "What does Row-Level Security (RLS) enforce in PostgreSQL?", options: ["Automatic CSS minification", "Per-user row access policies at the database layer", "Static IP routing"], ans: 1 },
               { q: "Which key is safe to expose in browser client code when RLS is active?", options: ["service_role secret key", "anon / publishable key", "Database root password"], ans: 1 }
             ]
           },
           {
-            title: "Module 4: Full-Stack Deployment & Offline-Resilient Capstone",
-            provider: "CareerBridge Africa Verification Lab",
-            url: "#submitCapstoneCard",
-            intro: "Ship a live multi-role web application with authenticated database CRUD and offline submission queuing.",
+            title: "Module 4: Proctored Full-Stack Capstone & Executive Defense",
+            lessonSummary: "Synthesize Modules 1–3 into a complete, deployed multi-role application with offline submission resilience and a 10-minute architectural walkthrough.",
             isCapstone: true
           }
         ],
@@ -223,91 +222,78 @@
       },
 
       "TRK-02": {
-        partnerBadge: "Google • Microsoft Learn • Coursera • Kaggle",
-        duration: "3 Months • Beginner to Intermediate",
+        pillar: "Pillar 1: Project-Centred Technical Training • Track 2 of 7",
+        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored Labs",
         salaryRange: "Nigeria: ₦4.8M–₦8M/yr • Remote/Global: $60k–$100k USD",
-        pathways: ["Data Analyst", "Business Intelligence (BI) Analyst", "Data Visualization Specialist", "Operations Data Analyst", "Junior Data Scientist"],
-        trackIntro: "Master turning raw organizational data into actionable business insights using Excel, SQL, Power BI, Python (Pandas), and AI-assisted analytics workflows.",
+        pathways: ["Data Analyst", "Business Intelligence (BI) Analyst", "Data Visualization Specialist", "Operations Data Analyst"],
+        trackIntro: "Transform raw organizational datasets into executive decisions using structured data cleaning, relational SQL querying, Python/Pandas wrangling, and interactive BI dashboards.",
         outcomes: [
-          "Understand core principles of data analytics and how data informs business decision-making.",
-          "Use Excel, SQL, Power BI, and Python to clean, model, and visualize enterprise datasets.",
-          "Communicate insights effectively through executive data storytelling and interactive dashboards."
+          "Execute end-to-end data workflows: collect → clean → analyze → visualize → report.",
+          "Write multi-table SQL queries (JOINs, GROUP BY, HAVING) and clean messy datasets in Excel/Python.",
+          "Publish executive KPI dashboards backed by clear commercial recommendations."
         ],
         modules: [
           {
-            title: "Module 1: Introduction to Data Analysis & Data Landscape",
-            provider: "Google Data Analytics (Coursera)",
-            url: "https://www.coursera.org/professional-certificates/google-data-analytics",
-            intro: "Explore the data analytics lifecycle, structured vs. unstructured data sources (databases, files, APIs), and core analyst workflows.",
-            topics: ["End-to-end process: collect → clean → analyze → visualize → report", "Structured vs. unstructured data sources", "KPI framing & business problem definition"],
+            title: "Module 1: Data Landscape, Cleaning & Spreadsheet Modeling",
+            lessonSummary: "Master structured vs. unstructured data sources, frame SMART business questions, and clean dirty transactional tables using lookup formulas, conditional aggregations, and Pivot Tables.",
+            keyConcepts: ["Collect → Clean → Analyze → Visualize → Report", "VLOOKUP / INDEX-MATCH & SUMIFS", "Dynamic Pivot Tables & Outlier Checks"],
+            practicalTask: "Clean a raw 5,000-row Nigerian retail/fintech sales sheet, remove duplicates/nulls, and generate a Pivot summary report.",
+            deliverablePlaceholder: "Paste Google Sheet / Excel / Drive Link for Module 1 Workbook...",
             quiz: [
               { q: "Which sequence reflects the core data analysis workflow?", options: ["Report → Delete → Collect", "Collect → Clean → Analyze → Visualize → Report", "Visualize → Collect → Ignore"], ans: 1 },
-              { q: "Why must data be cleaned before analysis?", options: ["To remove duplicates, missing values, and formatting errors that skew insights", "To increase file size", "To encrypt passwords"], ans: 0 }
-            ]
-          },
-          {
-            title: "Module 2: Mastering Excel & Core Analytical Modeling",
-            provider: "Microsoft Learn — Excel Analytics",
-            url: "https://support.microsoft.com/en-us/excel",
-            intro: "Clean, transform, and model business datasets using lookup formulas, conditional aggregations, Pivot Tables, and dynamic charts.",
-            topics: ["Data cleaning, formatting & transformation", "Advanced formulas (VLOOKUP, INDEX-MATCH, IF, SUMIFS)", "Pivot Tables & interactive business charts"],
-            quiz: [
-              { q: "Which Excel feature summarizes large tables dynamically by grouping rows and columns?", options: ["Pivot Table", "Spell Check", "Page Margins"], ans: 0 },
               { q: "Which function sums values only when multiple criteria are met?", options: ["SUMIFS", "COUNT", "CONCAT"], ans: 0 }
             ]
           },
           {
-            title: "Module 3: SQL for Data Querying & Relational Insights",
-            provider: "Microsoft Learn — Querying with SQL",
-            url: "https://learn.microsoft.com/en-us/training/paths/get-started-querying-with-transact-sql/",
-            intro: "Query multi-table relational databases directly using SQL syntax, filtering, joins, subqueries, and aggregate functions.",
-            topics: ["Relational schemas, primary & foreign keys", "SQL syntax (SELECT, WHERE, ORDER BY, GROUP BY, HAVING)", "INNER/LEFT JOINs & subqueries"],
+            title: "Module 2: Relational SQL Querying & Multi-Table Joins",
+            lessonSummary: "Query production relational databases directly using SELECT, WHERE, GROUP BY, HAVING, LEFT/INNER JOINs, and subqueries to extract customer retention and revenue metrics.",
+            keyConcepts: ["Primary & Foreign Key Relationships", "GROUP BY & HAVING Aggregations", "INNER JOIN vs. LEFT JOIN"],
+            practicalTask: "Write 8 documented SQL queries answering customer churn, cohort retention, and regional revenue questions.",
+            deliverablePlaceholder: "Paste GitHub Gist / SQL Script Link for Module 2 Queries...",
             quiz: [
               { q: "Which SQL clause filters aggregated groups after GROUP BY?", options: ["WHERE", "HAVING", "ORDER BY"], ans: 1 },
               { q: "What does a LEFT JOIN return when there is no match in the right table?", options: ["Drops the row", "NULL values for right-table columns", "Throws an error"], ans: 1 }
             ]
           },
           {
-            title: "Module 4: Power BI Dashboards, Python & AI Workflows",
-            provider: "Microsoft Learn Power BI & Kaggle Pandas",
-            url: "https://learn.microsoft.com/en-us/training/powerplatform/power-bi",
-            intro: "Transform schemas with Power Query, build interactive Power BI dashboards, run Python Pandas cleaning, and apply AI copilots responsibly.",
-            topics: ["Power Query ETL & star-schema relationships", "Interactive Power BI dashboards & storytelling", "Python Pandas & AI-assisted reporting"],
+            title: "Module 3: Python Data Wrangling & Executive BI Dashboards",
+            lessonSummary: "Automate data cleaning with Python (Pandas) and design an interactive Power BI / Looker dashboard with star-schema relationships and executive storytelling.",
+            keyConcepts: ["Pandas DataFrame Cleaning (dropna / fillna)", "Star-Schema Data Modeling", "Executive KPI Dashboard Storytelling"],
+            practicalTask: "Build an interactive 2-page BI dashboard with at least 4 KPI cards, trend visuals, and written executive recommendations.",
+            deliverablePlaceholder: "Paste Power BI / Looker / Notebook Link for Module 3 Dashboard...",
             quiz: [
-              { q: "Which Power BI tool cleans and transforms data before loading into the data model?", options: ["Power Query Editor", "PowerPoint", "Windows Defender"], ans: 0 },
-              { q: "Which Pandas method removes rows with missing (NaN) values?", options: ["df.dropna()", "df.head()", "df.sort_values()"], ans: 0 }
+              { q: "Which Pandas method removes rows with missing (NaN) values?", options: ["df.dropna()", "df.head()", "df.sort_values()"], ans: 0 },
+              { q: "What should accompany every chart on an executive dashboard?", options: ["A clear business takeaway or decision recommendation", "Raw server logs", "Unfiltered 100,000-row tables"], ans: 0 }
             ]
           },
           {
-            title: "Module 5: Proctored Data Analytics Capstone & Executive Defense",
-            provider: "CareerBridge Africa Verification Lab",
-            url: "#submitCapstoneCard",
-            intro: "Submit your live Power BI/Python dashboard and SQL analysis repository for blind dual-assessor verification.",
+            title: "Module 4: Proctored Data Analysis Capstone & Executive Defense",
+            lessonSummary: "Deliver a full-lifecycle analysis of a 100,000-row fintech dataset under timed/proctored conditions with a 10-minute executive defense.",
             isCapstone: true
           }
         ],
-        capstoneBrief: "Analyze a 100,000-row Nigerian fintech transaction dataset using SQL + Excel/Python + Power BI, uncover 90-day churn drivers, and record a 10-minute executive defense.",
+        capstoneBrief: "Analyze a 100,000-row Nigerian mobile money transaction dataset using SQL + Python/Excel + BI Dashboards, identify 90-day churn predictors, and record a 10-minute executive defense.",
         rubric: "SQL/Python Accuracy (400 pts) • Business Insights (250 pts) • Dashboard Clarity (200 pts) • Executive Defense (150 pts)"
       },
 
       "TRK-03": {
-        partnerBadge: "Google UX Design • Figma Learn",
-        duration: "3 Months • Beginner to Intermediate",
+        pillar: "Pillar 1: Project-Centred Technical Training • Track 3 of 7",
+        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored Labs",
         salaryRange: "Nigeria: ₦5.5M–₦10M/yr • Remote/Global: $75k–$120k USD",
-        pathways: ["Product Designer", "UI/UX Designer", "UX Researcher", "Interaction Designer", "Design Systems Specialist"],
-        trackIntro: "Design intuitive, accessible, user-centered digital products from user research and Information Architecture to scalable Figma Design Systems and developer handoff.",
+        pathways: ["Product Designer", "UI/UX Designer", "UX Researcher", "Design Systems Specialist"],
+        trackIntro: "Design human-centered, accessible digital products validated by real user research—moving from empathy maps and Information Architecture to scalable Figma Design Systems.",
         outcomes: [
-          "Apply UI/UX principles including usability heuristics, WCAG accessibility, and interaction design.",
-          "Conduct user research, build personas, map user journeys, and architect Information Architecture.",
-          "Use Figma and FigJam to build wireframes, Auto Layout component systems, and interactive prototypes."
+          "Conduct qualitative user research, synthesize empathy maps, and structure Information Architecture.",
+          "Design accessible mobile-first wireframes meeting WCAG AA (4.5:1) contrast standards.",
+          "Build reusable Auto Layout component libraries and validate prototypes via 5-user usability tests."
         ],
         modules: [
           {
-            title: "Module 1: UX Research, Design Thinking & Information Architecture",
-            provider: "Google UX Design Certificate (Coursera)",
-            url: "https://www.coursera.org/professional-certificates/google-ux-design",
-            intro: "Conduct user interviews, build empathy maps and personas, and structure Information Architecture (IA) and user flows.",
-            topics: ["Design Thinking (Empathize, Define, Ideate, Prototype, Test)", "User interviews & empathy mapping", "Information Architecture (IA), sitemaps & user flows"],
+            title: "Module 1: UX Research, Empathy Mapping & Information Architecture",
+            lessonSummary: "Apply the 5-stage Design Thinking process (Empathize, Define, Ideate, Prototype, Test). Conduct user interviews, build personas, and architect clear sitemaps and user flows.",
+            keyConcepts: ["5 Stages of Design Thinking", "User Interviews & Empathy Maps", "Information Architecture (IA) & User Flows"],
+            practicalTask: "Publish a UX research pack containing 3 user interview summaries, 2 personas, and an end-to-end user flow diagram.",
+            deliverablePlaceholder: "Paste FigJam / Notion / Drive Link for Module 1 UX Research...",
             quiz: [
               { q: "What are the 5 stages of Design Thinking?", options: ["Empathize, Define, Ideate, Prototype, Test", "Code, Compile, Deploy, Market, Sell", "Sketch, Color, Export, Print, Archive"], ans: 0 },
               { q: "What does Information Architecture (IA) organize?", options: ["Content structure, navigation hierarchy, and labeling so users find features easily", "Server RAM allocation", "CSS animations"], ans: 0 }
@@ -315,31 +301,29 @@
           },
           {
             title: "Module 2: Wireframing, Visual Hierarchy & Accessibility (WCAG)",
-            provider: "Figma Official Design Course",
-            url: "https://help.figma.com/hc/en-us/categories/360002051613",
-            intro: "Build low-fidelity wireframes, establish typography and color systems, and enforce WCAG AA contrast standards.",
-            topics: ["Low-fidelity wireframing & layout hierarchy", "Typography, color theory & usability heuristics", "WCAG AA accessibility standards (4.5:1 contrast)"],
+            lessonSummary: "Translate user flows into low-fidelity wireframes, establish typography scales and color tokens, and enforce WCAG AA contrast accessibility for mobile devices.",
+            keyConcepts: ["Low-Fidelity Wireframing & Grid Alignment", "Visual Hierarchy & Typography Scales", "WCAG AA Contrast Compliance (4.5:1)"],
+            practicalTask: "Create an 8-screen low-fidelity wireframe flow in Figma with documented WCAG contrast checks.",
+            deliverablePlaceholder: "Paste Figma Wireframe File Link for Module 2...",
             quiz: [
               { q: "What minimum WCAG AA contrast ratio is required for standard body text?", options: ["4.5 : 1", "1.2 : 1", "2.0 : 1"], ans: 0 },
               { q: "Why test low-fidelity wireframes early?", options: ["Validate layout and flow rapidly before investing in high-fidelity UI", "Generate production JavaScript", "Compress PNGs"], ans: 0 }
             ]
           },
           {
-            title: "Module 3: High-Fidelity Components, Auto Layout & Usability Testing",
-            provider: "Figma Design Systems Guide",
-            url: "https://www.figma.com/resource-library/design-systems/",
-            intro: "Create reusable Figma component libraries with Auto Layout, build interactive prototypes, and run moderated usability tests.",
-            topics: ["Reusable Figma components, variants & Auto Layout", "Interactive prototyping & microinteractions", "Moderated usability testing & iteration"],
+            title: "Module 3: Auto Layout Component Systems & Usability Testing",
+            lessonSummary: "Build scalable Figma component variants with Auto Layout, wire interactive prototypes, and conduct 5 moderated usability tests to iterate your design.",
+            keyConcepts: ["Figma Auto Layout & Component Variants", "Interactive Prototyping & Microinteractions", "5-User Moderated Usability Testing"],
+            practicalTask: "Deliver a mini Design System (buttons, inputs, cards, nav) plus usability test notes from 5 test participants.",
+            deliverablePlaceholder: "Paste Figma Prototype & Test Report Link for Module 3...",
             quiz: [
               { q: "What does Figma Auto Layout enable?", options: ["Dynamic frames that resize and reflow automatically as content changes", "Automatic SQL table creation", "Audio transcription"], ans: 0 },
               { q: "How many users uncover ~80% of major usability bottlenecks in qualitative testing?", options: ["5 users", "1 user", "1,000 users"], ans: 0 }
             ]
           },
           {
-            title: "Module 4: End-to-End Product Prototype & Usability Capstone",
-            provider: "CareerBridge Africa Design Verification Lab",
-            url: "#submitCapstoneCard",
-            intro: "Submit your interactive Figma prototype, component system, and 5-user usability test synthesis.",
+            title: "Module 4: Proctored UI/UX Product Capstone & Executive Defense",
+            lessonSummary: "Present a complete, developer-ready Figma design system and clickable prototype backed by usability evidence.",
             isCapstone: true
           }
         ],
@@ -348,55 +332,53 @@
       },
 
       "TRK-04": {
-        partnerBadge: "Autodesk AutoCAD • Coursera CAD Pathways",
-        duration: "3 Months • Beginner to Intermediate",
+        pillar: "Pillar 1: Project-Centred Technical Training • Track 4 of 7",
+        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored CAD Labs",
         salaryRange: "Nigeria: ₦4.5M–₦8.5M/yr • Remote/Global: $60k–$95k USD",
         pathways: ["CAD Technician", "2D/3D AutoCAD Drafter", "Architectural & Engineering Drafter", "Technical Documentation Specialist"],
-        trackIntro: "Master precision 2D/3D Computer-Aided Design (CAD) drafting with AutoCAD—producing industry-standard architectural, structural, and mechanical engineering drawings.",
+        trackIntro: "Master precision 2D/3D Computer-Aided Design (CAD) drafting with AutoCAD—producing industry-standard architectural, structural, and mechanical engineering drawing sets.",
         outcomes: [
-          "Execute precision 2D geometric drafting using layers, blocks, constraints, and coordinate systems.",
-          "Annotate engineering drawings with ISO/BS compliant dimensions, tolerances, hatches, and title blocks.",
-          "Generate multi-view orthographic layouts, sections, and scaled plot sheets for construction and fabrication."
+          "Execute precision 2D geometric drafting using coordinate systems, OSNAP, and modify commands.",
+          "Organize multi-discipline drawings with standardized Layers, dynamic Blocks, and Xrefs.",
+          "Configure annotative dimensions, Paper Space viewports, and scaled engineering plot sheets."
         ],
         modules: [
           {
-            title: "Module 1: AutoCAD Workspace, Precision Coordinates & 2D Geometry",
-            provider: "Coursera — Autodesk AutoCAD Courses",
-            url: "https://www.coursera.org/courses?query=autocad",
-            intro: "Navigate the AutoCAD environment, configure drawing units, and master object snaps (OSNAP), polylines, arcs, and geometric modification tools.",
-            topics: ["Absolute, relative & polar coordinate entry", "Object Snaps (OSNAP) & Polar Tracking", "Drawing & modify tools (Trim, Extend, Offset, Fillet, Array)"],
+            title: "Module 1: AutoCAD Precision Coordinates & 2D Geometric Drafting",
+            lessonSummary: "Master absolute, relative, and polar coordinate entry, Object Snaps (OSNAP), Polar Tracking, and core construction/modify tools (Polyline, Trim, Extend, Offset, Fillet, Array).",
+            keyConcepts: ["Absolute, Relative & Polar Coordinates", "Object Snaps (OSNAP) & Polar Tracking", "Offset, Trim, Fillet & Array Commands"],
+            practicalTask: "Draft a precision 2D mechanical bracket and floor-plan perimeter to exact millimeter tolerances.",
+            deliverablePlaceholder: "Paste Google Drive DWG / PDF Link for Module 1 Drawing...",
             quiz: [
               { q: "What is the purpose of Object Snap (OSNAP) in AutoCAD?", options: ["Lock cursor accurately onto exact geometric points like endpoints, midpoints, and centers", "Export drawings to MP4", "Delete unused layers"], ans: 0 },
               { q: "Which command creates parallel copies of lines, circles, or polylines at a specified distance?", options: ["OFFSET", "EXPLODE", "PURGE"], ans: 0 }
             ]
           },
           {
-            title: "Module 2: Layer Management, Reusable Blocks & Xrefs",
-            provider: "Autodesk Official AutoCAD Overview & Docs",
-            url: "https://www.autodesk.com/products/autocad/overview",
-            intro: "Organize complex engineering drawings using standardized layer properties, dynamic blocks, attributes, and External References (Xrefs).",
-            topics: ["Layer naming standards, lineweights & linetypes", "Creating & editing dynamic Blocks with attributes", "Managing External References (Xrefs) for team collaboration"],
+            title: "Module 2: Layer Standards, Dynamic Blocks & Xref Collaboration",
+            lessonSummary: "Structure complex architectural and engineering drawings using ISO/AIA layer naming, lineweights, reusable dynamic Blocks with attributes, and External References (Xrefs).",
+            keyConcepts: ["Discipline Layer Naming & Lineweights", "Dynamic Blocks & Title Block Attributes", "External References (Xrefs)"],
+            practicalTask: "Create a standardized DWG template containing 12+ discipline layers and 6 reusable dynamic architectural/mechanical blocks.",
+            deliverablePlaceholder: "Paste Google Drive DWG Template Link for Module 2...",
             quiz: [
               { q: "Why organize drawing elements onto separate Layers in AutoCAD?", options: ["Control visibility, color, lineweight, and plotting independently across disciplines", "Increase file corruption", "Disable zooming"], ans: 0 },
               { q: "What is an External Reference (Xref)?", options: ["A linked DWG file referenced into a master drawing that updates automatically when modified", "A raster screenshot", "A printer driver"], ans: 0 }
             ]
           },
           {
-            title: "Module 3: Dimensioning, Tolerances, Paper Space & Plotting",
-            provider: "Autodesk Education & CAD Standards",
-            url: "https://www.autodesk.com/education/edu-software/overview",
-            intro: "Apply annotative dimensions, geometric tolerances, hatching, and configure Paper Space viewports for scaled PDF/DWG plotting.",
-            topics: ["Annotative text, leaders & dimension styles", "Section hatching & geometric tolerances", "Model Space vs. Paper Space viewports & scaled plotting"],
+            title: "Module 3: Annotative Dimensioning, Sections & Paper Space Plotting",
+            lessonSummary: "Apply annotative dimensions, tolerances, and section hatches, and configure scaled Paper Space layout viewports with title blocks for construction plotting.",
+            keyConcepts: ["Annotative Dimensions & Text Styles", "Section Hatching & Geometric Tolerances", "Model Space (1:1) vs. Paper Space Scaled Viewports"],
+            practicalTask: "Produce a 3-sheet plotted PDF + DWG package (Plan, Cross-Section, Detail Callout) at 1:50 and 1:20 scales.",
+            deliverablePlaceholder: "Paste Google Drive PDF/DWG Sheet Set Link for Module 3...",
             quiz: [
               { q: "What is the primary difference between Model Space and Paper Space (Layout)?", options: ["Model Space is drawn at 1:1 true scale; Paper Space arranges scaled viewports and title blocks for plotting", "Paper Space is only for 3D rendering", "Model Space cannot contain dimensions"], ans: 0 },
               { q: "What does an Annotative dimension automatically do when viewport scale changes?", options: ["Adjusts its display text height to remain readable on the plotted sheet", "Deletes itself", "Changes layer color to red"], ans: 0 }
             ]
           },
           {
-            title: "Module 4: Proctored AutoCAD Drafting Portfolio & Defense",
-            provider: "CareerBridge Africa Engineering Lab",
-            url: "#submitCapstoneCard",
-            intro: "Submit your complete multi-sheet DWG/PDF engineering drawing set for proctored verification.",
+            title: "Module 4: Proctored AutoCAD Drafting Capstone & Defense",
+            lessonSummary: "Submit your complete multi-sheet AutoCAD drafting package under proctored verification for CareerScore™ ≥ 700 employer matching.",
             isCapstone: true
           }
         ],
@@ -405,55 +387,53 @@
       },
 
       "TRK-05": {
-        partnerBadge: "Dassault Systèmes • SolidWorks • Coursera",
-        duration: "3 Months • Beginner to Intermediate",
+        pillar: "Pillar 1: Project-Centred Technical Training • Track 5 of 7",
+        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored CAD Labs",
         salaryRange: "Nigeria: ₦5.5M–₦10M/yr • Remote/Global: $75k–$115k USD",
         pathways: ["3D Mechanical Design Engineer", "SolidWorks CAD Specialist", "Product Development Engineer", "Manufacturing & Tooling Designer"],
-        trackIntro: "Master 3D parametric mechanical design with SolidWorks—building constraint-driven parts, kinematic assemblies, Finite Element Analysis (FEA) simulations, and manufacturing drawings.",
+        trackIntro: "Master 3D parametric mechanical design with SolidWorks—building fully defined parts, kinematic assemblies, Finite Element Analysis (FEA) simulations, and GD&T manufacturing drawings.",
         outcomes: [
-          "Create fully defined parametric 3D solid parts using sketches, features, and design tables.",
-          "Assemble multi-component mechanical systems with standard/advanced mates and interference detection.",
-          "Validate part strength with SolidWorks Simulation (FEA) and generate GD&T production drawings."
+          "Build fully defined parametric 3D solid parts using sketches, features, and design tables.",
+          "Assemble multi-component mechanical systems with mates and Interference Detection.",
+          "Validate part strength with static FEA (Factor of Safety) and output GD&T drawings + BOMs."
         ],
         modules: [
           {
-            title: "Module 1: Parametric Sketching & 3D Part Modeling",
-            provider: "SolidWorks Official Training & Tutorials",
-            url: "https://www.solidworks.com/support/training",
-            intro: "Master fully defined 2D sketches, geometric relations, Boss-Extrude, Revolve, Sweep, Loft, and FeatureManager design intent.",
-            topics: ["Fully defined sketches & geometric relations", "Extrude, Revolve, Sweep, Loft & Shell features", "Design intent & FeatureManager tree organization"],
+            title: "Module 1: Fully Defined Parametric Sketching & 3D Part Modeling",
+            lessonSummary: "Master geometric sketch relations, fully defined black-line sketches, Boss-Extrude, Revolve, Sweep, Loft, Shell, and FeatureManager design intent.",
+            keyConcepts: ["Fully Defined Sketches & Geometric Relations", "Extrude, Revolve, Sweep, Loft & Shell", "FeatureManager Tree & Design Intent"],
+            practicalTask: "Model 3 parametric mechanical components (shaft, flanged housing, bracket) that rebuild cleanly when key dimensions change.",
+            deliverablePlaceholder: "Paste Google Drive SLDPRT / STEP Pack Link for Module 1...",
             quiz: [
               { q: "Why should every 2D sketch in SolidWorks be 'Fully Defined' (black lines) before extruding?", options: ["Prevents unintended geometry shifts when dimensions are edited later", "Required to save the file", "Enables internet sync"], ans: 0 },
               { q: "Which feature creates a 3D solid by rotating a 2D profile around a centerline axis?", options: ["Revolved Boss/Base", "Fillet", "Linear Pattern"], ans: 0 }
             ]
           },
           {
-            title: "Module 2: Top-Down/Bottom-Up Assemblies & Interference Detection",
-            provider: "Coursera — SolidWorks 3D CAD Courses",
-            url: "https://www.coursera.org/courses?query=solidworks",
-            intro: "Build multi-part mechanical assemblies using concentric, coincident, distance, and gear mates, and verify clearances with Interference Detection.",
-            topics: ["Standard & mechanical mates (Concentric, Coincident, Gear)", "Sub-assemblies & Toolbox fasteners", "Interference Detection & clearance verification"],
+            title: "Module 2: Multi-Part Mechanical Assemblies & Interference Checks",
+            lessonSummary: "Combine components into kinematic assemblies using Concentric, Coincident, Distance, and Gear mates, and verify zero part collisions with Interference Detection.",
+            keyConcepts: ["Concentric, Coincident & Mechanical Mates", "Sub-Assemblies & Standard Fasteners", "Interference Detection & Clearance Checks"],
+            practicalTask: "Assemble an 8-part mechanical gearbox/vise assembly with working motion limits and a zero-interference verification report.",
+            deliverablePlaceholder: "Paste Google Drive SLDASM / Pack-and-Go Link for Module 2...",
             quiz: [
               { q: "Which mate aligns the cylindrical faces of a shaft and a bearing bore along a shared axis?", options: ["Concentric Mate", "Tangent Mate", "Symmetric Mate"], ans: 0 },
               { q: "What does Interference Detection check in a SolidWorks assembly?", options: ["Whether two or more solid components overlap or occupy the same physical volume", "Network latency", "File compression ratio"], ans: 0 }
             ]
           },
           {
-            title: "Module 3: SolidWorks Simulation (FEA), GD&T Drawings & BOM",
-            provider: "SolidWorks Simulation & Engineering Guide",
-            url: "https://www.solidworks.com/domain/simulation",
-            intro: "Run static stress FEA studies, verify Factor of Safety (FoS), and generate 2D engineering drawings with exploded views, balloons, and Bills of Materials.",
-            topics: ["Static stress FEA & Factor of Safety (FoS)", "2D production drawings, section views & GD&T tolerances", "Exploded assembly views & automated Bills of Materials (BOM)"],
+            title: "Module 3: Static Stress FEA Simulation, GD&T Drawings & BOM",
+            lessonSummary: "Apply material properties, fixtures, and loads to run static FEA stress simulations (verifying Factor of Safety > 1.0), and generate exploded 2D drawings with automated Bills of Materials.",
+            keyConcepts: ["Static Stress FEA & Factor of Safety (FoS)", "2D Production Drawings, Sections & GD&T", "Exploded Views & Bill of Materials (BOM)"],
+            practicalTask: "Run an FEA load simulation on your load-bearing part and generate a 2D assembly drawing with balloons and BOM table.",
+            deliverablePlaceholder: "Paste Google Drive FEA Report & SLDDRW PDF Link for Module 3...",
             quiz: [
               { q: "What does a Factor of Safety (FoS) > 1.0 indicate in a static stress FEA study?", options: ["Material yield strength exceeds maximum simulated stress", "The part fails immediately", "Zero load was applied"], ans: 0 },
               { q: "What does a Bill of Materials (BOM) table on an assembly drawing provide?", options: ["Itemized part numbers, descriptions, materials, and quantities required for manufacturing", "Software license terms", "Cloud server specs"], ans: 0 }
             ]
           },
           {
-            title: "Module 4: Proctored 3D Mechanical Assembly & FEA Capstone",
-            provider: "CareerBridge Africa Engineering Lab",
-            url: "#submitCapstoneCard",
-            intro: "Submit your SolidWorks assembly files, FEA stress report, and manufacturing BOM for dual-assessor verification.",
+            title: "Module 4: Proctored 3D Mechanical Design Capstone & Defense",
+            lessonSummary: "Submit your complete SolidWorks assembly, FEA verification study, and localized Nigerian manufacturing BOM.",
             isCapstone: true
           }
         ],
@@ -462,55 +442,53 @@
       },
 
       "TRK-06": {
-        partnerBadge: "Autodesk Revit • Coursera BIM • buildingSMART",
-        duration: "3 Months • Beginner to Intermediate",
+        pillar: "Pillar 1: Project-Centred Technical Training • Track 6 of 7",
+        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored BIM Labs",
         salaryRange: "Nigeria: ₦6.0M–₦11M/yr • Remote/Global: $80k–$125k USD",
         pathways: ["BIM Modeler / Coordinator", "Revit Architectural Designer", "Structural BIM Specialist", "Digital Construction Manager"],
-        trackIntro: "Master Building Information Modelling (BIM) with Autodesk Revit—creating data-rich 3D architectural and structural building models, schedules, clash checks, and construction documentation.",
+        trackIntro: "Master Building Information Modelling (BIM) with Autodesk Revit—creating data-rich 3D architectural and structural building models, live quantity schedules, clash checks, and construction sheets.",
         outcomes: [
-          "Model parametric building elements (walls, floors, roofs, curtain walls, structural columns) in Revit.",
-          "Create custom parametric Revit Families and extract automated material/quantity takeoff schedules.",
-          "Coordinate multi-discipline BIM models, run clash detection, and publish ISO 19650 compliant sheets."
+          "Model intelligent parametric building elements (walls, floors, roofs, columns) across datum Levels & Grids.",
+          "Author custom parametric Revit Families and extract live bidirectional quantity takeoff schedules.",
+          "Coordinate multi-discipline BIM models, resolve clashes, and publish IFC + construction sheet sets."
         ],
         modules: [
           {
-            title: "Module 1: BIM Principles, Levels, Grids & Architectural Modeling",
-            provider: "Coursera — Autodesk Revit & BIM Courses",
-            url: "https://www.coursera.org/courses?query=autodesk+revit",
-            intro: "Establish project datum levels and structural grids, and model walls, doors, windows, floors, stairs, and roofs in a coordinated 3D BIM environment.",
-            topics: ["BIM Levels of Development (LOD 100–400)", "Datum Levels, Grids & site topography", "Modeling walls, floors, roofs, stairs & curtain systems"],
+            title: "Module 1: BIM Datum Levels, Grids & Architectural/Structural Modeling",
+            lessonSummary: "Establish project datum Levels and structural Grids, and model parametric walls, doors, windows, floors, stairs, curtain walls, and structural framing in Revit.",
+            keyConcepts: ["BIM Levels of Development (LOD 100–400)", "Parametric Datum Levels & Structural Grids", "Walls, Floors, Roofs, Stairs & Curtain Systems"],
+            practicalTask: "Model a 2-storey structural and architectural building shell in Revit with accurate datum levels and grid coordinates.",
+            deliverablePlaceholder: "Paste Google Drive RVT / IFC Model Link for Module 1...",
             quiz: [
               { q: "How does Building Information Modelling (BIM) differ from traditional 2D CAD?", options: ["BIM uses intelligent, parametric 3D objects containing geometry plus material, cost, and schedule metadata", "BIM cannot generate floor plans", "BIM only works for electrical circuits"], ans: 0 },
               { q: "Why establish Levels and Grids before modeling walls and columns in Revit?", options: ["They act as parametric datum references that control element heights and alignment across views", "They disable 3D views", "They export to Excel automatically"], ans: 0 }
             ]
           },
           {
-            title: "Module 2: Parametric Revit Families & Quantity Takeoff Schedules",
-            provider: "Autodesk Revit Official Overview & Tools",
-            url: "https://www.autodesk.com/products/revit/overview",
-            intro: "Build custom parametric component Families using reference planes and parameters, and generate live door, window, and material takeoff schedules.",
-            topics: ["System Families vs. Loadable Families", "Reference planes, dimension parameters & family types", "Automated Room, Door & Material Takeoff Schedules"],
+            title: "Module 2: Custom Parametric Revit Families & Quantity Takeoffs",
+            lessonSummary: "Build loadable parametric component Families using reference planes and dimension parameters, and generate live bidirectional Door, Window, and Material Takeoff schedules.",
+            keyConcepts: ["System Families vs. Loadable Families", "Reference Planes & Flexing Parameters", "Bidirectional Material & Quantity Schedules"],
+            practicalTask: "Create 2 custom flexing Revit Families and generate a live concrete/blockwork/door quantity takeoff schedule.",
+            deliverablePlaceholder: "Paste Google Drive RFA Families & Schedule Export Link for Module 2...",
             quiz: [
               { q: "What happens when you edit a dimension in a Revit Schedule?", options: ["The corresponding 3D model element updates automatically across all plans, sections, and elevations", "The model becomes corrupted", "Only the text changes"], ans: 0 },
               { q: "What are Reference Planes used for when creating a custom Revit Family?", options: ["Define the parametric skeleton that controls geometry flexing", "Render photorealistic skies", "Compress PDF sheets"], ans: 0 }
             ]
           },
           {
-            title: "Module 3: Multi-Discipline Coordination, Clash Detection & Sheets",
-            provider: "Autodesk BIM Solutions & Standards",
-            url: "https://www.autodesk.com/solutions/bim",
-            intro: "Link architectural and structural models, perform interference/clash checks, and compile annotated construction drawing sets and IFC exports.",
-            topics: ["Linking Revit models & Copy/Monitor coordination", "Interference Check & clash resolution workflows", "Callouts, sections, sheet sets & IFC/PDF publishing"],
+            title: "Module 3: Multi-Discipline Clash Detection, Sheets & IFC Export",
+            lessonSummary: "Link architectural and structural models using Copy/Monitor, run Interference Checks to eliminate spatial clashes, and publish annotated construction sheet sets and IFC files.",
+            keyConcepts: ["Linked Models & Copy/Monitor Coordination", "Interference Check & Clash Resolution", "Annotated Construction Sheets & IFC OpenBIM Export"],
+            practicalTask: "Run a model Interference Check, resolve all clashes, and publish a 4-sheet construction PDF + IFC package.",
+            deliverablePlaceholder: "Paste Google Drive Clash Report & Sheet Set Link for Module 3...",
             quiz: [
               { q: "What is the purpose of an Interference Check (Clash Detection) in BIM?", options: ["Identify physical collisions between architectural, structural, and MEP elements before construction", "Delete unused views", "Change project north"], ans: 0 },
               { q: "Which open-standard file format enables BIM data exchange across different software platforms?", options: ["IFC (Industry Foundation Classes)", "MP3", "DOCX"], ans: 0 }
             ]
           },
           {
-            title: "Module 4: Proctored Revit BIM Architectural/Structural Capstone",
-            provider: "CareerBridge Africa Engineering Lab",
-            url: "#submitCapstoneCard",
-            intro: "Submit your coordinated Revit model, quantity schedules, and construction sheet set for proctored evaluation.",
+            title: "Module 4: Proctored Revit BIM Capstone & Executive Defense",
+            lessonSummary: "Submit your coordinated multi-storey BIM model, quantity takeoff schedules, and construction sheets for proctored evaluation.",
             isCapstone: true
           }
         ],
@@ -519,23 +497,23 @@
       },
 
       "TRK-07": {
-        partnerBadge: "Autodesk Revit MEP • Civil 3D • Coursera",
-        duration: "3 Months • Beginner to Intermediate",
+        pillar: "Pillar 1: Project-Centred Technical Training • Track 7 of 7",
+        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored Engineering Labs",
         salaryRange: "Nigeria: ₦6.0M–₦11.5M/yr • Remote/Global: $80k–$130k USD",
         pathways: ["MEP BIM Engineer", "HVAC & Plumbing Design Engineer", "Electrical Building Services Designer", "Civil Infrastructure CAD/BIM Specialist"],
-        trackIntro: "Master Mechanical, Electrical, and Plumbing (MEP) building systems and Civil site infrastructure design—routing ductwork, piping, electrical circuits, and storm/road grading.",
+        trackIntro: "Master Mechanical, Electrical, and Plumbing (MEP) building services and Civil site infrastructure design—routing HVAC ductwork, sloped drainage piping, electrical circuits, and site grading.",
         outcomes: [
-          "Design and route HVAC ductwork, domestic water/drainage piping, and fire-protection networks in Revit MEP.",
-          "Configure electrical lighting layouts, power distribution panels, and circuit load schedules.",
-          "Model civil site grading, road alignments, and stormwater drainage networks with clash-free MEP coordination."
+          "Design and route HVAC ductwork, domestic water/sloped sanitary piping, and fire-protection networks.",
+          "Configure electrical lighting layouts, distribution panels, and balanced circuit load schedules.",
+          "Model civil site grading, road alignments, and stormwater drainage with clash-free MEP coordination."
         ],
         modules: [
           {
-            title: "Module 1: Mechanical (HVAC) & Plumbing Systems Modeling",
-            provider: "Coursera — Revit MEP & Building Services",
-            url: "https://www.coursera.org/courses?query=revit+mep",
-            intro: "Configure mechanical spaces and zones, calculate heating/cooling airflows, and route supply/return ductwork and sanitary/domestic water piping.",
-            topics: ["Spaces, Zones & HVAC airflow sizing", "Ductwork routing, diffusers & mechanical equipment", "Domestic water supply, sanitary slope & fire piping"],
+            title: "Module 1: Mechanical (HVAC) & Sloped Plumbing Systems Modeling",
+            lessonSummary: "Define analytical Spaces and Zones, size HVAC airflows, and route supply/return ductwork alongside gravity-sloped sanitary drainage and domestic water piping.",
+            keyConcepts: ["Analytical Spaces, Zones & Airflow Sizing", "HVAC Supply/Return Ductwork & Diffusers", "Gravity-Sloped Sanitary & Domestic Water Piping"],
+            practicalTask: "Model a complete HVAC duct layout and sloped sanitary/domestic water piping network for a multi-room floor plate.",
+            deliverablePlaceholder: "Paste Google Drive Revit MEP Model Link for Module 1...",
             quiz: [
               { q: "Why must sanitary drainage pipes be modeled with a defined downward slope in Revit MEP?", options: ["Ensure gravity-driven flow and verify vertical clearance against structural beams", "Save hard drive space", "Change pipe color"], ans: 0 },
               { q: "What do Spaces and Zones define in an HVAC BIM model?", options: ["Analytical volumes used to calculate heating, cooling, and ventilation airflow loads", "External site boundaries", "Title block margins"], ans: 0 }
@@ -543,31 +521,29 @@
           },
           {
             title: "Module 2: Electrical Power Distribution, Lighting & Panel Schedules",
-            provider: "Autodesk Revit MEP Overview & Workflows",
-            url: "https://www.autodesk.com/products/revit/mep",
-            intro: "Place lighting fixtures, receptacles, and distribution boards, create electrical circuits, and generate balanced panelboard load schedules.",
-            topics: ["Lighting layouts & foot-candle/lux verification", "Power circuits, distribution panels & conduits", "Automated Panel Schedules & load balancing"],
+            lessonSummary: "Place lighting fixtures, power receptacles, and distribution panels, wire electrical circuits, and generate automated load-balanced Electrical Panel Schedules.",
+            keyConcepts: ["Lighting Layouts & Lux Verification", "Power Circuits, Conduits & Cable Trays", "Automated Electrical Panel Schedules"],
+            practicalTask: "Configure lighting and power circuits for two building zones and export a load-balanced Panelboard Schedule.",
+            deliverablePlaceholder: "Paste Google Drive Electrical Model & Panel Schedule Link for Module 2...",
             quiz: [
               { q: "What information does an automated Revit Electrical Panel Schedule track?", options: ["Connected circuit loads, phase balancing, breaker ratings, and total demand", "HVAC duct velocity", "Concrete curing time"], ans: 0 },
               { q: "Why model cable trays and main conduit runs in 3D?", options: ["Prevent spatial clashes with HVAC ducts and structural steel in ceiling plenums", "Increase rendering brightness", "Disable circuit numbering"], ans: 0 }
             ]
           },
           {
-            title: "Module 3: Civil Infrastructure Grading, Drainage & MEP Clash Coordination",
-            provider: "Autodesk Civil 3D & Infrastructure Design",
-            url: "https://www.autodesk.com/products/civil-3d/overview",
-            intro: "Design site surfaces, road corridors, and stormwater drainage networks, and run full multi-service MEP + Structural clash resolution.",
-            topics: ["Digital Terrain Models (DTM), site grading & alignments", "Stormwater & utility pipe networks", "Multi-service MEP/Structural clash detection & coordination"],
+            title: "Module 3: Civil Site Grading, Drainage & Multi-Service Clash Resolution",
+            lessonSummary: "Build Digital Terrain Models (DTM), design access road grading and stormwater pipe networks, and resolve all MEP-vs-Structure ceiling plenum clashes.",
+            keyConcepts: ["Digital Terrain Models (DTM) & Site Grading", "Stormwater & Utility Pipe Networks", "Multi-Service MEP/Structural Clash Resolution"],
+            practicalTask: "Deliver a graded civil site drainage plan integrated with a clash-free coordinated MEP ceiling plenum model.",
+            deliverablePlaceholder: "Paste Google Drive Civil & Coordinated MEP Package Link for Module 3...",
             quiz: [
               { q: "What does a Digital Terrain Model (DTM / TIN Surface) represent in Civil design?", options: ["3D elevation contours and slope geometry of existing or proposed site topography", "Indoor lighting fixture types", "Electrical circuit breakers"], ans: 0 },
               { q: "Which building service usually takes routing priority in congested ceiling plenums during clash resolution?", options: ["Gravity-sloped sanitary/storm pipes and large main HVAC ducts", "Flexible data cables", "Paint finishes"], ans: 0 }
             ]
           },
           {
-            title: "Module 4: Proctored MEP & Civil Infrastructure Design Capstone",
-            provider: "CareerBridge Africa Engineering Lab",
-            url: "#submitCapstoneCard",
-            intro: "Submit your coordinated MEP + Civil model, panel/equipment schedules, and clash-free construction drawings.",
+            title: "Module 4: Proctored MEP & Civil Infrastructure Capstone & Defense",
+            lessonSummary: "Submit your clash-free MEP + Civil model, panel/equipment schedules, and construction drawings for blind dual-assessor verification.",
             isCapstone: true
           }
         ],
@@ -591,14 +567,17 @@
     }
 
     function getModuleProgress(trackId, moduleCount) {
-      const key = `cb_gate_${currentUser.id}_${trackId}`;
+      const key = `cb_native_${currentUser.id}_${trackId}`;
       const saved = JSON.parse(localStorage.getItem(key) || "null");
       if (saved && Array.isArray(saved.passed) && saved.passed.length >= moduleCount) return saved;
-      return { passed: new Array(moduleCount).fill(false) };
+      return {
+        passed: new Array(moduleCount).fill(false),
+        artifacts: new Array(moduleCount).fill("")
+      };
     }
 
     function saveModuleProgress(trackId, state) {
-      const key = `cb_gate_${currentUser.id}_${trackId}`;
+      const key = `cb_native_${currentUser.id}_${trackId}`;
       localStorage.setItem(key, JSON.stringify(state));
     }
 
@@ -616,7 +595,7 @@
       const badge = document.getElementById("connBadge");
       if (online) {
         badge.className = "text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
-        badge.textContent = "● Online Sync Active";
+        badge.textContent = "● Low-Data Mode • Sync Active";
         syncOfflineQueue();
       } else {
         badge.className = "text-xs px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30";
@@ -731,7 +710,7 @@
     }
 
     // =========================================================================
-    // 2. LEARNER WORKSPACE
+    // 2. LEARNER WORKSPACE (SELF-CONTAINED LESSONS + PRACTICAL OUTPUT GATES)
     // =========================================================================
     async function renderLearnerWorkspace() {
       const container = document.getElementById("workspaceContent");
@@ -784,15 +763,14 @@
         const latestScore = (scores || []).find(s => s.track_id === activeTrack.id);
 
         const stageIndex = latestScore ? 4 : latestSub ? (latestSub.status === "under_dual_review" ? 3 : 2) : allModulesPassedForActive ? 1 : 0;
-        const stages = ["1. Enrol", `2. Pass Modules 1–${prereqCount}`, "3. Capstone Queued", "4. Dual Grading", "5. CareerScore™"];
+        const stages = ["1. Enrol", `2. Practical Modules 1–${prereqCount}`, "3. Capstone Queued", "4. Dual Grading", "5. CareerScore™"];
 
         roadmapHtml = `
           <div class="bg-white rounded-xl border border-slate-200 p-5 space-y-5">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
               <div>
                 <div class="flex flex-wrap items-center gap-2">
-                  <span class="text-[11px] font-bold uppercase text-amber-700">Track Syllabus & Career Blueprint</span>
-                  <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">${curr.partnerBadge}</span>
+                  <span class="text-[11px] font-bold uppercase text-amber-700">${curr.pillar}</span>
                 </div>
                 <h3 class="font-bold text-lg mt-0.5">${activeTrack.code}: ${activeTrack.title}</h3>
                 <p class="text-xs text-slate-500">${curr.duration} • ${curr.salaryRange}</p>
@@ -803,10 +781,10 @@
               }
             </div>
 
-            <!-- Course Overview, Learning Outcomes & Career Pathways -->
+            <!-- Track Overview, Learning Outcomes & Career Pathways -->
             <div class="bg-slate-900 text-slate-100 rounded-xl p-4 space-y-3 text-xs leading-relaxed">
               <div>
-                <div class="text-[10px] font-bold uppercase tracking-wider text-amber-400 mb-1">Course Overview</div>
+                <div class="text-[10px] font-bold uppercase tracking-wider text-amber-400 mb-1">Track Overview (Observable Competence Model)</div>
                 <p>${curr.trackIntro}</p>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 border-t border-slate-800">
@@ -834,84 +812,93 @@
               `).join("")}
             </div>
 
-            <!-- Sequential Gated Modules -->
+            <!-- Self-Contained Sequential Modules (No External Redirects) -->
             <div class="space-y-3">
               <div class="text-xs font-bold text-slate-700">
-                Sequential Curriculum (${curr.modules.length} Modules — Pass each module's checkpoint to unlock the next):
+                Native Project-Centred Modules (Study Lesson → Submit Practical Output → Pass Gate to Unlock Next):
               </div>
 
               ${curr.modules.map((mod, i) => {
                 const isUnlocked = isEnrolled && (i === 0 || progress.passed[i - 1]);
                 const isPassed = !mod.isCapstone ? progress.passed[i] : Boolean(latestSub || latestScore);
-                const isQuizOpen = activeQuizModule === `${activeTrack.id}_${i}`;
+                const isLessonOpen = openLessonModule === `${activeTrack.id}_${i}` || (isUnlocked && !isPassed && !mod.isCapstone);
+                const savedArtifact = !mod.isCapstone ? (progress.artifacts[i] || "") : "";
 
                 return `
-                  <div class="p-4 rounded-xl border ${isPassed ? "border-emerald-300 bg-emerald-50/40" : isUnlocked ? "border-slate-300 bg-white" : "border-slate-200 bg-slate-50 opacity-85"} space-y-3">
-                    <div class="flex flex-wrap items-start justify-between gap-2 text-xs">
-                      <div class="space-y-1 flex-1">
-                        <div class="flex flex-wrap items-center gap-2">
-                          <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded ${isPassed ? "bg-emerald-600 text-white" : isUnlocked ? "bg-amber-100 text-amber-900" : "bg-slate-200 text-slate-600"}">
-                            ${isPassed ? "✓ Passed" : isUnlocked ? "Unlocked" : "🔒 Locked"}
-                          </span>
-                          <span class="font-bold text-sm text-slate-900">${mod.title}</span>
-                        </div>
-                        <div class="text-[11px] font-medium text-slate-600">Partner Lab: <strong>${mod.provider}</strong></div>
+                  <div class="p-4 rounded-xl border ${isPassed ? "border-emerald-300 bg-emerald-50/40" : isUnlocked ? "border-slate-300 bg-white" : "border-slate-200 bg-slate-50 opacity-80"} space-y-3">
+                    <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+                      <div class="flex flex-wrap items-center gap-2">
+                        <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded ${isPassed ? "bg-emerald-600 text-white" : isUnlocked ? "bg-amber-100 text-amber-900" : "bg-slate-200 text-slate-600"}">
+                          ${isPassed ? "✓ Practical Output Verified" : isUnlocked ? "Unlocked" : "🔒 Locked"}
+                        </span>
+                        <span class="font-bold text-sm text-slate-900">${mod.title}</span>
                       </div>
 
-                      <div class="flex items-center gap-2 shrink-0">
+                      <div class="flex items-center gap-2">
                         ${!isUnlocked ? `
                           <span class="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded">
-                            ${!isEnrolled ? "Enrol first" : `Pass Module ${i} to unlock`}
+                            ${!isEnrolled ? "Enrol first" : `Complete Module ${i} practical output first`}
                           </span>
                         ` : mod.isCapstone ? `
                           <a href="#submitCapstoneCard" class="text-[11px] font-bold px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 hover:bg-amber-600">
-                            Submit Capstone ↓
+                            Submit Final Capstone ↓
                           </a>
                         ` : `
-                          <a href="${mod.url}" target="_blank" rel="noopener" class="text-[11px] font-semibold px-2.5 py-1.5 rounded-lg bg-slate-100 text-slate-800 hover:bg-slate-200 border border-slate-300">
-                            1. Open Partner Course ↗
-                          </a>
-                          <button onclick="openModuleGate('${activeTrack.id}', ${i})" class="text-[11px] font-bold px-2.5 py-1.5 rounded-lg ${isPassed ? "bg-emerald-700 text-white" : "bg-slate-900 text-white hover:bg-slate-700"}">
-                            ${isPassed ? "Re-verify Gate" : "2. Pass Module Gate"}
+                          <button onclick="toggleLessonDrawer('${activeTrack.id}', ${i})" class="text-[11px] font-bold px-3 py-1.5 rounded-lg bg-slate-900 text-white hover:bg-slate-700">
+                            ${isLessonOpen ? "Hide Lesson & Lab" : "Open Lesson & Practical Lab"}
                           </button>
                         `}
                       </div>
                     </div>
 
-                    <!-- Module Overview & Syllabus Topics -->
-                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-200/80 text-xs space-y-2">
-                      <p class="text-slate-700 leading-relaxed"><strong>Module Brief:</strong> ${mod.intro}</p>
-                      ${mod.topics ? `
-                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-1 text-[11px] text-slate-600 pt-1">
-                          ${mod.topics.map(tp => `<li class="flex items-start gap-1.5"><span class="text-amber-600 font-bold">•</span><span>${tp}</span></li>`).join("")}
-                        </ul>
-                      ` : ""}
-                    </div>
-
-                    ${isQuizOpen && mod.quiz ? `
-                      <div class="bg-amber-50/80 p-3.5 rounded-lg border border-amber-300 space-y-3 text-xs">
-                        <div class="font-bold text-slate-900">Module ${i + 1} Mastery Gate (100% Required to Unlock Module ${i + 2}):</div>
-                        ${mod.quiz.map((item, qIdx) => `
-                          <div class="space-y-1">
-                            <div class="font-semibold text-slate-800">${qIdx + 1}. ${item.q}</div>
-                            <div class="space-y-1 pl-2">
-                              ${item.options.map((opt, oIdx) => `
-                                <label class="flex items-center gap-2 cursor-pointer text-slate-700">
-                                  <input type="radio" name="q_${activeTrack.id}_${i}_${qIdx}" value="${oIdx}" />
-                                  <span>${opt}</span>
-                                </label>
-                              `).join("")}
-                            </div>
-                          </div>
-                        `).join("")}
-                        <div class="flex gap-2 pt-1">
-                          <button onclick="gradeModuleGate('${activeTrack.id}', ${i})" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-lg">
-                            Verify & Unlock Next Module
-                          </button>
-                          <button onclick="closeModuleGate()" class="bg-white border border-slate-300 text-slate-700 px-3 py-1.5 rounded-lg">
-                            Cancel
-                          </button>
+                    <!-- Built-In CareerBridge Lesson, Practical Deliverable & Assessment Gate -->
+                    ${isUnlocked && isLessonOpen && !mod.isCapstone ? `
+                      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3 text-xs">
+                        <div>
+                          <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">CareerBridge Native Lesson Brief</div>
+                          <p class="text-slate-800 leading-relaxed">${mod.lessonSummary}</p>
                         </div>
+
+                        <div class="flex flex-wrap gap-1.5">
+                          ${mod.keyConcepts.map(kc => `<span class="text-[11px] font-semibold px-2.5 py-0.5 rounded bg-white border border-slate-200 text-slate-700">• ${kc}</span>`).join("")}
+                        </div>
+
+                        <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 space-y-1">
+                          <div class="font-bold text-amber-950">Required Practical Deliverable (Section 2.1.2):</div>
+                          <p class="text-amber-900">${mod.practicalTask}</p>
+                        </div>
+
+                        <!-- Step 1: Practical Output URL -->
+                        <div class="space-y-1">
+                          <label class="block font-bold text-slate-800">1. Submit Your Module ${i + 1} Practical Output Link:</label>
+                          <input type="url" id="modArtifact_${activeTrack.id}_${i}" value="${savedArtifact}" placeholder="${mod.deliverablePlaceholder}" class="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg bg-white" />
+                        </div>
+
+                        <!-- Step 2: Technical Readiness Gate -->
+                        <div class="space-y-2 pt-1 border-t border-slate-200">
+                          <div class="font-bold text-slate-800">2. Module ${i + 1} Technical Verification Check (100% Required):</div>
+                          ${mod.quiz.map((item, qIdx) => `
+                            <div class="space-y-1">
+                              <div class="font-semibold text-slate-700">${qIdx + 1}. ${item.q}</div>
+                              <div class="space-y-1 pl-2">
+                                ${item.options.map((opt, oIdx) => `
+                                  <label class="flex items-center gap-2 cursor-pointer text-slate-700">
+                                    <input type="radio" name="q_${activeTrack.id}_${i}_${qIdx}" value="${oIdx}" />
+                                    <span>${opt}</span>
+                                  </label>
+                                `).join("")}
+                              </div>
+                            </div>
+                          `).join("")}
+                        </div>
+
+                        <button onclick="verifyModuleOutputAndGate('${activeTrack.id}', ${i})" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-lg">
+                          Save Practical Output & Unlock Module ${i + 2}
+                        </button>
+                      </div>
+                    ` : isPassed && savedArtifact ? `
+                      <div class="text-[11px] text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded border border-emerald-200">
+                        ✓ Practical Output Recorded: <a href="${savedArtifact}" target="_blank" class="underline font-mono">${savedArtifact}</a>
                       </div>
                     ` : ""}
                   </div>
@@ -921,7 +908,7 @@
 
             <!-- Capstone Brief & Rubric -->
             <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 space-y-1.5 text-xs">
-              <div class="font-bold text-slate-900">Proctored Capstone Brief (Unlocks After Module ${prereqCount}):</div>
+              <div class="font-bold text-slate-900">Proctored Final Capstone Brief (Unlocks After Module ${prereqCount}):</div>
               <p class="text-slate-600">${curr.capstoneBrief}</p>
               <div class="pt-1 text-[11px] font-semibold text-amber-900">1,000-Pt Rubric: ${curr.rubric}</div>
             </div>
@@ -938,14 +925,14 @@
             <div>
               <div class="flex justify-between items-center gap-1">
                 <span class="text-[11px] font-mono text-slate-500">${t.code}</span>
-                <span class="text-[10px] font-semibold text-slate-500">${curr.modules.length} Modules</span>
+                <span class="text-[10px] font-semibold text-slate-500">${curr.modules.length} Practical Modules</span>
               </div>
               <h4 class="font-bold text-sm mt-0.5">${t.title}</h4>
               <p class="text-xs text-slate-600 mt-1">Tuition: <strong>₦${Number(t.fee_ngn).toLocaleString()}</strong> (Pilot Waiver Active)</p>
             </div>
             <div class="mt-4 flex gap-2">
               <button onclick="viewTrackSyllabus('${t.id}')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 rounded-lg">
-                View Syllabus
+                View Curriculum
               </button>
               ${existing
                 ? `<span class="flex-1 text-center text-xs font-semibold py-2 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Enrolled</span>`
@@ -965,7 +952,7 @@
           <p class="text-xs text-emerald-800 mt-1">${s.readiness_tier}</p>
           <p class="text-[11px] font-mono text-emerald-700 mt-2">Verify URL: careerbridge.africa/verify/${s.portfolio_slug}</p>
         </div>
-      `).join("") || `<p class="text-xs text-slate-500">No verified CareerScores yet. Pass all prerequisite modules and submit your capstone below.</p>`;
+      `).join("") || `<p class="text-xs text-slate-500">No verified CareerScores yet. Complete Modules 1–3 practical outputs and submit your capstone below.</p>`;
 
       container.innerHTML = `
         <div class="lg:col-span-2 space-y-6">
@@ -984,7 +971,7 @@
 
           <div id="submitCapstoneCard" class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
             <div class="flex items-center justify-between">
-              <h3 class="font-bold text-sm">Submit Capstone Artifact</h3>
+              <h3 class="font-bold text-sm">Submit Final Capstone Portfolio</h3>
               <span class="text-[10px] font-bold px-2 py-0.5 rounded ${allModulesPassedForActive ? "bg-emerald-100 text-emerald-800" : "bg-slate-200 text-slate-600"}">
                 ${allModulesPassedForActive ? "Unlocked" : "🔒 Locked"}
               </span>
@@ -992,27 +979,29 @@
             <select id="submitEnrolmentId" onchange="onSubmissionTrackChange(this.value)" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
               ${(enrolments || []).map(e => `<option value="${e.id}|${e.track_id}" ${activeTrack && e.track_id === activeTrack.id ? "selected" : ""}>${e.tracks?.title}</option>`).join("") || `<option value="">Enrol in a track first</option>`}
             </select>
-            <input type="url" id="artifactLink" placeholder="GitHub Repo / Figma / Drive CAD / Revit Model URL" class="w-full text-xs border border-slate-300 rounded-lg p-2" />
+            <input type="url" id="artifactLink" placeholder="Capstone Repo / Figma / Drive CAD / Revit Model URL" class="w-full text-xs border border-slate-300 rounded-lg p-2" />
             <input type="url" id="defenseLink" placeholder="10-Min Executive Defense Video URL" class="w-full text-xs border border-slate-300 rounded-lg p-2" />
             <button onclick="submitCapstoneArtifact()" class="w-full ${allModulesPassedForActive ? "bg-amber-500 hover:bg-amber-600 text-slate-950" : "bg-slate-300 text-slate-600 cursor-not-allowed"} font-bold text-xs py-2 rounded-lg">
-              ${allModulesPassedForActive ? "Submit for Proctored Verification" : "Pass All Prerequisite Modules to Unlock"}
+              ${allModulesPassedForActive ? "Submit for Proctored Verification" : "Complete Modules 1–3 Practical Outputs First"}
             </button>
           </div>
         </div>
       `;
     }
 
-    function openModuleGate(trackId, modIndex) {
-      activeQuizModule = `${trackId}_${modIndex}`;
+    function toggleLessonDrawer(trackId, modIndex) {
+      const key = `${trackId}_${modIndex}`;
+      openLessonModule = openLessonModule === key ? null : key;
       renderLearnerWorkspace();
     }
 
-    function closeModuleGate() {
-      activeQuizModule = null;
-      renderLearnerWorkspace();
-    }
+    async function verifyModuleOutputAndGate(trackId, modIndex) {
+      const artifactInput = document.getElementById(`modArtifact_${trackId}_${modIndex}`);
+      const artifactUrl = artifactInput ? artifactInput.value.trim() : "";
+      if (!artifactUrl) {
+        return alert(`Per Section 2.1.2, every module requires a practical output. Please paste a link to your Module ${modIndex + 1} deliverable (GitHub, Google Drive, Figma, or Sheet URL) before verifying.`);
+      }
 
-    async function gradeModuleGate(trackId, modIndex) {
       const { data: tracks } = await sbClient.from("tracks").select("*").eq("id", trackId);
       const track = tracks?.[0];
       if (!track) return;
@@ -1029,18 +1018,20 @@
       }
 
       if (correct < quiz.length) {
-        return alert(`You scored ${correct}/${quiz.length}. You must pass all checkpoint questions (100%) to unlock the next module. Review the module brief and partner course, then try again!`);
+        return alert(`You scored ${correct}/${quiz.length} on the technical check. Review the CareerBridge lesson brief above and answer all questions correctly to unlock the next module.`);
       }
 
       const state = getModuleProgress(trackId, prereqCount);
       state.passed[modIndex] = true;
+      state.artifacts[modIndex] = artifactUrl;
       saveModuleProgress(trackId, state);
-      activeQuizModule = null;
 
       if (modIndex < prereqCount - 1) {
-        alert(`Module ${modIndex + 1} Passed! Module ${modIndex + 2} is now unlocked.`);
+        openLessonModule = `${trackId}_${modIndex + 1}`;
+        alert(`Module ${modIndex + 1} Practical Output Verified! Module ${modIndex + 2} is now unlocked.`);
       } else {
-        alert(`All ${prereqCount} Prerequisite Modules Passed! Your Proctored Capstone Submission is now unlocked.`);
+        openLessonModule = null;
+        alert(`All ${prereqCount} Module Practical Outputs Verified! Your Final Proctored Capstone Submission is now unlocked.`);
       }
       renderLearnerWorkspace();
     }
@@ -1054,12 +1045,13 @@
 
     function viewTrackSyllabus(trackId) {
       selectedTrackId = trackId;
-      activeQuizModule = null;
+      openLessonModule = null;
       renderLearnerWorkspace();
     }
 
     async function enrolInPilotTrack(trackId, trackTitle) {
       selectedTrackId = trackId;
+      openLessonModule = `${trackId}_0`;
       const { error } = await sbClient.from("enrolments").upsert({
         learner_id: currentUser.id,
         track_id: trackId,
@@ -1082,12 +1074,12 @@
       const progress = getModuleProgress(trackId, prereqCount);
 
       if (!progress.passed.slice(0, prereqCount).every(Boolean)) {
-        return alert(`Sequential Mastery Gate: You must complete and pass Modules 1–${prereqCount} before submitting your capstone artifact.`);
+        return alert(`Sequential Mastery Gate: You must submit practical outputs and pass Modules 1–${prereqCount} before submitting your final capstone.`);
       }
 
       const artifactUrl = document.getElementById("artifactLink").value.trim();
       const defenseUrl = document.getElementById("defenseLink").value.trim();
-      if (!artifactUrl) return alert("Please provide your capstone artifact link.");
+      if (!artifactUrl) return alert("Please provide your final capstone artifact link.");
 
       const payload = {
         enrolment_id: enrolmentId,
@@ -1107,7 +1099,7 @@
 
       const { error } = await sbClient.from("submissions").insert(payload);
       if (error) return alert(error.message);
-      alert("Capstone submitted! Switch to '2. Assessor Queue' in the top yellow sandbox bar to test grading.");
+      alert("Capstone submitted! Switch to '2. Assessor Queue' in the top yellow sandbox bar to test dual-assessor grading.");
       renderLearnerWorkspace();
     }
 
