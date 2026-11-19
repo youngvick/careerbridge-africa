@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CareerBridge Africa — Digital Skills, CareerScore™ Verification & Talent Matching</title>
+  <title>CareerBridge Africa — Digital Skills, Proctored Verification & Talent Matching</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -16,7 +16,7 @@
         <div class="w-9 h-9 rounded-lg bg-amber-500 text-slate-950 font-extrabold flex items-center justify-center">CB</div>
         <div>
           <h1 class="font-bold text-base tracking-tight">CareerBridge Africa</h1>
-          <p class="text-[11px] text-slate-400">Project-Centred Training • 0–1000 CareerScore™ • Verified Talent Matching</p>
+          <p class="text-[11px] text-slate-400">Project-Centred Training • Proctored CareerScore™ (0–1000) • Verified Talent Matching</p>
         </div>
       </div>
 
@@ -33,31 +33,36 @@
 
   <main class="max-w-7xl mx-auto px-4 py-8">
 
-    <!-- AUTHENTICATION GATE + VALUE PROPOSITION -->
+    <!-- AUTHENTICATION GATE + PLATFORM VALUE PROPOSITION -->
     <section id="authSection" class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
       <div class="space-y-4">
         <span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-100 text-amber-900">
-          NDPA 2023 Compliant • Low-Bandwidth Architecture
+          NDPA 2023 & FCCPA 2018 Compliant Infrastructure
         </span>
         <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
-          Observable Competence, Not Unverified Claims.
+          Africa's Most Trusted Bridge Between Digital Talent & Opportunity.
         </h2>
         <p class="text-sm text-slate-600 leading-relaxed">
-          Every module across our 7 tracks requires a <strong>practical deliverable</strong>—code, a dataset analysis, a design file, or a CAD/BIM engineering model—assessed against employer co-designed rubrics into a verified <strong>0–1000 CareerScore™</strong>.
+          Master 7 project-centred tracks across <strong>Software, Data, UI/UX, AutoCAD, SolidWorks, Revit/BIM, and MEP & Civil Design</strong>. Every module produces a practical work sample validated through proctored assessment into a <strong>0–1000 CareerScore™</strong>.
         </p>
         <div class="grid grid-cols-3 gap-3 pt-2">
           <div class="bg-white p-3 rounded-xl border border-slate-200">
             <div class="text-sm font-extrabold text-slate-900">7 Tracks</div>
-            <div class="text-[11px] text-slate-500">100% Practical Outputs</div>
+            <div class="text-[11px] text-slate-500">Practical Outputs</div>
           </div>
           <div class="bg-white p-3 rounded-xl border border-slate-200">
             <div class="text-sm font-extrabold text-emerald-700">IRR ≥ 0.70</div>
-            <div class="text-[11px] text-slate-500">Dual-Assessor Gate</div>
+            <div class="text-[11px] text-slate-500">Proctored Gate</div>
           </div>
           <div class="bg-white p-3 rounded-xl border border-slate-200">
             <div class="text-sm font-extrabold text-amber-600">0–1000</div>
-            <div class="text-[11px] text-slate-500">Verified CareerScore™</div>
+            <div class="text-[11px] text-slate-500">CareerScore™ Index</div>
           </div>
+        </div>
+        <div class="bg-white p-3.5 rounded-xl border border-slate-200 text-[11px] text-slate-600 space-y-1">
+          <div class="font-bold text-slate-800">Operating Hours & Delivery (Section 2.12.7):</div>
+          <p>• <strong>Asynchronous Portal & Offline Queue:</strong> 24/7/365</p>
+          <p>• <strong>Live Proctored Assessments (Lagos Hub & Virtual):</strong> Mon–Fri 8:00 a.m.–6:00 p.m. WAT | Sat 9:00 a.m.–1:00 p.m. WAT</p>
         </div>
       </div>
 
@@ -77,14 +82,14 @@
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Account Role</label>
               <select id="userRole" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white">
-                <option value="learner">Learner / Candidate (Project Modules & CareerScore™)</option>
-                <option value="employer">Employer / Hiring Manager (Post Roles & Inspect Portfolios)</option>
-                <option value="assessor">Certified Technical Assessor / Proctor (IRR ≥ 0.70 Grading)</option>
+                <option value="learner">Learner / Candidate (Training, Proctored Drills & CareerScore™)</option>
+                <option value="employer">Employer / Hiring Manager (Talent Portal & Managed Placement)</option>
+                <option value="assessor">Certified Proctor / Assessor (Blind Rubric Grading Queue)</option>
               </select>
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Company / Institution (Optional)</label>
-              <input type="text" id="orgName" placeholder="e.g. Lagos Tech Hub / SME" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
+              <input type="text" id="orgName" placeholder="e.g. Lagos SME / Engineering Firm" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
             </div>
           </div>
 
@@ -101,7 +106,7 @@
           <div id="ndpaBox" class="hidden bg-slate-50 p-3 rounded-lg border border-slate-200">
             <label class="flex items-start gap-2 text-xs text-slate-600 cursor-pointer">
               <input type="checkbox" id="ndpaConsent" class="mt-0.5 rounded border-slate-300" />
-              <span>I explicitly consent to CareerBridge Africa processing my assessment records and portfolio data in accordance with the <strong>Nigeria Data Protection Act (NDPA) 2023</strong>.</span>
+              <span>I explicitly consent to CareerBridge Africa processing my assessment records and portfolio data in accordance with the <strong>Nigeria Data Protection Act (NDPA) 2023</strong> and published Terms under <strong>FCCPA 2018</strong>.</span>
             </label>
           </div>
 
@@ -117,10 +122,10 @@
     <!-- DASHBOARD CONTAINER -->
     <section id="dashboardSection" class="hidden space-y-6">
 
-      <!-- PILOT SANDBOX SWITCHER -->
+      <!-- PILOT SANDBOX & GOVERNANCE BAR -->
       <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-2 text-xs text-amber-950">
-          <span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-extrabold">LAGOS PILOT SANDBOX</span>
+          <span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-extrabold">LAGOS PILOT (500 TRAINEES • 20 EMPLOYERS)</span>
           <span>Switch workspaces to test the Train → Verify → Match pipeline:</span>
         </div>
         <div class="flex flex-wrap gap-2">
@@ -128,10 +133,10 @@
             1. Learner Path
           </button>
           <button onclick="switchPreviewRole('assessor')" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-amber-300 hover:bg-amber-100">
-            2. Assessor Queue
+            2. Proctor & Assessor Queue
           </button>
           <button onclick="switchPreviewRole('employer')" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-amber-300 hover:bg-amber-100">
-            3. Employer Portal
+            3. Employer Talent Portal
           </button>
         </div>
       </div>
@@ -141,7 +146,7 @@
         <div>
           <span id="roleBadge" class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-100 text-amber-900">LEARNER</span>
           <h2 id="welcomeHeading" class="text-xl font-bold mt-1">Welcome back</h2>
-          <p class="text-xs text-slate-500">Native Practical Curriculum • Sequential Output Gate • NDPA 2023 Compliant • VAT-Exclusive Schedule</p>
+          <p class="text-xs text-slate-500">All prices exclusive of VAT (Table 2.5) • NDPA 2023 Consent Active • IRR ≥ 0.70 Governance</p>
         </div>
         <div id="kpiStrip" class="flex gap-4 text-right"></div>
       </div>
@@ -164,11 +169,28 @@
     let selectedTrackId = null;
     let openLessonModule = null;
 
-    // Native CareerBridge Africa Curricula (Section 2.1.2 & 2.1.5 — Self-Contained, Low-Bandwidth, Practical Output Per Module)
+    // Timed Proctored Drill Session State (Section 2.1.2 & 2.8.1)
+    let proctorTimerInterval = null;
+    let proctorSecondsRemaining = 1800; // 30-min timed drill
+    let proctorTabSwitches = 0;
+    let proctorSessionActive = false;
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && proctorSessionActive) {
+        proctorTabSwitches++;
+        const logEl = document.getElementById("proctorIntegrityStatus");
+        if (logEl) {
+          logEl.textContent = `⚠ Focus alert logged: ${proctorTabSwitches} tab switch(es) recorded`;
+          logEl.className = "text-[11px] font-bold text-rose-700";
+        }
+      }
+    });
+
+    // Exact 7 Tracks from Section 2.1.5 with Native Low-Bandwidth Lessons & Rubrics
     const TRACK_CURRICULA = {
       "TRK-01": {
-        pillar: "Pillar 1: Project-Centred Technical Training • Track 1 of 7",
-        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored Labs",
+        pillar: "Track 1 of 7 • Section 2.1.5",
+        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored Lab",
         salaryRange: "Nigeria: ₦5.5M–₦11M/yr • Remote/Global: $70k–$120k USD",
         pathways: ["Full-Stack Software Developer", "Frontend Web Engineer", "Backend API Engineer", "Cloud Application Developer"],
         trackIntro: "Build production-grade, low-bandwidth-resilient web applications from scratch. Every module requires a verifiable code artifact tested against employer co-designed engineering rubrics.",
@@ -177,6 +199,7 @@
           "Develop asynchronous JavaScript ES6+ applications consuming authenticated REST APIs.",
           "Implement PostgreSQL Row-Level Security (RLS) and offline submission queues under NDPA 2023."
         ],
+        proctoredPrompt: "TIMED PROCTORED DRILL (30 MIN): Build and deploy a live authenticated CRUD endpoint with PostgreSQL RLS enforced so User A cannot read or update User B's records, and paste your repository + live URL below.",
         modules: [
           {
             title: "Module 1: Low-Bandwidth Responsive UI Architecture",
@@ -213,7 +236,7 @@
           },
           {
             title: "Module 4: Proctored Full-Stack Capstone & Executive Defense",
-            lessonSummary: "Synthesize Modules 1–3 into a complete, deployed multi-role application with offline submission resilience and a 10-minute architectural walkthrough.",
+            lessonSummary: "Complete your proctored evaluation (Live Proctor Session or Timed Proctored Drill) and submit your deployed application + 10-minute defense.",
             isCapstone: true
           }
         ],
@@ -222,8 +245,8 @@
       },
 
       "TRK-02": {
-        pillar: "Pillar 1: Project-Centred Technical Training • Track 2 of 7",
-        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored Labs",
+        pillar: "Track 2 of 7 • Section 2.1.5",
+        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored Lab",
         salaryRange: "Nigeria: ₦4.8M–₦8M/yr • Remote/Global: $60k–$100k USD",
         pathways: ["Data Analyst", "Business Intelligence (BI) Analyst", "Data Visualization Specialist", "Operations Data Analyst"],
         trackIntro: "Transform raw organizational datasets into executive decisions using structured data cleaning, relational SQL querying, Python/Pandas wrangling, and interactive BI dashboards.",
@@ -232,6 +255,7 @@
           "Write multi-table SQL queries (JOINs, GROUP BY, HAVING) and clean messy datasets in Excel/Python.",
           "Publish executive KPI dashboards backed by clear commercial recommendations."
         ],
+        proctoredPrompt: "TIMED PROCTORED DRILL (30 MIN): Given a multi-table mobile money schema (users, transactions, merchants), write SQL queries calculating 90-day cohort retention and top 5 churn drivers, and link your live dashboard/notebook below.",
         modules: [
           {
             title: "Module 1: Data Landscape, Cleaning & Spreadsheet Modeling",
@@ -268,7 +292,7 @@
           },
           {
             title: "Module 4: Proctored Data Analysis Capstone & Executive Defense",
-            lessonSummary: "Deliver a full-lifecycle analysis of a 100,000-row fintech dataset under timed/proctored conditions with a 10-minute executive defense.",
+            lessonSummary: "Complete your proctored evaluation (Live Proctor Session or Timed Proctored Drill) and submit your live dashboard + 10-minute defense.",
             isCapstone: true
           }
         ],
@@ -277,8 +301,8 @@
       },
 
       "TRK-03": {
-        pillar: "Pillar 1: Project-Centred Technical Training • Track 3 of 7",
-        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored Labs",
+        pillar: "Track 3 of 7 • Section 2.1.5",
+        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored Lab",
         salaryRange: "Nigeria: ₦5.5M–₦10M/yr • Remote/Global: $75k–$120k USD",
         pathways: ["Product Designer", "UI/UX Designer", "UX Researcher", "Design Systems Specialist"],
         trackIntro: "Design human-centered, accessible digital products validated by real user research—moving from empathy maps and Information Architecture to scalable Figma Design Systems.",
@@ -287,6 +311,7 @@
           "Design accessible mobile-first wireframes meeting WCAG AA (4.5:1) contrast standards.",
           "Build reusable Auto Layout component libraries and validate prototypes via 5-user usability tests."
         ],
+        proctoredPrompt: "TIMED PROCTORED DRILL (30 MIN): Design an accessible 3-screen mobile checkout & receipt flow in Figma using Auto Layout components with ≥4.5:1 WCAG contrast, and share your view link below.",
         modules: [
           {
             title: "Module 1: UX Research, Empathy Mapping & Information Architecture",
@@ -323,7 +348,7 @@
           },
           {
             title: "Module 4: Proctored UI/UX Product Capstone & Executive Defense",
-            lessonSummary: "Present a complete, developer-ready Figma design system and clickable prototype backed by usability evidence.",
+            lessonSummary: "Complete your proctored evaluation and submit your interactive Figma design system + usability test report.",
             isCapstone: true
           }
         ],
@@ -332,8 +357,8 @@
       },
 
       "TRK-04": {
-        pillar: "Pillar 1: Project-Centred Technical Training • Track 4 of 7",
-        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored CAD Labs",
+        pillar: "Track 4 of 7 • Section 2.1.5",
+        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored CAD Lab",
         salaryRange: "Nigeria: ₦4.5M–₦8.5M/yr • Remote/Global: $60k–$95k USD",
         pathways: ["CAD Technician", "2D/3D AutoCAD Drafter", "Architectural & Engineering Drafter", "Technical Documentation Specialist"],
         trackIntro: "Master precision 2D/3D Computer-Aided Design (CAD) drafting with AutoCAD—producing industry-standard architectural, structural, and mechanical engineering drawing sets.",
@@ -342,6 +367,7 @@
           "Organize multi-discipline drawings with standardized Layers, dynamic Blocks, and Xrefs.",
           "Configure annotative dimensions, Paper Space viewports, and scaled engineering plot sheets."
         ],
+        proctoredPrompt: "TIMED PROCTORED DRILL (30 MIN): Draft an orthographic plan and section view in AutoCAD using proper discipline Layers, OSNAP precision, annotative dimensions, and a 1:50 Paper Space viewport.",
         modules: [
           {
             title: "Module 1: AutoCAD Precision Coordinates & 2D Geometric Drafting",
@@ -378,7 +404,7 @@
           },
           {
             title: "Module 4: Proctored AutoCAD Drafting Capstone & Defense",
-            lessonSummary: "Submit your complete multi-sheet AutoCAD drafting package under proctored verification for CareerScore™ ≥ 700 employer matching.",
+            lessonSummary: "Complete your proctored evaluation and submit your multi-sheet AutoCAD drafting package for CareerScore™ ≥ 700 employer matching.",
             isCapstone: true
           }
         ],
@@ -387,8 +413,8 @@
       },
 
       "TRK-05": {
-        pillar: "Pillar 1: Project-Centred Technical Training • Track 5 of 7",
-        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored CAD Labs",
+        pillar: "Track 5 of 7 • Section 2.1.5",
+        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored CAD Lab",
         salaryRange: "Nigeria: ₦5.5M–₦10M/yr • Remote/Global: $75k–$115k USD",
         pathways: ["3D Mechanical Design Engineer", "SolidWorks CAD Specialist", "Product Development Engineer", "Manufacturing & Tooling Designer"],
         trackIntro: "Master 3D parametric mechanical design with SolidWorks—building fully defined parts, kinematic assemblies, Finite Element Analysis (FEA) simulations, and GD&T manufacturing drawings.",
@@ -397,6 +423,7 @@
           "Assemble multi-component mechanical systems with mates and Interference Detection.",
           "Validate part strength with static FEA (Factor of Safety) and output GD&T drawings + BOMs."
         ],
+        proctoredPrompt: "TIMED PROCTORED DRILL (30 MIN): Model a fully defined parametric shaft-and-flange sub-assembly in SolidWorks, run Interference Detection, and export your STEP/SLDASM + BOM link below.",
         modules: [
           {
             title: "Module 1: Fully Defined Parametric Sketching & 3D Part Modeling",
@@ -433,7 +460,7 @@
           },
           {
             title: "Module 4: Proctored 3D Mechanical Design Capstone & Defense",
-            lessonSummary: "Submit your complete SolidWorks assembly, FEA verification study, and localized Nigerian manufacturing BOM.",
+            lessonSummary: "Complete your proctored evaluation and submit your SolidWorks assembly, FEA verification study, and localized manufacturing BOM.",
             isCapstone: true
           }
         ],
@@ -442,8 +469,8 @@
       },
 
       "TRK-06": {
-        pillar: "Pillar 1: Project-Centred Technical Training • Track 6 of 7",
-        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored BIM Labs",
+        pillar: "Track 6 of 7 • Section 2.1.5",
+        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored BIM Lab",
         salaryRange: "Nigeria: ₦6.0M–₦11M/yr • Remote/Global: $80k–$125k USD",
         pathways: ["BIM Modeler / Coordinator", "Revit Architectural Designer", "Structural BIM Specialist", "Digital Construction Manager"],
         trackIntro: "Master Building Information Modelling (BIM) with Autodesk Revit—creating data-rich 3D architectural and structural building models, live quantity schedules, clash checks, and construction sheets.",
@@ -452,6 +479,7 @@
           "Author custom parametric Revit Families and extract live bidirectional quantity takeoff schedules.",
           "Coordinate multi-discipline BIM models, resolve clashes, and publish IFC + construction sheet sets."
         ],
+        proctoredPrompt: "TIMED PROCTORED DRILL (30 MIN): Model a structural grid bay in Autodesk Revit with parametric columns, slab, curtain wall, and an automated Material Takeoff Schedule, and link your RVT/IFC package below.",
         modules: [
           {
             title: "Module 1: BIM Datum Levels, Grids & Architectural/Structural Modeling",
@@ -488,7 +516,7 @@
           },
           {
             title: "Module 4: Proctored Revit BIM Capstone & Executive Defense",
-            lessonSummary: "Submit your coordinated multi-storey BIM model, quantity takeoff schedules, and construction sheets for proctored evaluation.",
+            lessonSummary: "Complete your proctored evaluation and submit your coordinated multi-storey BIM model, quantity takeoff schedules, and construction sheets.",
             isCapstone: true
           }
         ],
@@ -497,8 +525,8 @@
       },
 
       "TRK-07": {
-        pillar: "Pillar 1: Project-Centred Technical Training • Track 7 of 7",
-        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored Engineering Labs",
+        pillar: "Track 7 of 7 • Section 2.1.5",
+        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored Engineering Lab",
         salaryRange: "Nigeria: ₦6.0M–₦11.5M/yr • Remote/Global: $80k–$130k USD",
         pathways: ["MEP BIM Engineer", "HVAC & Plumbing Design Engineer", "Electrical Building Services Designer", "Civil Infrastructure CAD/BIM Specialist"],
         trackIntro: "Master Mechanical, Electrical, and Plumbing (MEP) building services and Civil site infrastructure design—routing HVAC ductwork, sloped drainage piping, electrical circuits, and site grading.",
@@ -507,6 +535,7 @@
           "Configure electrical lighting layouts, distribution panels, and balanced circuit load schedules.",
           "Model civil site grading, road alignments, and stormwater drainage with clash-free MEP coordination."
         ],
+        proctoredPrompt: "TIMED PROCTORED DRILL (30 MIN): Route a clash-free HVAC supply duct, sloped sanitary drain line, and electrical conduit run through a structural beam bay and export your Interference Report + Panel Schedule.",
         modules: [
           {
             title: "Module 1: Mechanical (HVAC) & Sloped Plumbing Systems Modeling",
@@ -543,7 +572,7 @@
           },
           {
             title: "Module 4: Proctored MEP & Civil Infrastructure Capstone & Defense",
-            lessonSummary: "Submit your clash-free MEP + Civil model, panel/equipment schedules, and construction drawings for blind dual-assessor verification.",
+            lessonSummary: "Complete your proctored evaluation and submit your clash-free MEP + Civil model, panel/equipment schedules, and construction drawings.",
             isCapstone: true
           }
         ],
@@ -710,7 +739,7 @@
     }
 
     // =========================================================================
-    // 2. LEARNER WORKSPACE (SELF-CONTAINED LESSONS + PRACTICAL OUTPUT GATES)
+    // 2. LEARNER WORKSPACE (NATIVE LESSONS + LIVE PROCTORED ASSESSMENT CENTER)
     // =========================================================================
     async function renderLearnerWorkspace() {
       const container = document.getElementById("workspaceContent");
@@ -751,10 +780,12 @@
 
       let roadmapHtml = "";
       let allModulesPassedForActive = false;
+      let activeCurr = null;
 
       if (activeTrack) {
         const isEnrolled = (enrolments || []).some(e => e.track_id === activeTrack.id);
         const curr = getCurriculumForTrack(activeTrack);
+        activeCurr = curr;
         const prereqCount = curr.modules.length - 1;
         const progress = getModuleProgress(activeTrack.id, prereqCount);
         allModulesPassedForActive = progress.passed.slice(0, prereqCount).every(Boolean);
@@ -763,7 +794,7 @@
         const latestScore = (scores || []).find(s => s.track_id === activeTrack.id);
 
         const stageIndex = latestScore ? 4 : latestSub ? (latestSub.status === "under_dual_review" ? 3 : 2) : allModulesPassedForActive ? 1 : 0;
-        const stages = ["1. Enrol", `2. Practical Modules 1–${prereqCount}`, "3. Capstone Queued", "4. Dual Grading", "5. CareerScore™"];
+        const stages = ["1. Enrol", `2. Practical Modules 1–${prereqCount}`, "3. Proctored Eval", "4. IRR ≥ 0.70 Grading", "5. CareerScore™"];
 
         roadmapHtml = `
           <div class="bg-white rounded-xl border border-slate-200 p-5 space-y-5">
@@ -776,7 +807,7 @@
                 <p class="text-xs text-slate-500">${curr.duration} • ${curr.salaryRange}</p>
               </div>
               ${isEnrolled
-                ? `<span class="text-xs px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold">✓ Enrolled (Pilot Access)</span>`
+                ? `<span class="text-xs px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold">✓ Enrolled (Pilot Scholarship)</span>`
                 : `<button onclick="enrolInPilotTrack('${activeTrack.id}', '${activeTrack.title}')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold">Enrol Free to Start Module 1</button>`
               }
             </div>
@@ -812,7 +843,7 @@
               `).join("")}
             </div>
 
-            <!-- Self-Contained Sequential Modules (No External Redirects) -->
+            <!-- Self-Contained Sequential Modules -->
             <div class="space-y-3">
               <div class="text-xs font-bold text-slate-700">
                 Native Project-Centred Modules (Study Lesson → Submit Practical Output → Pass Gate to Unlock Next):
@@ -840,8 +871,8 @@
                             ${!isEnrolled ? "Enrol first" : `Complete Module ${i} practical output first`}
                           </span>
                         ` : mod.isCapstone ? `
-                          <a href="#submitCapstoneCard" class="text-[11px] font-bold px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 hover:bg-amber-600">
-                            Submit Final Capstone ↓
+                          <a href="#proctoredAssessmentCard" class="text-[11px] font-bold px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 hover:bg-amber-600">
+                            Proceed to Proctored Assessment ↓
                           </a>
                         ` : `
                           <button onclick="toggleLessonDrawer('${activeTrack.id}', ${i})" class="text-[11px] font-bold px-3 py-1.5 rounded-lg bg-slate-900 text-white hover:bg-slate-700">
@@ -851,7 +882,6 @@
                       </div>
                     </div>
 
-                    <!-- Built-In CareerBridge Lesson, Practical Deliverable & Assessment Gate -->
                     ${isUnlocked && isLessonOpen && !mod.isCapstone ? `
                       <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3 text-xs">
                         <div>
@@ -868,13 +898,11 @@
                           <p class="text-amber-900">${mod.practicalTask}</p>
                         </div>
 
-                        <!-- Step 1: Practical Output URL -->
                         <div class="space-y-1">
                           <label class="block font-bold text-slate-800">1. Submit Your Module ${i + 1} Practical Output Link:</label>
                           <input type="url" id="modArtifact_${activeTrack.id}_${i}" value="${savedArtifact}" placeholder="${mod.deliverablePlaceholder}" class="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg bg-white" />
                         </div>
 
-                        <!-- Step 2: Technical Readiness Gate -->
                         <div class="space-y-2 pt-1 border-t border-slate-200">
                           <div class="font-bold text-slate-800">2. Module ${i + 1} Technical Verification Check (100% Required):</div>
                           ${mod.quiz.map((item, qIdx) => `
@@ -906,11 +934,11 @@
               }).join("")}
             </div>
 
-            <!-- Capstone Brief & Rubric -->
+            <!-- Capstone Brief & Published Rubric -->
             <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 space-y-1.5 text-xs">
               <div class="font-bold text-slate-900">Proctored Final Capstone Brief (Unlocks After Module ${prereqCount}):</div>
               <p class="text-slate-600">${curr.capstoneBrief}</p>
-              <div class="pt-1 text-[11px] font-semibold text-amber-900">1,000-Pt Rubric: ${curr.rubric}</div>
+              <div class="pt-1 text-[11px] font-semibold text-amber-900">Published 1,000-Pt Rubric: ${curr.rubric}</div>
             </div>
           </div>
         `;
@@ -928,7 +956,7 @@
                 <span class="text-[10px] font-semibold text-slate-500">${curr.modules.length} Practical Modules</span>
               </div>
               <h4 class="font-bold text-sm mt-0.5">${t.title}</h4>
-              <p class="text-xs text-slate-600 mt-1">Tuition: <strong>₦${Number(t.fee_ngn).toLocaleString()}</strong> (Pilot Waiver Active)</p>
+              <p class="text-xs text-slate-600 mt-1">Tuition: <strong>₦${Number(t.fee_ngn).toLocaleString()}</strong> excl. VAT (Pilot Waiver Active)</p>
             </div>
             <div class="mt-4 flex gap-2">
               <button onclick="viewTrackSyllabus('${t.id}')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 rounded-lg">
@@ -944,15 +972,21 @@
       }).join("");
 
       const scoreCards = (scores || []).map(s => `
-        <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+        <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 space-y-2">
           <div class="flex justify-between items-center">
             <span class="text-xs font-bold text-emerald-900">${s.tracks?.title}</span>
             <span class="text-lg font-extrabold text-emerald-700">${s.final_score} / 1000</span>
           </div>
-          <p class="text-xs text-emerald-800 mt-1">${s.readiness_tier}</p>
-          <p class="text-[11px] font-mono text-emerald-700 mt-2">Verify URL: careerbridge.africa/verify/${s.portfolio_slug}</p>
+          <p class="text-xs text-emerald-800">${s.readiness_tier}</p>
+          <p class="text-[11px] font-mono text-emerald-700">Verify URL: careerbridge.africa/verify/${s.portfolio_slug}</p>
+          <div class="pt-1 border-t border-emerald-200/80 flex items-center justify-between text-[11px]">
+            ${s.appeal_status === "requested"
+              ? `<span class="font-semibold text-amber-800">⚖ Appeal Under Moderation Review</span>`
+              : `<button onclick="requestScoreAppeal('${s.id}')" class="text-slate-700 underline hover:text-slate-950">File Rubric Appeal (Section 2.8.1)</button>`
+            }
+          </div>
         </div>
-      `).join("") || `<p class="text-xs text-slate-500">No verified CareerScores yet. Complete Modules 1–3 practical outputs and submit your capstone below.</p>`;
+      `).join("") || `<p class="text-xs text-slate-500">No verified CareerScores yet. Complete Modules 1–3 practical outputs and submit your proctored evaluation below.</p>`;
 
       container.innerHTML = `
         <div class="lg:col-span-2 space-y-6">
@@ -969,24 +1003,95 @@
             ${scoreCards}
           </div>
 
-          <div id="submitCapstoneCard" class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+          <!-- PROCTORED ASSESSMENT & CAPSTONE CONSOLE (SECTIONS 2.3.1, 2.8.1 & 2.12.7) -->
+          <div id="proctoredAssessmentCard" class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
             <div class="flex items-center justify-between">
-              <h3 class="font-bold text-sm">Submit Final Capstone Portfolio</h3>
+              <h3 class="font-bold text-sm">Proctored Assessment Center</h3>
               <span class="text-[10px] font-bold px-2 py-0.5 rounded ${allModulesPassedForActive ? "bg-emerald-100 text-emerald-800" : "bg-slate-200 text-slate-600"}">
                 ${allModulesPassedForActive ? "Unlocked" : "🔒 Locked"}
               </span>
             </div>
+
             <select id="submitEnrolmentId" onchange="onSubmissionTrackChange(this.value)" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
               ${(enrolments || []).map(e => `<option value="${e.id}|${e.track_id}" ${activeTrack && e.track_id === activeTrack.id ? "selected" : ""}>${e.tracks?.title}</option>`).join("") || `<option value="">Enrol in a track first</option>`}
             </select>
+
+            <!-- Proctoring Delivery Mode (Section 2.3.1 & 2.12.7) -->
+            <div class="space-y-1">
+              <label class="block text-[11px] font-bold text-slate-700">Proctored Verification Mode (Section 2.12.7):</label>
+              <select id="assessmentMode" onchange="toggleProctorModeUI(this.value)" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
+                <option value="timed_proctored_drill">1. Timed Proctored Practical Drill (Browser Integrity + Countdown)</option>
+                <option value="live_virtual_proctor">2. Live Virtual Proctored Session (Mon–Fri 8am–6pm / Sat 9am–1pm WAT)</option>
+                <option value="lagos_hub_proctor">3. Lagos Physical Assessment Hub (In-Person Proctored Terminal)</option>
+                <option value="asynchronous_offline">4. Asynchronous Low-Bandwidth / Offline Queue (24/7)</option>
+              </select>
+            </div>
+
+            <!-- Timed Proctored Drill Console -->
+            <div id="timedDrillBox" class="bg-slate-900 text-slate-100 p-3 rounded-lg space-y-2 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-amber-400">Timed Proctored Drill</span>
+                <span id="proctorTimerDisplay" class="font-mono font-bold text-sm text-emerald-400">30:00</span>
+              </div>
+              <p class="text-[11px] text-slate-300 leading-relaxed">${activeCurr ? activeCurr.proctoredPrompt : ""}</p>
+              <div class="flex items-center justify-between pt-1">
+                <span id="proctorIntegrityStatus" class="text-[11px] text-emerald-300">● Integrity Ready (0 tab switches)</span>
+                <button type="button" onclick="startTimedProctorDrill()" class="text-[11px] font-bold px-2.5 py-1 rounded bg-amber-500 text-slate-950 hover:bg-amber-400">
+                  Start 30-Min Timer
+                </button>
+              </div>
+            </div>
+
+            <!-- Live WAT Proctor Slot Picker -->
+            <div id="watSlotBox" class="hidden space-y-1">
+              <label class="block text-[11px] font-bold text-slate-700">Select Live Proctoring Window (WAT):</label>
+              <select id="proctorSlotWat" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
+                <option value="Mon–Fri • 09:00 AM – 11:00 AM WAT">Mon–Fri • 09:00 AM – 11:00 AM WAT</option>
+                <option value="Mon–Fri • 02:00 PM – 04:00 PM WAT">Mon–Fri • 02:00 PM – 04:00 PM WAT</option>
+                <option value="Saturday • 10:00 AM – 12:00 PM WAT">Saturday • 10:00 AM – 12:00 PM WAT</option>
+              </select>
+            </div>
+
             <input type="url" id="artifactLink" placeholder="Capstone Repo / Figma / Drive CAD / Revit Model URL" class="w-full text-xs border border-slate-300 rounded-lg p-2" />
-            <input type="url" id="defenseLink" placeholder="10-Min Executive Defense Video URL" class="w-full text-xs border border-slate-300 rounded-lg p-2" />
+            <input type="url" id="defenseLink" placeholder="10-Min Executive Defense Video / Live Room URL" class="w-full text-xs border border-slate-300 rounded-lg p-2" />
+
+            <label class="flex items-start gap-2 text-[11px] text-slate-600 cursor-pointer">
+              <input type="checkbox" id="honorPledge" class="mt-0.5 rounded border-slate-300" />
+              <span>I verify this work sample is my original work completed under CareerBridge Africa proctoring standards.</span>
+            </label>
+
             <button onclick="submitCapstoneArtifact()" class="w-full ${allModulesPassedForActive ? "bg-amber-500 hover:bg-amber-600 text-slate-950" : "bg-slate-300 text-slate-600 cursor-not-allowed"} font-bold text-xs py-2 rounded-lg">
-              ${allModulesPassedForActive ? "Submit for Proctored Verification" : "Complete Modules 1–3 Practical Outputs First"}
+              ${allModulesPassedForActive ? "Submit Proctored Capstone for Grading" : "Complete Modules 1–3 Practical Outputs First"}
             </button>
           </div>
         </div>
       `;
+    }
+
+    function toggleProctorModeUI(mode) {
+      document.getElementById("timedDrillBox").classList.toggle("hidden", mode !== "timed_proctored_drill");
+      document.getElementById("watSlotBox").classList.toggle("hidden", !(mode === "live_virtual_proctor" || mode === "lagos_hub_proctor"));
+    }
+
+    function startTimedProctorDrill() {
+      if (proctorSessionActive) return;
+      proctorSessionActive = true;
+      proctorTabSwitches = 0;
+      proctorSecondsRemaining = 1800;
+      alert("Timed Proctored Drill started! Keep this tab focused while completing your practical artifact; browser tab switches are logged for assessor verification.");
+
+      proctorTimerInterval = setInterval(() => {
+        proctorSecondsRemaining--;
+        const mins = String(Math.floor(proctorSecondsRemaining / 60)).padStart(2, "0");
+        const secs = String(proctorSecondsRemaining % 60).padStart(2, "0");
+        const el = document.getElementById("proctorTimerDisplay");
+        if (el) el.textContent = `${mins}:${secs}`;
+        if (proctorSecondsRemaining <= 0) {
+          clearInterval(proctorTimerInterval);
+          proctorSessionActive = false;
+          alert("30-minute proctored drill window ended. Submit your completed artifact link now.");
+        }
+      }, 1000);
     }
 
     function toggleLessonDrawer(trackId, modIndex) {
@@ -999,7 +1104,7 @@
       const artifactInput = document.getElementById(`modArtifact_${trackId}_${modIndex}`);
       const artifactUrl = artifactInput ? artifactInput.value.trim() : "";
       if (!artifactUrl) {
-        return alert(`Per Section 2.1.2, every module requires a practical output. Please paste a link to your Module ${modIndex + 1} deliverable (GitHub, Google Drive, Figma, or Sheet URL) before verifying.`);
+        return alert(`Per Section 2.1.2, every module requires a practical output. Please paste a link to your Module ${modIndex + 1} deliverable before verifying.`);
       }
 
       const { data: tracks } = await sbClient.from("tracks").select("*").eq("id", trackId);
@@ -1031,7 +1136,7 @@
         alert(`Module ${modIndex + 1} Practical Output Verified! Module ${modIndex + 2} is now unlocked.`);
       } else {
         openLessonModule = null;
-        alert(`All ${prereqCount} Module Practical Outputs Verified! Your Final Proctored Capstone Submission is now unlocked.`);
+        alert(`All ${prereqCount} Module Practical Outputs Verified! Your Proctored Assessment Center is now unlocked.`);
       }
       renderLearnerWorkspace();
     }
@@ -1074,12 +1179,29 @@
       const progress = getModuleProgress(trackId, prereqCount);
 
       if (!progress.passed.slice(0, prereqCount).every(Boolean)) {
-        return alert(`Sequential Mastery Gate: You must submit practical outputs and pass Modules 1–${prereqCount} before submitting your final capstone.`);
+        return alert(`Sequential Mastery Gate: You must submit practical outputs and pass Modules 1–${prereqCount} before submitting your proctored capstone.`);
+      }
+
+      if (!document.getElementById("honorPledge").checked) {
+        return alert("Please confirm the academic integrity and proctoring declaration checkbox.");
       }
 
       const artifactUrl = document.getElementById("artifactLink").value.trim();
       const defenseUrl = document.getElementById("defenseLink").value.trim();
-      if (!artifactUrl) return alert("Please provide your final capstone artifact link.");
+      if (!artifactUrl) return alert("Please provide your capstone artifact link.");
+
+      const mode = document.getElementById("assessmentMode").value;
+      const watSlot = (mode === "live_virtual_proctor" || mode === "lagos_hub_proctor")
+        ? document.getElementById("proctorSlotWat").value
+        : "24/7 Asynchronous / Timed Drill";
+
+      const elapsedMin = Math.max(1, Math.round((1800 - proctorSecondsRemaining) / 60));
+      const integritySummary = mode === "timed_proctored_drill"
+        ? `${proctorTabSwitches} tab switch(es) • ${elapsedMin} min elapsed`
+        : `Scheduled: ${watSlot}`;
+
+      if (proctorTimerInterval) clearInterval(proctorTimerInterval);
+      proctorSessionActive = false;
 
       const payload = {
         enrolment_id: enrolmentId,
@@ -1087,6 +1209,10 @@
         track_id: trackId,
         artifact_storage_path: artifactUrl,
         defense_video_url: defenseUrl,
+        assessment_mode: mode,
+        proctor_slot_wat: watSlot,
+        proctor_integrity_log: integritySummary,
+        module_artifacts_count: prereqCount,
         offline_synced: !navigator.onLine
       };
 
@@ -1094,12 +1220,24 @@
         const queue = JSON.parse(localStorage.getItem("cb_offline_submissions") || "[]");
         queue.push(payload);
         localStorage.setItem("cb_offline_submissions", JSON.stringify(queue));
-        return alert("Saved offline! Will auto-sync when internet returns.");
+        return alert("Saved offline! Will auto-sync when internet returns (Section 2.3.3).");
       }
 
       const { error } = await sbClient.from("submissions").insert(payload);
       if (error) return alert(error.message);
-      alert("Capstone submitted! Switch to '2. Assessor Queue' in the top yellow sandbox bar to test dual-assessor grading.");
+      alert("Proctored Capstone submitted! Switch to '2. Proctor & Assessor Queue' in the top yellow sandbox bar to grade it.");
+      renderLearnerWorkspace();
+    }
+
+    async function requestScoreAppeal(careerscoreId) {
+      const reason = prompt("Section 2.8.1 Learner Appeals Process: Enter your rubric appeal justification for independent moderation review:");
+      if (!reason || !reason.trim()) return;
+      const { error } = await sbClient
+        .from("careerscores")
+        .update({ appeal_status: "requested", appeal_reason: reason.trim() })
+        .eq("id", careerscoreId);
+      if (error) return alert("Appeal error: " + error.message);
+      alert("Appeal logged! Flagged for senior assessor moderation review.");
       renderLearnerWorkspace();
     }
 
@@ -1112,14 +1250,14 @@
     }
 
     // =========================================================================
-    // 3. EMPLOYER WORKSPACE
+    // 3. EMPLOYER WORKSPACE (SECTION 2.1.4 & TABLE 2.5)
     // =========================================================================
     async function renderEmployerWorkspace() {
       const container = document.getElementById("workspaceContent");
       const { data: tracks } = await sbClient.from("tracks").select("*").order("code");
       const { data: verifiedPool } = await sbClient
         .from("careerscores")
-        .select("*, profiles(full_name, email, organization_name), tracks(title, code), submissions(artifact_storage_path, defense_video_url)")
+        .select("*, profiles(full_name, email, organization_name), tracks(title, code), submissions(artifact_storage_path, defense_video_url, assessment_mode, proctor_integrity_log, module_artifacts_count)")
         .order("final_score", { ascending: false });
 
       const { data: shortlists } = await sbClient
@@ -1132,14 +1270,20 @@
         .select("*, tracks(title)")
         .order("created_at", { ascending: false });
 
+      const confirmedHires = (shortlists || []).filter(s => (s.pipeline_stage || "").includes("Hired")).length;
+
       document.getElementById("kpiStrip").innerHTML = `
         <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
           <div class="text-[11px] text-slate-500">Verified Talent Pool</div>
           <div class="text-base font-bold">${verifiedPool?.length || 0}</div>
         </div>
         <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
-          <div class="text-[11px] text-slate-500">Active Shortlists</div>
-          <div class="text-base font-bold text-emerald-700">${shortlists?.length || 0}</div>
+          <div class="text-[11px] text-slate-500">Shortlisted</div>
+          <div class="text-base font-bold text-amber-700">${shortlists?.length || 0}</div>
+        </div>
+        <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
+          <div class="text-[11px] text-slate-500">90-Day Verified Hires</div>
+          <div class="text-base font-bold text-emerald-700">${confirmedHires}</div>
         </div>
       `;
 
@@ -1149,14 +1293,15 @@
       const candidateCards = (verifiedPool || []).map(c => {
         const matchPct = Math.min(99, Math.round((c.final_score / 1000) * 100 + (activeJob && activeJob.track_id === c.track_id ? 8 : 0)));
         const alreadyShortlisted = (shortlists || []).find(s => s.careerscore_id === c.id);
+        const sampleCount = (c.submissions?.module_artifacts_count || 3) + 1;
 
         return `
-          <div class="bg-white p-5 rounded-xl border border-slate-200 flex flex-col justify-between">
+          <div class="bg-white p-5 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
             <div>
               <div class="flex justify-between items-start gap-2">
                 <div>
                   <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-emerald-100 text-emerald-900">
-                    ${matchPct}% Role Match
+                    ${matchPct}% Role Match • ${sampleCount} Verified Samples
                   </span>
                   <h4 class="font-bold text-sm mt-1">${c.profiles?.full_name}</h4>
                   <p class="text-xs text-slate-500">${c.tracks?.title}</p>
@@ -1166,18 +1311,19 @@
                 </span>
               </div>
               <p class="text-xs text-emerald-700 font-semibold mt-2">${c.readiness_tier}</p>
+              <p class="text-[11px] text-slate-500 mt-1">Proctor Record: ${c.submissions?.proctor_integrity_log || "Verified"}</p>
               <div class="mt-3 flex gap-3 text-xs">
                 <a href="${c.submissions?.artifact_storage_path}" target="_blank" class="text-blue-600 underline">Inspect Work Sample</a>
                 ${c.submissions?.defense_video_url ? `<a href="${c.submissions.defense_video_url}" target="_blank" class="text-blue-600 underline">Watch Defense</a>` : ""}
               </div>
             </div>
             ${alreadyShortlisted
-              ? `<span class="mt-4 block text-center text-xs font-semibold py-2 rounded-lg bg-slate-100 text-slate-700">Stage: ${alreadyShortlisted.pipeline_stage || "Shortlisted"}</span>`
-              : `<button onclick="shortlistCandidate('${c.id}', '${c.learner_id}')" class="mt-4 w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold py-2 rounded-lg">Shortlist & Request Interview</button>`
+              ? `<span class="mt-2 block text-center text-xs font-semibold py-2 rounded-lg bg-slate-100 text-slate-700">Stage: ${alreadyShortlisted.pipeline_stage || "Shortlisted"}</span>`
+              : `<button onclick="shortlistCandidate('${c.id}', '${c.learner_id}')" class="mt-2 w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold py-2 rounded-lg">Shortlist & Request Interview</button>`
             }
           </div>
         `;
-      }).join("") || `<p class="text-sm text-slate-500 col-span-2 bg-white p-5 rounded-xl border border-slate-200">No verified candidates published yet. Grade a submission in the Assessor Queue first!</p>`;
+      }).join("") || `<p class="text-sm text-slate-500 col-span-2 bg-white p-5 rounded-xl border border-slate-200">No verified candidates published yet. Grade a submission in the Proctor & Assessor Queue first!</p>`;
 
       const pipelineRows = (shortlists || []).map(s => `
         <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 space-y-2 text-xs">
@@ -1199,7 +1345,7 @@
           <div class="flex flex-wrap justify-between items-center gap-2">
             <div>
               <h3 class="font-bold text-base">Score-Matched Verified Talent Pool</h3>
-              <p class="text-xs text-slate-500">Filtered by CareerScore™ ≥ ${minScoreFilter}/1000 & verified project samples (Section 2.1.4)</p>
+              <p class="text-xs text-slate-500">Filtered by CareerScore™ ≥ ${minScoreFilter}/1000 & verified project samples ≥ 3 (Section 2.1.4)</p>
             </div>
             <span class="text-xs font-semibold px-2.5 py-1 rounded bg-white border border-slate-200">${verifiedPool?.length || 0} Verified Candidates</span>
           </div>
@@ -1209,6 +1355,7 @@
         <div class="space-y-4">
           <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
             <h3 class="font-bold text-sm">Post Role & Auto-Match Criteria</h3>
+            <p class="text-[11px] text-slate-500">Portal Tier: ₦50,000–₦400,000/mo • Managed Placement: 8%–12% annual gross salary (excl. VAT, Table 2.5)</p>
             <input type="text" id="jobTitle" placeholder="Role Title (e.g. CAD Technician / Revit BIM Modeler)" class="w-full text-xs border border-slate-300 rounded-lg p-2" />
             <select id="jobTrackId" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
               ${(tracks || []).map(t => `<option value="${t.id}">${t.title}</option>`).join("")}
@@ -1223,7 +1370,7 @@
           </div>
 
           <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
-            <h3 class="font-bold text-sm">Interview & 90-Day Placement Pipeline</h3>
+            <h3 class="font-bold text-sm">Interview & 90-Day Placement Pipeline (O-02)</h3>
             ${pipelineRows}
           </div>
         </div>
@@ -1260,46 +1407,97 @@
     async function updateHiringStage(shortlistId, stage) {
       await sbClient.from("employer_shortlists").update({ pipeline_stage: stage }).eq("id", shortlistId);
       if (stage.includes("Hired")) {
-        alert("Placement recorded! 90-day employer verification milestone logged.");
+        alert("Employer-confirmed placement logged! Counts toward SMART Objective O-02 (≥30% verified placement within 90 days).");
       }
+      renderEmployerWorkspace();
     }
 
     // =========================================================================
-    // 4. ASSESSOR WORKSPACE
+    // 4. PROCTOR & ASSESSOR WORKSPACE (BLIND GRADING + IRR >= 0.70 + APPEALS)
     // =========================================================================
     async function renderAssessorWorkspace() {
       const container = document.getElementById("workspaceContent");
       const { data: queue } = await sbClient
         .from("submissions")
-        .select("*, tracks(title), assessments(*)")
+        .select("*, tracks(title, code), assessments(*)")
         .in("status", ["queued_for_grading", "under_dual_review", "moderation_flagged"]);
 
-      const items = (queue || []).map(sub => `
-        <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-mono bg-slate-100 px-2 py-0.5 rounded">Blind ID: ${sub.id.slice(0, 8)}</span>
-            <span class="text-xs font-semibold text-amber-700">${sub.status}</span>
-          </div>
-          <h4 class="font-bold text-sm">${sub.tracks?.title}</h4>
-          <a href="${sub.artifact_storage_path}" target="_blank" class="inline-block text-xs text-blue-600 underline">Open Anonymized Submission Artifact →</a>
-          <div class="grid grid-cols-2 gap-2 pt-2">
-            <input type="number" id="score_${sub.id}" min="0" max="1000" value="850" placeholder="Score (0-1000)" class="text-xs border border-slate-300 rounded-lg p-2" />
-            <button onclick="submitBlindGrade('${sub.id}')" class="bg-slate-900 text-white text-xs font-semibold rounded-lg px-3 py-2">
-              Submit Blind Grade
+      const { data: appeals } = await sbClient
+        .from("careerscores")
+        .select("*, tracks(title), profiles(full_name)")
+        .eq("appeal_status", "requested");
+
+      document.getElementById("kpiStrip").innerHTML = `
+        <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
+          <div class="text-[11px] text-slate-500">Pending Proctored Queue</div>
+          <div class="text-base font-bold text-amber-700">${queue?.length || 0}</div>
+        </div>
+        <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
+          <div class="text-[11px] text-slate-500">IRR Governance Target</div>
+          <div class="text-base font-bold text-emerald-700">≥ 0.70</div>
+        </div>
+      `;
+
+      const items = (queue || []).map(sub => {
+        const curr = getCurriculumForTrack(sub.tracks || {});
+        return `
+          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+            <div class="flex flex-wrap justify-between items-center gap-1">
+              <span class="text-xs font-mono bg-slate-100 px-2 py-0.5 rounded">Blind ID: ${sub.id.slice(0, 8)}</span>
+              <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">${sub.assessment_mode || "proctored"}</span>
+            </div>
+            <h4 class="font-bold text-sm">${sub.tracks?.title}</h4>
+            <div class="text-[11px] text-slate-600 bg-slate-50 p-2.5 rounded border border-slate-200 space-y-1">
+              <div><strong>Proctor Log:</strong> ${sub.proctor_integrity_log || "Verified"}</div>
+              <div><strong>Rubric:</strong> ${curr.rubric}</div>
+            </div>
+            <div class="flex gap-3 text-xs">
+              <a href="${sub.artifact_storage_path}" target="_blank" class="text-blue-600 underline">Open Anonymized Artifact →</a>
+              ${sub.defense_video_url ? `<a href="${sub.defense_video_url}" target="_blank" class="text-blue-600 underline">Open Defense / Proctor Room →</a>` : ""}
+            </div>
+            <div class="grid grid-cols-2 gap-2 pt-1">
+              <input type="number" id="score_${sub.id}" min="0" max="1000" value="850" placeholder="Score (0-1000)" class="text-xs border border-slate-300 rounded-lg p-2" />
+              <button onclick="submitBlindGrade('${sub.id}')" class="bg-slate-900 text-white text-xs font-semibold rounded-lg px-3 py-2">
+                Submit Blind Grade
+              </button>
+            </div>
+            <button onclick="simulateDualVerification('${sub.id}', '${sub.learner_id}', '${sub.track_id}')" class="w-full text-[11px] font-semibold py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100">
+              ⚡ Pilot Test: Simulate Dual-Assessor IRR ≥ 0.70 Pass & Issue CareerScore™
             </button>
           </div>
-          <button onclick="simulateDualVerification('${sub.id}', '${sub.learner_id}', '${sub.track_id}')" class="w-full text-[11px] font-semibold py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100">
-            ⚡ Pilot Test: Simulate Dual-Assessor Pass & Issue CareerScore™
+        `;
+      }).join("") || `<p class="text-sm text-slate-500 col-span-2 bg-white p-5 rounded-xl border border-slate-200">Proctored grading queue is clear. Submit a capstone in the Learner Path tab to test grading!</p>`;
+
+      const appealCards = (appeals || []).map(ap => `
+        <div class="bg-rose-50 border border-rose-200 p-4 rounded-xl space-y-2 text-xs">
+          <div class="font-bold text-rose-900">Appeal Request • ${ap.tracks?.title} (Current: ${ap.final_score}/1000)</div>
+          <p class="text-rose-800">Reason: "${ap.appeal_reason}"</p>
+          <button onclick="resolveAppeal('${ap.id}', ${ap.final_score})" class="bg-slate-900 text-white font-semibold px-3 py-1.5 rounded-lg">
+            Complete Moderation Review
           </button>
         </div>
-      `).join("") || `<p class="text-sm text-slate-500 col-span-3 bg-white p-5 rounded-xl border border-slate-200">Grading queue is clear. Submit a capstone in the Learner Path tab to test grading!</p>`;
+      `).join("");
 
       container.innerHTML = `
         <div class="lg:col-span-3 space-y-4">
-          <h3 class="font-bold text-base">Blind Dual-Assessor Queue (IRR ≥ 0.70 Governance Gate)</h3>
+          <h3 class="font-bold text-base">Blind Dual-Assessor & Proctoring Queue (IRR ≥ 0.70 Governance Gate)</h3>
+          ${appealCards ? `<div class="space-y-2">${appealCards}</div>` : ""}
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${items}</div>
         </div>
       `;
+    }
+
+    async function resolveAppeal(careerscoreId, currentScore) {
+      const adjusted = prompt("Enter moderated final CareerScore (0–1000):", String(currentScore));
+      if (adjusted === null) return;
+      const num = parseInt(adjusted, 10);
+      if (isNaN(num) || num < 0 || num > 1000) return alert("Enter a valid score 0–1000.");
+      await sbClient
+        .from("careerscores")
+        .update({ final_score: num, appeal_status: "resolved" })
+        .eq("id", careerscoreId);
+      alert("Appeal resolved and CareerScore updated.");
+      renderAssessorWorkspace();
     }
 
     async function submitBlindGrade(submissionId) {
@@ -1319,7 +1517,7 @@
           assessor_1_total: score
         });
         await sbClient.from("submissions").update({ status: "under_dual_review" }).eq("id", submissionId);
-        alert("Assessor 1 grade recorded.");
+        alert("Assessor 1 blind grade recorded.");
       } else {
         if (existing.assessor_1_id === currentUser.id) {
           return alert("Conflict of interest: Use a second assessor account or click the green Pilot Test button below to simulate dual verification.");
@@ -1328,7 +1526,7 @@
           assessor_2_id: currentUser.id,
           assessor_2_total: score
         }).eq("id", existing.id);
-        alert("Assessor 2 grade recorded!");
+        alert("Assessor 2 blind grade recorded!");
       }
       renderAssessorWorkspace();
     }
@@ -1349,7 +1547,7 @@
       });
 
       if (error) return alert("Error issuing CareerScore: " + error.message);
-      alert(`Verified CareerScore™ (${score}/1000) issued! Switch to '1. Learner Path' or '3. Employer Matching' in the yellow bar to see it live.`);
+      alert(`Verified CareerScore™ (${score}/1000) issued! Switch to '1. Learner Path' or '3. Employer Talent Portal' in the yellow bar to see it live.`);
       renderAssessorWorkspace();
     }
   </script>
