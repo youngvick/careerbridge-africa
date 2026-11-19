@@ -43,12 +43,12 @@
           Global Curriculum. Proctored Verification. Direct Hiring.
         </h2>
         <p class="text-sm text-slate-600 leading-relaxed">
-          Master job-ready technical tracks powered by curriculum pathways from <strong>Google, Coursera, AWS, and Microsoft</strong>—then prove your mastery through a blind dual-assessed <strong>CareerScore™ (0–1000)</strong> to match directly with verified employers.
+          Master sequential technical tracks powered by curriculum pathways from <strong>Google, Coursera, AWS, and Microsoft</strong>—pass every module checkpoint, and earn a blind dual-assessed <strong>CareerScore™ (0–1000)</strong> to match directly with verified employers.
         </p>
         <div class="grid grid-cols-3 gap-3 pt-2">
           <div class="bg-white p-3 rounded-xl border border-slate-200">
             <div class="text-sm font-extrabold text-slate-900">7 Tracks</div>
-            <div class="text-[11px] text-slate-500">Global Partner Labs</div>
+            <div class="text-[11px] text-slate-500">Gated Mastery Path</div>
           </div>
           <div class="bg-white p-3 rounded-xl border border-slate-200">
             <div class="text-sm font-extrabold text-emerald-700">IRR ≥ 0.70</div>
@@ -141,7 +141,7 @@
         <div>
           <span id="roleBadge" class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-100 text-amber-900">LEARNER</span>
           <h2 id="welcomeHeading" class="text-xl font-bold mt-1">Welcome back</h2>
-          <p class="text-xs text-slate-500">Partner-Curated Learning Paths • NDPA 2023 Consent Active • Pilot Scholarship Mode</p>
+          <p class="text-xs text-slate-500">Sequential Mastery Gate Active • NDPA 2023 Consent Verified • Pilot Scholarship Mode</p>
         </div>
         <div id="kpiStrip" class="flex gap-4 text-right"></div>
       </div>
@@ -162,98 +162,396 @@
     let currentProfile = null;
     let activeRoleView = "learner";
     let selectedTrackId = null;
+    let activeQuizModule = null;
 
+    // Complete Partner-Curated Curricula with Track Overviews & Module Introductions
     const TRACK_CURRICULA = {
-      "TRK-01": {
-        partnerBadge: "Google • Coursera • Kaggle",
+      DATA: {
+        partnerBadge: "Google • Microsoft Learn • Kaggle",
+        trackIntro: "Welcome to the Data Analysis Track. Over 4 structured stages, you will learn how African fintechs, telecoms, and banks extract business decisions from raw transactional records using SQL, Python (Pandas), and executive BI dashboards.",
         modules: [
-          { title: "Module 1: Foundations of Data & SQL Querying", provider: "Google Data Analytics (Coursera)", url: "https://www.coursera.org/professional-certificates/google-data-analytics" },
-          { title: "Module 2: Relational Databases & PostgreSQL Joins", provider: "Microsoft Learn SQL Path", url: "https://learn.microsoft.com/en-us/training/paths/get-started-querying-with-transact-sql/" },
-          { title: "Module 3: Python Data Wrangling & Visualization (Pandas)", provider: "Kaggle Learn (Free Interactive)", url: "https://www.kaggle.com/learn/pandas" },
-          { title: "Module 4: Proctored Fintech Retention Capstone & Defense", provider: "CareerBridge Africa Verification Lab", url: "#submitCapstoneCard" }
+          {
+            title: "Module 1: Foundations of Data Analytics & SQL Querying",
+            duration: "Week 1 • ~6 hrs",
+            provider: "Google Data Analytics (Coursera)",
+            url: "https://www.coursera.org/professional-certificates/google-data-analytics",
+            intro: "Understand the end-to-end data lifecycle (Ask, Prepare, Process, Analyze, Share) and write structured SQL queries using SELECT, WHERE, GROUP BY, and HAVING to summarize business metrics.",
+            concepts: ["Data Lifecycle & KPI Framing", "SQL Filtering & Aggregations (GROUP BY / HAVING)", "Data Cleaning & Schema Validation"],
+            quiz: [
+              { q: "Which SQL clause filters aggregated groups after GROUP BY?", options: ["WHERE", "HAVING", "ORDER BY"], ans: 1 },
+              { q: "What does a LEFT JOIN return when there is no match in the right table?", options: ["Drops the row", "NULL values for right-table columns", "Throws a syntax error"], ans: 1 }
+            ]
+          },
+          {
+            title: "Module 2: Relational Databases & PostgreSQL Joins",
+            duration: "Week 2 • ~7 hrs",
+            provider: "Microsoft Learn SQL Path",
+            url: "https://learn.microsoft.com/en-us/training/paths/get-started-querying-with-transact-sql/",
+            intro: "Move from single-table queries to multi-table enterprise schemas. Master INNER/LEFT joins, primary/foreign key integrity, window functions, and indexing for fast analytical reporting.",
+            concepts: ["Primary & Foreign Key Constraints", "Multi-Table Joins & Subqueries", "Query Indexing & Performance"],
+            quiz: [
+              { q: "Which PostgreSQL constraint enforces unique non-null row identification?", options: ["FOREIGN KEY", "PRIMARY KEY", "CHECK"], ans: 1 },
+              { q: "Why index high-cardinality filter columns in production databases?", options: ["Reduce storage size", "Accelerate query lookup speed", "Disable row-level security"], ans: 1 }
+            ]
+          },
+          {
+            title: "Module 3: Python Data Wrangling & Exploratory Analysis (Pandas)",
+            duration: "Week 3 • ~8 hrs",
+            provider: "Kaggle Learn — Pandas (Free Interactive)",
+            url: "https://www.kaggle.com/learn/pandas",
+            intro: "Automate large-scale data cleaning and statistical profiling in Python. Handle missing values, detect outliers using Interquartile Range (IQR), and prepare clean datasets for PowerBI/Tableau.",
+            concepts: ["DataFrame Filtering & Group Aggregations", "Handling Missing Data (dropna / fillna)", "Outlier Detection with IQR"],
+            quiz: [
+              { q: "Which Pandas method removes rows containing missing (NaN) values?", options: ["df.fillna()", "df.dropna()", "df.groupby()"], ans: 1 },
+              { q: "Which metric best measures median-centered spread resistant to outliers?", options: ["Interquartile Range (IQR)", "Mean", "Maximum"], ans: 0 }
+            ]
+          },
+          {
+            title: "Module 4: Proctored Fintech Retention Capstone & Defense",
+            duration: "Week 4 • Proctored",
+            provider: "CareerBridge Africa Verification Lab",
+            url: "#submitCapstoneCard",
+            intro: "Apply everything you mastered in Modules 1–3 to an end-to-end capstone dataset and record a 10-minute executive walkthrough for blind dual-assessor grading.",
+            isCapstone: true
+          }
         ],
         capstoneBrief: "Analyze a 100,000-row Nigerian mobile money transaction dataset, identify 90-day churn predictors, and publish an interactive BI dashboard.",
         rubric: "SQL/Python Accuracy (400 pts) • Business Insights (250 pts) • Dashboard Clarity (200 pts) • Executive Defense (150 pts)"
       },
-      "TRK-02": {
-        partnerBadge: "freeCodeCamp • Harvard CS50 • Supabase",
+      WEB: {
+        partnerBadge: "freeCodeCamp • Supabase • MDN",
+        trackIntro: "Welcome to Full-Stack Web Engineering. You will build responsive, low-bandwidth-friendly interfaces, connect REST APIs, and secure multi-user PostgreSQL databases under NDPA 2023 privacy rules.",
         modules: [
-          { title: "Module 1: Responsive UI Engineering (HTML5, CSS, Tailwind)", provider: "freeCodeCamp Web Curriculum", url: "https://www.freecodecamp.org/learn/2022/responsive-web-design/" },
-          { title: "Module 2: Modern JavaScript ES6+ & REST APIs", provider: "freeCodeCamp JS Algorithms", url: "https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/" },
-          { title: "Module 3: PostgreSQL Auth, RLS & Cloud Deployment", provider: "Supabase Official Quickstarts", url: "https://supabase.com/docs/guides/getting-started" },
-          { title: "Module 4: Full-Stack Deployment & Offline-Resilient Capstone", provider: "CareerBridge Africa Verification Lab", url: "#submitCapstoneCard" }
+          {
+            title: "Module 1: Semantic HTML5, Responsive CSS & Tailwind UI",
+            duration: "Week 1 • ~6 hrs",
+            provider: "freeCodeCamp Responsive Web Design",
+            url: "https://www.freecodecamp.org/learn/2022/responsive-web-design/",
+            intro: "Build accessible, mobile-first layouts that load reliably over 3G/4G mobile networks using semantic HTML landmarks and utility-first Tailwind CSS breakpoints.",
+            concepts: ["Semantic HTML (<nav>, <main>, <section>)", "Flexbox & CSS Grid Layouts", "Responsive Tailwind Breakpoints (sm:, md:, lg:)"],
+            quiz: [
+              { q: "Which semantic HTML tag should wrap primary page navigation links?", options: ["<div>", "<nav>", "<aside>"], ans: 1 },
+              { q: "Which Tailwind prefix applies styles on medium (≥768px) screens and up?", options: ["sm:", "md:", "lg:"], ans: 1 }
+            ]
+          },
+          {
+            title: "Module 2: Modern JavaScript ES6+ & Asynchronous APIs",
+            duration: "Week 2 • ~8 hrs",
+            provider: "freeCodeCamp JS Algorithms & Data Structures",
+            url: "https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/",
+            intro: "Master DOM manipulation, array transformations, async/await Promises, and JSON API error handling for interactive web applications.",
+            concepts: ["ES6+ Arrow Functions & Destructuring", "Async/Await & Fetch API", "HTTP Status Codes & Error Handling"],
+            quiz: [
+              { q: "Which keyword pauses execution inside an async function until a Promise settles?", options: ["defer", "await", "yield"], ans: 1 },
+              { q: "Which HTTP status code indicates a resource was successfully created?", options: ["200", "201", "403"], ans: 1 }
+            ]
+          },
+          {
+            title: "Module 3: PostgreSQL Auth, Row-Level Security & Deployment",
+            duration: "Week 3 • ~7 hrs",
+            provider: "Supabase Official Quickstarts",
+            url: "https://supabase.com/docs/guides/getting-started",
+            intro: "Architect relational tables, configure email/token authentication, and write PostgreSQL Row-Level Security (RLS) policies so users can only access authorized records.",
+            concepts: ["Relational Table Design & Foreign Keys", "Row-Level Security (RLS) Policies", "Public Anon Keys vs Secret Keys"],
+            quiz: [
+              { q: "What does Row-Level Security (RLS) enforce in PostgreSQL?", options: ["Automatic CSS minification", "Per-user row access policies at the database layer", "Static IP routing"], ans: 1 },
+              { q: "Which key is safe to expose in browser client code when RLS is active?", options: ["service_role secret key", "anon / publishable key", "Database root password"], ans: 1 }
+            ]
+          },
+          {
+            title: "Module 4: Full-Stack Deployment & Offline-Resilient Capstone",
+            duration: "Week 4 • Proctored",
+            provider: "CareerBridge Africa Verification Lab",
+            url: "#submitCapstoneCard",
+            intro: "Ship a live multi-role web portal with authenticated CRUD operations and offline queue resilience.",
+            isCapstone: true
+          }
         ],
         capstoneBrief: "Architect and deploy a multi-role web application with row-level database security, offline queue handling, and live cloud hosting.",
         rubric: "Code & Architecture (400 pts) • Security & RLS (250 pts) • UX & Offline Handling (200 pts) • Executive Defense (150 pts)"
       },
-      "TRK-03": {
-        partnerBadge: "AWS Skill Builder • Linux Foundation • GitHub",
+      CLOUD: {
+        partnerBadge: "AWS Skill Builder • Cisco NetAcad • GitHub",
+        trackIntro: "Welcome to Cloud & DevOps Infrastructure. Learn how to provision secure cloud environments, automate Linux servers, containerize workloads with Docker, and build zero-downtime CI/CD pipelines.",
         modules: [
-          { title: "Module 1: Cloud Computing Foundations & IAM Security", provider: "AWS Skill Builder (Free Tier)", url: "https://explore.skillbuilder.aws/learn" },
-          { title: "Module 2: Linux Administration, Bash & Cloud Networking", provider: "Cisco Networking Academy", url: "https://www.netacad.com/courses/os-it/ndg-linux-unhatched" },
-          { title: "Module 3: Containers, Docker & Automated CI/CD Pipelines", provider: "GitHub Actions Learning Lab", url: "https://skills.github.com/" },
-          { title: "Module 4: Zero-Downtime Cloud Infrastructure Capstone", provider: "CareerBridge Africa Verification Lab", url: "#submitCapstoneCard" }
+          {
+            title: "Module 1: Cloud Computing Foundations & IAM Security",
+            duration: "Week 1 • ~6 hrs",
+            provider: "AWS Skill Builder (Free Tier)",
+            url: "https://explore.skillbuilder.aws/learn",
+            intro: "Understand cloud compute, storage, VPC networking, Availability Zones, and Identity & Access Management (IAM) least-privilege governance.",
+            concepts: ["IAM Users, Roles & Least Privilege", "Multi-AZ High Availability", "VPC Subnets & Security Groups"],
+            quiz: [
+              { q: "Which IAM principle grants users only the permissions required for their role?", options: ["Shared Root Access", "Principle of Least Privilege", "Open CIDR"], ans: 1 },
+              { q: "What is the primary benefit of deploying across multiple Availability Zones?", options: ["High availability & fault tolerance", "Lower DNS TTL", "Disabling encryption"], ans: 0 }
+            ]
+          },
+          {
+            title: "Module 2: Linux Administration, Bash & Cloud Networking",
+            duration: "Week 2 • ~7 hrs",
+            provider: "Cisco Networking Academy — Linux",
+            url: "https://www.netacad.com/courses/os-it/ndg-linux-unhatched",
+            intro: "Operate production Linux servers via CLI, manage file permissions, configure SSH hardening, and troubleshoot DNS/HTTPS ports.",
+            concepts: ["Linux File Permissions (chmod / chown)", "Process & Systemd Management", "TCP/IP Ports & TLS/HTTPS (Port 443)"],
+            quiz: [
+              { q: "Which Linux command changes file access permissions?", options: ["chown", "chmod", "grep"], ans: 1 },
+              { q: "Which standard TCP port is used for encrypted HTTPS traffic?", options: ["22", "80", "443"], ans: 2 }
+            ]
+          },
+          {
+            title: "Module 3: Containers, Docker & Automated CI/CD Pipelines",
+            duration: "Week 3 • ~8 hrs",
+            provider: "GitHub Skills & Actions Lab",
+            url: "https://skills.github.com/",
+            intro: "Package applications into reproducible Docker images and automate testing and deployment workflows using GitHub Actions YAML pipelines.",
+            concepts: ["Dockerfile Multi-Stage Builds", "Container Networking & Env Vars", "GitHub Actions CI/CD Workflows"],
+            quiz: [
+              { q: "Which file defines instructions to build a Docker container image?", options: ["Dockerfile", "package.json", ".gitignore"], ans: 0 },
+              { q: "Where do GitHub Actions workflow YAML files live in a repository?", options: ["/workflows", "/.github/workflows", "/ci"], ans: 1 }
+            ]
+          },
+          {
+            title: "Module 4: Zero-Downtime Cloud Infrastructure Capstone",
+            duration: "Week 4 • Proctored",
+            provider: "CareerBridge Africa Verification Lab",
+            url: "#submitCapstoneCard",
+            intro: "Deploy a containerized multi-tier service with automated CI/CD checks and health monitoring.",
+            isCapstone: true
+          }
         ],
         capstoneBrief: "Containerize a multi-tier web service with automated GitHub Actions CI/CD, health monitoring, and zero-downtime cloud rollout.",
         rubric: "Infrastructure Reliability (400 pts) • CI/CD Automation (250 pts) • Security Hardening (200 pts) • Executive Defense (150 pts)"
       },
-      "TRK-04": {
+      CYBER: {
         partnerBadge: "Google Cybersecurity • Microsoft Learn • NDPC",
+        trackIntro: "Welcome to Cybersecurity & GRC Operations. Master defensive security monitoring, web application vulnerability auditing, and Nigeria Data Protection Act (NDPA) 2023 compliance.",
         modules: [
-          { title: "Module 1: Foundations of Cybersecurity & Threat Defense", provider: "Google Cybersecurity (Coursera)", url: "https://www.coursera.org/professional-certificates/google-cybersecurity" },
-          { title: "Module 2: Security Operations & Vulnerability Management", provider: "Microsoft Learn Security", url: "https://learn.microsoft.com/en-us/training/career-paths/security-operations-analyst" },
-          { title: "Module 3: NDPA 2023 Data Privacy & ISO 27001 Governance", provider: "Nigeria Data Protection Commission", url: "https://ndpc.gov.ng/" },
-          { title: "Module 4: Live Portal Vulnerability Audit & DPIA Capstone", provider: "CareerBridge Africa Verification Lab", url: "#submitCapstoneCard" }
+          {
+            title: "Module 1: Foundations of Cybersecurity & Threat Defense",
+            duration: "Week 1 • ~6 hrs",
+            provider: "Google Cybersecurity (Coursera)",
+            url: "https://www.coursera.org/professional-certificates/google-cybersecurity",
+            intro: "Learn core security principles (CIA Triad), threat actors, network attack vectors, and defensive controls against SQL injection and phishing.",
+            concepts: ["Confidentiality, Integrity & Availability (CIA)", "OWASP Top 10 Injection Vectors", "Defense-in-Depth Controls"],
+            quiz: [
+              { q: "What are the three pillars of the CIA triad in information security?", options: ["Confidentiality, Integrity, Availability", "Control, Inspection, Audit", "Cloud, Identity, Access"], ans: 0 },
+              { q: "Which attack injects malicious SQL statements into input fields?", options: ["XSS", "SQL Injection", "DDoS"], ans: 1 }
+            ]
+          },
+          {
+            title: "Module 2: Security Operations & Vulnerability Management",
+            duration: "Week 2 • ~7 hrs",
+            provider: "Microsoft Learn Security Operations",
+            url: "https://learn.microsoft.com/en-us/training/career-paths/security-operations-analyst",
+            intro: "Prioritize software vulnerabilities using CVSS severity scoring, analyze SIEM authentication logs, and enforce Multi-Factor Authentication (MFA).",
+            concepts: ["CVSS Severity Scoring", "Log Triage & Incident Response", "Identity Hardening & MFA"],
+            quiz: [
+              { q: "What does CVSS measure for a discovered software vulnerability?", options: ["Severity score (0.0 to 10.0)", "Network bandwidth", "Disk IOPS"], ans: 0 },
+              { q: "Which defense mitigates credential stuffing even if a password leaks?", options: ["Multi-Factor Authentication (MFA)", "HTTP caching", "Base64 encoding"], ans: 0 }
+            ]
+          },
+          {
+            title: "Module 3: NDPA 2023 Data Privacy & ISO 27001 Governance",
+            duration: "Week 3 • ~6 hrs",
+            provider: "Nigeria Data Protection Commission (NDPC)",
+            url: "https://ndpc.gov.ng/",
+            intro: "Translate legal privacy obligations under Nigeria's NDPA 2023 into technical controls, explicit consent logs, and Data Protection Impact Assessments (DPIAs).",
+            concepts: ["NDPA 2023 Lawful Bases & Explicit Consent", "Data Protection Impact Assessments (DPIA)", "Breach Notification & Audit Trails"],
+            quiz: [
+              { q: "Under NDPA 2023, what lawful basis requires clear, affirmative user opt-in?", options: ["Explicit Consent", "Implicit Caching", "Public Scraping"], ans: 0 },
+              { q: "When is a Data Protection Impact Assessment (DPIA) mandatory?", options: ["Before high-risk personal data processing", "Only after a breach", "Never for cloud apps"], ans: 0 }
+            ]
+          },
+          {
+            title: "Module 4: Live Portal Vulnerability Audit & DPIA Capstone",
+            duration: "Week 4 • Proctored",
+            provider: "CareerBridge Africa Verification Lab",
+            url: "#submitCapstoneCard",
+            intro: "Author a complete vulnerability remediation report and NDPA 2023 DPIA for a digital platform.",
+            isCapstone: true
+          }
         ],
         capstoneBrief: "Conduct a structured vulnerability assessment on a web portal and author an NDPA 2023 Data Protection Impact Assessment (DPIA).",
         rubric: "Vulnerability Detection (400 pts) • NDPA/GRC Rigor (250 pts) • Remediation Plan (200 pts) • Executive Defense (150 pts)"
       },
-      "TRK-05": {
+      DESIGN: {
         partnerBadge: "Google UX Design • Figma Learn",
+        trackIntro: "Welcome to Product Design (UI/UX Systems). Learn human-centered user research, low-bandwidth mobile wireframing, and scalable component systems in Figma.",
         modules: [
-          { title: "Module 1: UX Research, User Interviews & Empathy Mapping", provider: "Google UX Design (Coursera)", url: "https://www.coursera.org/professional-certificates/google-ux-design" },
-          { title: "Module 2: Wireframing & Low-Bandwidth Mobile User Flows", provider: "Figma Official Design Course", url: "https://help.figma.com/hc/en-us/categories/360002051613" },
-          { title: "Module 3: Scalable Design Systems & Interactive Prototyping", provider: "Figma Design Systems Guide", url: "https://www.figma.com/resource-library/design-systems/" },
-          { title: "Module 4: End-to-End Product Prototype & Usability Capstone", provider: "CareerBridge Africa Verification Lab", url: "#submitCapstoneCard" }
+          {
+            title: "Module 1: UX Research, User Interviews & Empathy Mapping",
+            duration: "Week 1 • ~6 hrs",
+            provider: "Google UX Design (Coursera)",
+            url: "https://www.coursera.org/professional-certificates/google-ux-design",
+            intro: "Conduct structured user interviews, synthesize insights with Empathy Maps, and define clear user problem statements before drawing interfaces.",
+            concepts: ["Qualitative User Interviews", "Empathy Maps & Personas", "User Journey Mapping"],
+            quiz: [
+              { q: "What is the primary goal of user interviews before wireframing?", options: ["Validate real user pain points and workflows", "Pick brand colors", "Write backend SQL"], ans: 0 },
+              { q: "Which artifact synthesizes what a user says, thinks, does, and feels?", options: ["Empathy Map", "Gantt Chart", "Entity-Relationship Diagram"], ans: 0 }
+            ]
+          },
+          {
+            title: "Module 2: Wireframing & Accessible Mobile User Flows",
+            duration: "Week 2 • ~7 hrs",
+            provider: "Figma Official Design Course",
+            url: "https://help.figma.com/hc/en-us/categories/360002051613",
+            intro: "Translate user flows into low-fidelity wireframes optimized for mobile screens, clear visual hierarchy, and WCAG AA contrast accessibility.",
+            concepts: ["Low-Fidelity Wireframing", "Information Architecture", "WCAG AA Contrast Accessibility (4.5:1)"],
+            quiz: [
+              { q: "Why design low-fidelity wireframes before high-fidelity visual polish?", options: ["Test structure and user flows rapidly at low cost", "Export production CSS", "Configure database indexes"], ans: 0 },
+              { q: "What minimum WCAG AA contrast ratio is recommended for normal body text?", options: ["1.5 : 1", "4.5 : 1", "10 : 1"], ans: 1 }
+            ]
+          },
+          {
+            title: "Module 3: Scalable Design Systems & Interactive Prototyping",
+            duration: "Week 3 • ~8 hrs",
+            provider: "Figma Design Systems Guide",
+            url: "https://www.figma.com/resource-library/design-systems/",
+            intro: "Build reusable component libraries with Auto Layout, design tokens, and interactive prototypes validated through 5-user usability testing.",
+            concepts: ["Figma Auto Layout & Variants", "Design Tokens (Color, Typography, Spacing)", "Moderated Usability Testing"],
+            quiz: [
+              { q: "Which Figma feature lets a button resize automatically when label text changes?", options: ["Auto Layout", "Slice Tool", "Vector Flatten"], ans: 0 },
+              { q: "How many users typically uncover ~80% of major usability issues in moderated tests?", options: ["1 user", "5 users", "500 users"], ans: 1 }
+            ]
+          },
+          {
+            title: "Module 4: End-to-End Product Prototype & Usability Capstone",
+            duration: "Week 4 • Proctored",
+            provider: "CareerBridge Africa Verification Lab",
+            url: "#submitCapstoneCard",
+            intro: "Deliver an interactive Figma design system and usability test synthesis.",
+            isCapstone: true
+          }
         ],
         capstoneBrief: "Design a mobile-first, accessible fintech or logistics prototype in Figma validated with 5 documented user testing sessions.",
         rubric: "UX Research & Flows (400 pts) • Visual & Design System (250 pts) • Accessibility & Testing (200 pts) • Executive Defense (150 pts)"
       },
-      "TRK-06": {
-        partnerBadge: "Grow with Google AI • AWS Skill Builder • DeepLearning.AI",
+      AI: {
+        partnerBadge: "Grow with Google AI • AWS Skill Builder • Microsoft Learn",
+        trackIntro: "Welcome to Applied AI & Machine Learning. Master structured prompt engineering, supervised ML evaluation, and Retrieval-Augmented Generation (RAG) systems grounded in enterprise data.",
         modules: [
-          { title: "Module 1: Applied AI Workflows & Prompt Engineering", provider: "Google AI Essentials (Coursera)", url: "https://grow.google/ai-essentials/" },
-          { title: "Module 2: Machine Learning Foundations & Foundation Models", provider: "AWS Skill Builder AI Path", url: "https://explore.skillbuilder.aws/learn" },
-          { title: "Module 3: Retrieval-Augmented Generation (RAG) & Evaluation", provider: "Microsoft Learn AI Engineer", url: "https://learn.microsoft.com/en-us/training/career-paths/ai-engineer" },
-          { title: "Module 4: Domain RAG Assistant & Latency Benchmark Capstone", provider: "CareerBridge Africa Verification Lab", url: "#submitCapstoneCard" }
+          {
+            title: "Module 1: Applied AI Workflows & Structured Prompt Engineering",
+            duration: "Week 1 • ~5 hrs",
+            provider: "Google AI Essentials",
+            url: "https://grow.google/ai-essentials/",
+            intro: "Design deterministic AI workflows using few-shot prompting, role constraints, structured JSON outputs, and human-in-the-loop verification.",
+            concepts: ["Zero-Shot vs Few-Shot Prompting", "Structured Output Constraints", "Hallucination Mitigation"],
+            quiz: [
+              { q: "What technique provides 2–5 input-output examples inside a prompt to guide format?", options: ["Zero-shot prompting", "Few-shot prompting", "Weight pruning"], ans: 1 },
+              { q: "Why require human-in-the-loop review for high-stakes AI outputs?", options: ["LLMs can hallucinate plausible-sounding inaccuracies", "To slow down inference", "To disable tokenization"], ans: 0 }
+            ]
+          },
+          {
+            title: "Module 2: Machine Learning Foundations & Model Evaluation",
+            duration: "Week 2 • ~7 hrs",
+            provider: "AWS Skill Builder AI Path",
+            url: "https://explore.skillbuilder.aws/learn",
+            intro: "Understand train/validation/test splits, diagnose overfitting vs underfitting, and measure classifier quality using Precision, Recall, and F1 scores.",
+            concepts: ["Train/Test Splits & Overfitting", "Precision, Recall & F1 Score", "Foundation Model Selection"],
+            quiz: [
+              { q: "What happens when a model memorizes training data but fails on unseen test data?", options: ["Underfitting", "Overfitting", "Quantization"], ans: 1 },
+              { q: "Which metric balances Precision and Recall into a single harmonic mean?", options: ["F1 Score", "R-Squared", "Learning Rate"], ans: 0 }
+            ]
+          },
+          {
+            title: "Module 3: Retrieval-Augmented Generation (RAG) & Guardrails",
+            duration: "Week 3 • ~8 hrs",
+            provider: "Microsoft Learn AI Engineer",
+            url: "https://learn.microsoft.com/en-us/training/career-paths/ai-engineer",
+            intro: "Build document-grounded AI assistants using text chunking, vector embeddings, semantic retrieval, and citation verification.",
+            concepts: ["Document Chunking & Embeddings", "Vector Similarity Retrieval", "Grounded Citations & Latency Audits"],
+            quiz: [
+              { q: "How does RAG ground LLM answers in private or up-to-date company documents?", options: ["Retrieves relevant chunks via vector/keyword search into prompt context", "Retrains all model weights daily", "Compresses images to JPEG"], ans: 0 },
+              { q: "What converts text chunks into dense numerical vectors for semantic search?", options: ["Embedding model", "Regex parser", "Cron job"], ans: 0 }
+            ]
+          },
+          {
+            title: "Module 4: Domain RAG Assistant & Latency Benchmark Capstone",
+            duration: "Week 4 • Proctored",
+            provider: "CareerBridge Africa Verification Lab",
+            url: "#submitCapstoneCard",
+            intro: "Build and benchmark a domain-specific RAG assistant with documented accuracy metrics.",
+            isCapstone: true
+          }
         ],
         capstoneBrief: "Build and evaluate a domain-specific AI assistant (e.g., agriculture, legal, or healthcare) with accuracy and bias benchmarks.",
         rubric: "Model/RAG Accuracy (400 pts) • Evaluation & Guardrails (250 pts) • Practical Utility (200 pts) • Executive Defense (150 pts)"
       },
-      "TRK-07": {
+      CAD: {
         partnerBadge: "Autodesk Academy • MIT OpenCourseWare",
+        trackIntro: "Welcome to Industrial CAD & Mechatronics. Master parametric 3D modeling, structural FEA simulation, and local Nigerian supply-chain Bill of Materials (BOM) costing.",
         modules: [
-          { title: "Module 1: Parametric 3D CAD Modeling & Assemblies", provider: "Autodesk Fusion 360 Learning", url: "https://www.autodesk.com/learn/ondemand/collection/self-paced-learning-for-fusion" },
-          { title: "Module 2: Structural Simulation, FEA & Tolerance Analysis", provider: "Autodesk Simulation Tutorials", url: "https://www.autodesk.com/learn" },
-          { title: "Module 3: Embedded Control Systems & Local BOM Costing", provider: "MIT OpenCourseWare Engineering", url: "https://ocw.mit.edu/" },
-          { title: "Module 4: Manufacturable Assembly & Nigerian Supply BOM", provider: "CareerBridge Africa Verification Lab", url: "#submitCapstoneCard" }
+          {
+            title: "Module 1: Parametric 3D CAD Modeling & Assemblies",
+            duration: "Week 1 • ~7 hrs",
+            provider: "Autodesk Fusion 360 Learning",
+            url: "https://www.autodesk.com/learn/ondemand/collection/self-paced-learning-for-fusion",
+            intro: "Create constraint-driven 2D sketches, extrude/revolve 3D solids, and assemble multi-part mechanical systems with parametric dimensions.",
+            concepts: ["Parametric Sketch Constraints", "Extrude, Revolve & Fillet Operations", "Multi-Component Assembly Joints"],
+            quiz: [
+              { q: "What is the key advantage of parametric CAD modeling over direct mesh modeling?", options: ["Dimensions and constraints update dependent features automatically", "Files cannot be exported", "Requires no sketches"], ans: 0 },
+              { q: "Which CAD operation sweeps a 2D profile linearly into a 3D solid?", options: ["Extrude", "Fillet", "Chamfer"], ans: 0 }
+            ]
+          },
+          {
+            title: "Module 2: Structural Simulation, FEA & Tolerance Analysis",
+            duration: "Week 2 • ~7 hrs",
+            provider: "Autodesk Simulation Tutorials",
+            url: "https://www.autodesk.com/learn",
+            intro: "Run static stress Finite Element Analysis (FEA), verify Factor of Safety margins, and specify manufacturing fits and tolerances.",
+            concepts: ["Static Stress & Factor of Safety (FoS)", "Material Selection & Load Constraints", "Machining Fits & Tolerances"],
+            quiz: [
+              { q: "What does a Factor of Safety (FoS) > 1.0 indicate in Finite Element Analysis?", options: ["Part yields immediately", "Allowable material strength exceeds maximum applied stress", "Zero gravity load"], ans: 1 },
+              { q: "Why define manufacturing tolerances on mating shaft-and-bore assemblies?", options: ["Ensure proper fit despite machining variance", "Increase part weight", "Remove threads"], ans: 0 }
+            ]
+          },
+          {
+            title: "Module 3: Embedded Control Systems & Local BOM Costing",
+            duration: "Week 3 • ~7 hrs",
+            provider: "MIT OpenCourseWare Engineering",
+            url: "https://ocw.mit.edu/",
+            intro: "Integrate sensors, PWM motor actuation, and localized Nigerian/African vendor sourcing into a production-ready Bill of Materials (BOM).",
+            concepts: ["PWM Actuator & Sensor Control", "Bill of Materials (BOM) Costing", "Local Fabrication Feasibility"],
+            quiz: [
+              { q: "What does a Bill of Materials (BOM) specify for production?", options: ["Complete list of parts, quantities, materials, and unit costs", "Only marketing copy", "Cloud server RAM"], ans: 0 },
+              { q: "Which signal modulation technique controls DC motor speed efficiently?", options: ["PWM (Pulse-Width Modulation)", "FM Radio", "RS-232"], ans: 0 }
+            ]
+          },
+          {
+            title: "Module 4: Manufacturable Assembly & Nigerian Supply BOM",
+            duration: "Week 4 • Proctored",
+            provider: "CareerBridge Africa Verification Lab",
+            url: "#submitCapstoneCard",
+            intro: "Submit your 3D CAD assembly, FEA stress report, and localized Bill of Materials.",
+            isCapstone: true
+          }
         ],
         capstoneBrief: "Deliver a manufacturable 3D mechanical assembly, stress-analysis report, and localized Nigerian supply-chain Bill of Materials.",
         rubric: "CAD Precision & Tolerance (400 pts) • Simulation Analysis (250 pts) • Local BOM Feasibility (200 pts) • Executive Defense (150 pts)"
       }
     };
 
+    // Reliable keyword-based track resolver across both track.code and track.title
     function getCurriculumForTrack(track) {
-      const code = (track.code || "").toUpperCase();
-      if (TRACK_CURRICULA[code]) return TRACK_CURRICULA[code];
-      const title = (track.title || "").toUpperCase();
-      if (title.includes("DATA")) return TRACK_CURRICULA["TRK-01"];
-      if (title.includes("WEB") || title.includes("STACK")) return TRACK_CURRICULA["TRK-02"];
-      if (title.includes("CLOUD") || title.includes("DEVOPS")) return TRACK_CURRICULA["TRK-03"];
-      if (title.includes("CYBER")) return TRACK_CURRICULA["TRK-04"];
-      if (title.includes("DESIGN") || title.includes("UX")) return TRACK_CURRICULA["TRK-05"];
-      if (title.includes("AI") || title.includes("MACHINE")) return TRACK_CURRICULA["TRK-06"];
-      return TRACK_CURRICULA["TRK-07"];
+      const text = `${track.code || ""} ${track.title || ""}`.toUpperCase();
+      if (text.includes("DATA") || text.includes("SQL") || text.includes("ANALYTICS")) return TRACK_CURRICULA.DATA;
+      if (text.includes("CLOUD") || text.includes("DEVOPS") || text.includes("INFRA")) return TRACK_CURRICULA.CLOUD;
+      if (text.includes("CYBER") || text.includes("SECURITY") || text.includes("GRC")) return TRACK_CURRICULA.CYBER;
+      if (text.includes("DESIGN") || text.includes("UX") || text.includes("UI")) return TRACK_CURRICULA.DESIGN;
+      if (text.includes("AI") || text.includes("MACHINE") || text.includes("ML")) return TRACK_CURRICULA.AI;
+      if (text.includes("CAD") || text.includes("MECH") || text.includes("INDUSTRIAL")) return TRACK_CURRICULA.CAD;
+      return TRACK_CURRICULA.WEB;
+    }
+
+    function getModuleProgress(trackId) {
+      const key = `cb_gate_${currentUser.id}_${trackId}`;
+      return JSON.parse(localStorage.getItem(key) || '{"passed":[false,false,false],"scores":[0,0,0]}');
+    }
+
+    function saveModuleProgress(trackId, state) {
+      const key = `cb_gate_${currentUser.id}_${trackId}`;
+      localStorage.setItem(key, JSON.stringify(state));
     }
 
     window.addEventListener("DOMContentLoaded", async () => {
@@ -384,6 +682,9 @@
       location.reload();
     }
 
+    // =========================================================================
+    // 2. LEARNER WORKSPACE (TRACK INTRO + MODULE INTROS + SEQUENTIAL GATES)
+    // =========================================================================
     async function renderLearnerWorkspace() {
       const container = document.getElementById("workspaceContent");
       const { data: tracks } = await sbClient.from("tracks").select("*").order("code");
@@ -422,31 +723,43 @@
         || ((enrolments || [])[0] ? enrolments[0].tracks : (tracks || [])[0]);
 
       let roadmapHtml = "";
+      let allModulesPassedForActive = false;
+
       if (activeTrack) {
         const isEnrolled = (enrolments || []).some(e => e.track_id === activeTrack.id);
         const curr = getCurriculumForTrack(activeTrack);
+        const progress = getModuleProgress(activeTrack.id);
+        allModulesPassedForActive = progress.passed[0] && progress.passed[1] && progress.passed[2];
+
         const latestSub = (submissions || []).find(s => s.track_id === activeTrack.id);
         const latestScore = (scores || []).find(s => s.track_id === activeTrack.id);
 
-        const stageIndex = latestScore ? 4 : latestSub ? (latestSub.status === "under_dual_review" ? 3 : 2) : isEnrolled ? 1 : 0;
-        const stages = ["1. Enrol", "2. Partner Modules", "3. Capstone Queued", "4. Dual Grading", "5. CareerScore™"];
-        const savedChecks = JSON.parse(localStorage.getItem(`cb_mods_${currentUser.id}_${activeTrack.id}`) || "[false,false,false,false]");
+        const stageIndex = latestScore ? 4 : latestSub ? (latestSub.status === "under_dual_review" ? 3 : 2) : allModulesPassedForActive ? 1 : 0;
+        const stages = ["1. Enrol", "2. Pass Modules 1–3", "3. Capstone Queued", "4. Dual Grading", "5. CareerScore™"];
 
         roadmapHtml = `
           <div class="bg-white rounded-xl border border-slate-200 p-5 space-y-4">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
               <div>
                 <div class="flex items-center gap-2">
-                  <span class="text-[11px] font-bold uppercase text-amber-700">Partner-Curated Syllabus</span>
+                  <span class="text-[11px] font-bold uppercase text-amber-700">Track Orientation & Syllabus</span>
                   <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">${curr.partnerBadge}</span>
                 </div>
                 <h3 class="font-bold text-base mt-0.5">${activeTrack.code}: ${activeTrack.title}</h3>
               </div>
-              <span class="text-xs px-2.5 py-1 rounded-full ${isEnrolled ? "bg-emerald-50 text-emerald-800 border border-emerald-200" : "bg-slate-100 text-slate-600"} font-semibold">
-                ${isEnrolled ? "✓ Enrolled (Pilot Access)" : "Previewing Curriculum"}
-              </span>
+              ${isEnrolled
+                ? `<span class="text-xs px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold">✓ Enrolled (Pilot Access)</span>`
+                : `<button onclick="enrolInPilotTrack('${activeTrack.id}', '${activeTrack.title}')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold">Enrol Free to Start Module 1</button>`
+              }
             </div>
 
+            <!-- Track Introduction Banner -->
+            <div class="bg-slate-900 text-slate-100 rounded-xl p-4 text-xs leading-relaxed">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-amber-400 mb-1">Track Introduction & Outcomes</div>
+              <p>${curr.trackIntro}</p>
+            </div>
+
+            <!-- 5-Stage Visual Pipeline -->
             <div class="grid grid-cols-5 gap-1.5 text-center">
               ${stages.map((st, idx) => `
                 <div class="p-2 rounded-lg text-[11px] font-semibold border ${idx <= stageIndex ? "bg-emerald-50 border-emerald-300 text-emerald-900" : "bg-slate-50 border-slate-200 text-slate-400"}">
@@ -455,26 +768,95 @@
               `).join("")}
             </div>
 
-            <div class="space-y-2">
-              <div class="text-xs font-bold text-slate-700">Training Modules (Complete Partner Coursework & Check Off Progress):</div>
-              ${curr.modules.map((mod, i) => `
-                <div class="flex flex-wrap items-center justify-between gap-2 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 text-xs">
-                  <label class="flex items-start gap-2.5 cursor-pointer flex-1">
-                    <input type="checkbox" ${savedChecks[i] ? "checked" : ""} onchange="toggleModuleProgress('${activeTrack.id}', ${i}, this.checked)" class="mt-0.5 rounded text-slate-900" />
-                    <div>
-                      <div class="${savedChecks[i] ? "line-through text-slate-400" : "text-slate-900 font-semibold"}">${mod.title}</div>
-                      <div class="text-[11px] text-slate-500">Partner Content: ${mod.provider}</div>
+            <!-- Sequential Gated Modules with Full Introductions -->
+            <div class="space-y-3">
+              <div class="text-xs font-bold text-slate-700">
+                Sequential Curriculum (Read Module Brief → Study Partner Lab → Pass Checkpoint):
+              </div>
+
+              ${curr.modules.map((mod, i) => {
+                const isUnlocked = isEnrolled && (i === 0 || progress.passed[i - 1]);
+                const isPassed = i < 3 ? progress.passed[i] : Boolean(latestSub || latestScore);
+                const isQuizOpen = activeQuizModule === `${activeTrack.id}_${i}`;
+
+                return `
+                  <div class="p-4 rounded-xl border ${isPassed ? "border-emerald-300 bg-emerald-50/40" : isUnlocked ? "border-slate-300 bg-white" : "border-slate-200 bg-slate-50 opacity-80"} space-y-3">
+                    <div class="flex flex-wrap items-start justify-between gap-2 text-xs">
+                      <div class="space-y-1 flex-1">
+                        <div class="flex flex-wrap items-center gap-2">
+                          <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded ${isPassed ? "bg-emerald-600 text-white" : isUnlocked ? "bg-amber-100 text-amber-900" : "bg-slate-200 text-slate-600"}">
+                            ${isPassed ? "✓ Passed" : isUnlocked ? "Unlocked" : "🔒 Locked"}
+                          </span>
+                          <span class="font-bold text-sm text-slate-900">${mod.title}</span>
+                          <span class="text-[11px] text-slate-500">(${mod.duration})</span>
+                        </div>
+                        <div class="text-[11px] font-medium text-slate-600">Partner Curriculum: <strong>${mod.provider}</strong></div>
+                      </div>
+
+                      <div class="flex items-center gap-2 shrink-0">
+                        ${!isUnlocked ? `
+                          <span class="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded">
+                            ${!isEnrolled ? "Enrol first" : `Pass Module ${i} to unlock`}
+                          </span>
+                        ` : mod.isCapstone ? `
+                          <a href="#submitCapstoneCard" class="text-[11px] font-bold px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 hover:bg-amber-600">
+                            Submit Capstone ↓
+                          </a>
+                        ` : `
+                          <a href="${mod.url}" target="_blank" rel="noopener" class="text-[11px] font-semibold px-2.5 py-1.5 rounded-lg bg-slate-100 text-slate-800 hover:bg-slate-200 border border-slate-300">
+                            1. Open Partner Course ↗
+                          </a>
+                          <button onclick="openModuleGate('${activeTrack.id}', ${i})" class="text-[11px] font-bold px-2.5 py-1.5 rounded-lg ${isPassed ? "bg-emerald-700 text-white" : "bg-slate-900 text-white hover:bg-slate-700"}">
+                            ${isPassed ? "Re-verify Gate" : "2. Pass Module Gate"}
+                          </button>
+                        `}
+                      </div>
                     </div>
-                  </label>
-                  <a href="${mod.url}" ${mod.url.startsWith("http") ? 'target="_blank" rel="noopener"' : ""} class="shrink-0 text-[11px] font-bold px-2.5 py-1.5 rounded-lg bg-slate-900 text-white hover:bg-slate-700">
-                    ${mod.url.startsWith("http") ? "Launch Course ↗" : "Submit Below ↓"}
-                  </a>
-                </div>
-              `).join("")}
+
+                    <!-- Module Introduction & Core Concepts -->
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-200/80 text-xs space-y-2">
+                      <p class="text-slate-700 leading-relaxed"><strong>Module Overview:</strong> ${mod.intro}</p>
+                      ${mod.concepts ? `
+                        <div class="flex flex-wrap gap-1.5 pt-0.5">
+                          ${mod.concepts.map(c => `<span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-700">• ${c}</span>`).join("")}
+                        </div>
+                      ` : ""}
+                    </div>
+
+                    ${isQuizOpen && mod.quiz ? `
+                      <div class="bg-amber-50/70 p-3.5 rounded-lg border border-amber-300 space-y-3 text-xs">
+                        <div class="font-bold text-slate-900">Module ${i + 1} Mastery Gate (100% Required to Unlock Module ${i + 2}):</div>
+                        ${mod.quiz.map((item, qIdx) => `
+                          <div class="space-y-1">
+                            <div class="font-semibold text-slate-800">${qIdx + 1}. ${item.q}</div>
+                            <div class="space-y-1 pl-2">
+                              ${item.options.map((opt, oIdx) => `
+                                <label class="flex items-center gap-2 cursor-pointer text-slate-700">
+                                  <input type="radio" name="q_${activeTrack.id}_${i}_${qIdx}" value="${oIdx}" />
+                                  <span>${opt}</span>
+                                </label>
+                              `).join("")}
+                            </div>
+                          </div>
+                        `).join("")}
+                        <div class="flex gap-2 pt-1">
+                          <button onclick="gradeModuleGate('${activeTrack.id}', ${i})" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-lg">
+                            Verify & Unlock Next Module
+                          </button>
+                          <button onclick="closeModuleGate()" class="bg-white border border-slate-300 text-slate-700 px-3 py-1.5 rounded-lg">
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    ` : ""}
+                  </div>
+                `;
+              }).join("")}
             </div>
 
+            <!-- Capstone Brief & Rubric -->
             <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 space-y-1.5 text-xs">
-              <div class="font-bold text-slate-900">Proctored Capstone Brief:</div>
+              <div class="font-bold text-slate-900">Proctored Capstone Brief (Unlocks After Module 3):</div>
               <p class="text-slate-600">${curr.capstoneBrief}</p>
               <div class="pt-1 text-[11px] font-semibold text-amber-900">1,000-Pt Rubric: ${curr.rubric}</div>
             </div>
@@ -498,7 +880,7 @@
             </div>
             <div class="mt-4 flex gap-2">
               <button onclick="viewTrackSyllabus('${t.id}')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 rounded-lg">
-                View Modules
+                View Syllabus
               </button>
               ${existing
                 ? `<span class="flex-1 text-center text-xs font-semibold py-2 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Enrolled</span>`
@@ -518,7 +900,7 @@
           <p class="text-xs text-emerald-800 mt-1">${s.readiness_tier}</p>
           <p class="text-[11px] font-mono text-emerald-700 mt-2">Verify URL: careerbridge.africa/verify/${s.portfolio_slug}</p>
         </div>
-      `).join("") || `<p class="text-xs text-slate-500">No verified CareerScores yet. Complete your partner modules and submit a capstone below.</p>`;
+      `).join("") || `<p class="text-xs text-slate-500">No verified CareerScores yet. Pass Modules 1–3 and submit your capstone below.</p>`;
 
       container.innerHTML = `
         <div class="lg:col-span-2 space-y-6">
@@ -536,30 +918,78 @@
           </div>
 
           <div id="submitCapstoneCard" class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
-            <h3 class="font-bold text-sm">Submit Capstone Artifact (Offline-Ready)</h3>
-            <select id="submitEnrolmentId" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
-              ${(enrolments || []).map(e => `<option value="${e.id}|${e.track_id}">${e.tracks?.title}</option>`).join("") || `<option value="">Enrol in a track first</option>`}
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold text-sm">Submit Capstone Artifact</h3>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded ${allModulesPassedForActive ? "bg-emerald-100 text-emerald-800" : "bg-slate-200 text-slate-600"}">
+                ${allModulesPassedForActive ? "Unlocked" : "🔒 Pass Modules 1–3"}
+              </span>
+            </div>
+            <select id="submitEnrolmentId" onchange="onSubmissionTrackChange(this.value)" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
+              ${(enrolments || []).map(e => `<option value="${e.id}|${e.track_id}" ${activeTrack && e.track_id === activeTrack.id ? "selected" : ""}>${e.tracks?.title}</option>`).join("") || `<option value="">Enrol in a track first</option>`}
             </select>
             <input type="url" id="artifactLink" placeholder="GitHub Repo / Figma / Drive CAD Model URL" class="w-full text-xs border border-slate-300 rounded-lg p-2" />
             <input type="url" id="defenseLink" placeholder="10-Min Executive Defense Video URL" class="w-full text-xs border border-slate-300 rounded-lg p-2" />
-            <button onclick="submitCapstoneArtifact()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-2 rounded-lg">
-              Submit for Proctored Verification
+            <button onclick="submitCapstoneArtifact()" class="w-full ${allModulesPassedForActive ? "bg-amber-500 hover:bg-amber-600 text-slate-950" : "bg-slate-300 text-slate-600 cursor-not-allowed"} font-bold text-xs py-2 rounded-lg">
+              ${allModulesPassedForActive ? "Submit for Proctored Verification" : "Complete & Pass Modules 1–3 to Unlock"}
             </button>
           </div>
         </div>
       `;
     }
 
-    function viewTrackSyllabus(trackId) {
+    function openModuleGate(trackId, modIndex) {
+      activeQuizModule = `${trackId}_${modIndex}`;
+      renderLearnerWorkspace();
+    }
+
+    function closeModuleGate() {
+      activeQuizModule = null;
+      renderLearnerWorkspace();
+    }
+
+    async function gradeModuleGate(trackId, modIndex) {
+      const { data: tracks } = await sbClient.from("tracks").select("*").eq("id", trackId);
+      const track = tracks?.[0];
+      if (!track) return;
+      const curr = getCurriculumForTrack(track);
+      const quiz = curr.modules[modIndex]?.quiz || [];
+
+      let correct = 0;
+      for (let qIdx = 0; qIdx < quiz.length; qIdx++) {
+        const selected = document.querySelector(`input[name="q_${trackId}_${modIndex}_${qIdx}"]:checked`);
+        if (selected && parseInt(selected.value, 10) === quiz[qIdx].ans) {
+          correct++;
+        }
+      }
+
+      if (correct < quiz.length) {
+        return alert(`You scored ${correct}/${quiz.length}. You must pass all checkpoint questions (100%) to unlock the next module. Review the module overview and partner course, then try again!`);
+      }
+
+      const state = getModuleProgress(trackId);
+      state.passed[modIndex] = true;
+      state.scores[modIndex] = 100;
+      saveModuleProgress(trackId, state);
+      activeQuizModule = null;
+
+      if (modIndex < 2) {
+        alert(`Module ${modIndex + 1} Passed! Module ${modIndex + 2} is now unlocked.`);
+      } else {
+        alert("All 3 Training Modules Passed! Your Proctored Capstone Submission is now unlocked.");
+      }
+      renderLearnerWorkspace();
+    }
+
+    function onSubmissionTrackChange(val) {
+      if (!val) return;
+      const [, trackId] = val.split("|");
       selectedTrackId = trackId;
       renderLearnerWorkspace();
     }
 
-    function toggleModuleProgress(trackId, modIndex, checked) {
-      const key = `cb_mods_${currentUser.id}_${trackId}`;
-      const arr = JSON.parse(localStorage.getItem(key) || "[false,false,false,false]");
-      arr[modIndex] = checked;
-      localStorage.setItem(key, JSON.stringify(arr));
+    function viewTrackSyllabus(trackId) {
+      selectedTrackId = trackId;
+      activeQuizModule = null;
       renderLearnerWorkspace();
     }
 
@@ -580,6 +1010,12 @@
       const val = document.getElementById("submitEnrolmentId").value;
       if (!val) return alert("Please enrol in a track first.");
       const [enrolmentId, trackId] = val.split("|");
+
+      const progress = getModuleProgress(trackId);
+      if (!(progress.passed[0] && progress.passed[1] && progress.passed[2])) {
+        return alert("Sequential Mastery Gate: You must complete and pass Modules 1, 2, and 3 before submitting your capstone artifact.");
+      }
+
       const artifactUrl = document.getElementById("artifactLink").value.trim();
       const defenseUrl = document.getElementById("defenseLink").value.trim();
       if (!artifactUrl) return alert("Please provide your capstone artifact link.");
@@ -614,6 +1050,9 @@
       localStorage.removeItem("cb_offline_submissions");
     }
 
+    // =========================================================================
+    // 3. EMPLOYER WORKSPACE
+    // =========================================================================
     async function renderEmployerWorkspace() {
       const container = document.getElementById("workspaceContent");
       const { data: tracks } = await sbClient.from("tracks").select("*").order("code");
@@ -764,6 +1203,9 @@
       }
     }
 
+    // =========================================================================
+    // 4. ASSESSOR WORKSPACE
+    // =========================================================================
     async function renderAssessorWorkspace() {
       const container = document.getElementById("workspaceContent");
       const { data: queue } = await sbClient
