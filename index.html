@@ -36,8 +36,8 @@
     <!-- AUTHENTICATION GATE (SIGN UP / LOGIN WITH NDPA 2023 CONSENT) -->
     <section id="authSection" class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
       <div class="flex border-b border-slate-200 mb-5">
-        <button id="tabLogin" onclick="switchAuthTab('login')" class="flex-1 pb-2.5 text-sm font-semibold border-b-2 border-slate-900 text-slate-900">Sign In</button>
-        <button id="tabSignup" onclick="switchAuthTab('signup')" class="flex-1 pb-2.5 text-sm font-semibold border-b-2 border-transparent text-slate-500">Create Account</button>
+        <button type="button" id="tabLogin" onclick="switchAuthTab('login')" class="flex-1 pb-2.5 text-sm font-semibold border-b-2 border-slate-900 text-slate-900">Sign In</button>
+        <button type="button" id="tabSignup" onclick="switchAuthTab('signup')" class="flex-1 pb-2.5 text-sm font-semibold border-b-2 border-transparent text-slate-500">Create Account</button>
       </div>
 
       <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
@@ -109,7 +109,7 @@
     const SUPABASE_URL = "https://mnzqwllkyepgxixtgafu.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_gO0gCmajqqHlq1l6H7yqfQ_duU8GmMB";
 
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     let authMode = "login";
     let currentUser = null;
@@ -165,7 +165,7 @@
           return;
         }
 
-        const { data, error } = await supabase.auth.signUp({ email, password });
+        const { data, error } = await sbClient.auth.signUp({ email, password });
         if (error) {
           feedback.textContent = error.message;
           feedback.classList.remove("hidden");
@@ -173,7 +173,7 @@
         }
 
         if (data.user) {
-          const { error: profileError } = await supabase.from("profiles").insert({
+          const { error: profileError } = await sbClient.from("profiles").insert({
             id: data.user.id,
             full_name: fullName || email.split("@")[0],
             email,
@@ -190,7 +190,7 @@
           await loadUserSession(data.user);
         }
       } else {
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        const { data, error } = await sbClient.auth.signInWithPassword({ email, password });
         if (error) {
           feedback.textContent = error.message;
           feedback.classList.remove("hidden");
@@ -202,11 +202,18 @@
 
     async function loadUserSession(user) {
       currentUser = user;
-      const { data: profile } = await supabase
+      const { data: profile, error } = await sbClient
         .from("profiles")
         .select("*")
         .eq("id", user.id)
         .single();
+
+      if (error || !profile) {
+        const feedback = document.getElementById("authFeedback");
+        feedback.textContent = "Account created! If email confirmation is enabled in Supabase, please verify your email first, or disable 'Confirm email' in Supabase Auth settings.";
+        feedback.classList.remove("hidden");
+        return;
+      }
 
       currentProfile = profile;
       document.getElementById("authSection").classList.add("hidden");
@@ -221,7 +228,7 @@
     }
 
     async function handleSignOut() {
-      await supabase.auth.signOut();
+      await sbClient.auth.signOut();
       location.reload();
     }
 
@@ -230,13 +237,13 @@
     // =========================================================================
     async function renderLearnerWorkspace() {
       const container = document.getElementById("workspaceContent");
-      const { data: tracks } = await supabase.from("tracks").select("*").order("code");
-      const { data: enrolments } = await supabase
+      const { data: tracks } = await sbClient.from("tracks").select("*").order("code");
+      const { data: enrolments } = await sbClient
         .from("enrolments")
         .select("*, tracks(*)")
         .eq("learner_id", currentUser.id);
 
-      const { data: scores } = await supabase
+      const { data: scores } = await sbClient
         .from("careerscores")
         .select("*, tracks(title)")
         .eq("learner_id", currentUser.id);
@@ -308,7 +315,7 @@
     }
 
     async function enrolInPilotTrack(trackId, trackTitle) {
-      const { error } = await supabase.from("enrolments").upsert({
+      const { error } = await sbClient.from("enrolments").upsert({
         learner_id: currentUser.id,
         track_id: trackId,
         funding_type: "scholarship",
@@ -349,18 +356,18 @@
         return alert("You are offline. Submission saved locally and will auto-sync when connectivity returns!");
       }
 
-      const { error } = await supabase.from("submissions").insert(payload);
+      const { error } = await sbClient.from("submissions").insert(payload);
       if (error) return alert(error.message);
       alert("Capstone submitted to blind dual-assessor queue!");
       renderLearnerWorkspace();
     }
 
     async function syncOfflineQueue() {
-      if (!supabase || !currentUser) return;
+      if (!sbClient || !currentUser) return;
       const queue = JSON.parse(localStorage.getItem("cb_offline_submissions") || "[]");
       if (queue.length === 0) return;
       for (const item of queue) {
-        await supabase.from("submissions").insert(item);
+        await sbClient.from("submissions").insert(item);
       }
       localStorage.removeItem("cb_offline_submissions");
       alert(`Synced ${queue.length} offline capstone submission(s) to the cloud!`);
@@ -371,7 +378,7 @@
     // =========================================================================
     async function renderEmployerWorkspace() {
       const container = document.getElementById("workspaceContent");
-      const { data: verifiedPool } = await supabase
+      const { data: verifiedPool } = await sbClient
         .from("careerscores")
         .select("*, profiles(full_name, email), tracks(title), submissions(artifact_storage_path, defense_video_url)")
         .order("final_score", { ascending: false });
@@ -412,7 +419,7 @@
     }
 
     async function shortlistCandidate(careerscoreId, learnerId) {
-      const { error } = await supabase.from("employer_shortlists").insert({
+      const { error } = await sbClient.from("employer_shortlists").insert({
         employer_id: currentUser.id,
         careerscore_id: careerscoreId,
         learner_id: learnerId,
@@ -427,7 +434,7 @@
     // =========================================================================
     async function renderAssessorWorkspace() {
       const container = document.getElementById("workspaceContent");
-      const { data: queue } = await supabase
+      const { data: queue } = await sbClient
         .from("submissions")
         .select("*, tracks(title), assessments(*)")
         .in("status", ["queued_for_grading", "under_dual_review", "moderation_flagged"]);
@@ -461,25 +468,25 @@
       const score = parseInt(document.getElementById(`score_${submissionId}`).value, 10);
       if (isNaN(score) || score < 0 || score > 1000) return alert("Enter a valid score between 0 and 1000.");
 
-      const { data: existing } = await supabase
+      const { data: existing } = await sbClient
         .from("assessments")
         .select("*")
         .eq("submission_id", submissionId)
         .maybeSingle();
 
       if (!existing) {
-        await supabase.from("assessments").insert({
+        await sbClient.from("assessments").insert({
           submission_id: submissionId,
           assessor_1_id: currentUser.id,
           assessor_1_total: score
         });
-        await supabase.from("submissions").update({ status: "under_dual_review" }).eq("id", submissionId);
+        await sbClient.from("submissions").update({ status: "under_dual_review" }).eq("id", submissionId);
         alert("Assessor 1 grade recorded. Awaiting blind Assessor 2 review.");
       } else {
         if (existing.assessor_1_id === currentUser.id) {
           return alert("Conflict of interest: You already submitted Assessor 1 grade. A second independent assessor must grade.");
         }
-        await supabase.from("assessments").update({
+        await sbClient.from("assessments").update({
           assessor_2_id: currentUser.id,
           assessor_2_total: score
         }).eq("id", existing.id);
