@@ -3,20 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CareerBridge Africa — Digital Skills, Proctored Verification & Talent Matching</title>
+  <title>CareerBridge Africa — Interactive Training, AI Mentor & Proctored CareerScore™</title>
+  <link rel="icon" type="image/png" href="logo.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.45); }
+      50% { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+    }
+    .ai-pulse { animation: pulseGlow 2.4s infinite; }
+    .fade-in { animation: fadeIn 0.25s ease-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+<body class="bg-slate-100 text-slate-900 font-sans antialiased">
 
-  <!-- TOP NAVIGATION -->
-  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-30">
+  <!-- TOP NAVIGATION WITH LOGO & LIVE AI MENTOR TRIGGER -->
+  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-30 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-lg bg-amber-500 text-slate-950 font-extrabold flex items-center justify-center">CB</div>
+        <div class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shadow-sm overflow-hidden shrink-0">
+          <img
+            src="logo.png"
+            alt="CareerBridge Africa Logo"
+            class="w-full h-full object-contain"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <svg viewBox="0 0 64 64" class="w-full h-full hidden" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="CareerBridge Africa Emblem">
+            <path d="M10 38C16 22 42 20 52 34" stroke="#0F172A" stroke-width="6" stroke-linecap="round"/>
+            <path d="M14 28C22 14 42 14 50 24" stroke="#F59E0B" stroke-width="4.5" stroke-linecap="round"/>
+            <path d="M22 36L31 45L54 18" stroke="#10B981" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
         <div>
-          <h1 class="font-bold text-base tracking-tight">CareerBridge Africa</h1>
-          <p class="text-[11px] text-slate-400">Project-Centred Training • Proctored CareerScore™ (0–1000) • Verified Talent Matching</p>
+          <div class="flex items-center gap-2">
+            <h1 class="font-bold text-base tracking-tight">CareerBridge Africa</h1>
+            <span class="hidden sm:inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+              AI-GUIDED STUDIO
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400">1. Diagnostic Baseline • 2. Guided Training & Lab • 3. Proctored CareerScore™ (0–1000)</p>
         </div>
       </div>
 
@@ -24,6 +54,9 @@
         <span id="connBadge" class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
           ● Low-Data Mode • Sync Active
         </span>
+        <button onclick="toggleAICoach(true)" class="text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition">
+          <span>✦ Ask AI Coach</span>
+        </button>
         <button id="btnSignOut" onclick="handleSignOut()" class="hidden text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-700">
           Sign Out
         </button>
@@ -33,41 +66,62 @@
 
   <main class="max-w-7xl mx-auto px-4 py-8">
 
-    <!-- AUTHENTICATION GATE + PLATFORM VALUE PROPOSITION -->
-    <section id="authSection" class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-      <div class="space-y-4">
-        <span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-100 text-amber-900">
-          NDPA 2023 & FCCPA 2018 Compliant Infrastructure
-        </span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+    <!-- AUTHENTICATION GATE + INTERACTIVE PLATFORM OVERVIEW -->
+    <section id="authSection" class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div class="lg:col-span-7 space-y-5">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-white border border-slate-200 p-1.5 shadow-sm flex items-center justify-center shrink-0">
+            <img
+              src="logo.png"
+              alt="CareerBridge Africa Brand Mark"
+              class="w-full h-full object-contain"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <svg viewBox="0 0 64 64" class="w-full h-full hidden" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 38C16 22 42 20 52 34" stroke="#0F172A" stroke-width="6" stroke-linecap="round"/>
+              <path d="M14 28C22 14 42 14 50 24" stroke="#F59E0B" stroke-width="4.5" stroke-linecap="round"/>
+              <path d="M22 36L31 45L54 18" stroke="#10B981" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-100 text-amber-900">
+            NDPA 2023 & FCCPA 2018 Compliant Workforce Platform
+          </span>
+        </div>
+
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
           Africa's Most Trusted Bridge Between Digital Talent & Opportunity.
         </h2>
         <p class="text-sm text-slate-600 leading-relaxed">
-          Master 7 project-centred tracks across <strong>Software, Data, UI/UX, AutoCAD, SolidWorks, Revit/BIM, and MEP & Civil Design</strong>. Every module produces a practical work sample validated through proctored assessment into a <strong>0–1000 CareerScore™</strong>.
+          Experience an interactive, AI-guided learning studio across <strong>Software, Data, UI/UX, AutoCAD, SolidWorks, Revit/BIM, and MEP & Civil Design</strong>. Benchmark your baseline, build verified practical deliverables, and earn a proctored <strong>0–1000 CareerScore™</strong>.
         </p>
-        <div class="grid grid-cols-3 gap-3 pt-2">
-          <div class="bg-white p-3 rounded-xl border border-slate-200">
-            <div class="text-sm font-extrabold text-slate-900">7 Tracks</div>
-            <div class="text-[11px] text-slate-500">Practical Outputs</div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm hover:border-amber-400 transition">
+            <div class="text-xs font-extrabold uppercase text-amber-700">Step 01</div>
+            <div class="text-sm font-bold text-slate-900 mt-0.5">Diagnostic & AI Guide</div>
+            <div class="text-[11px] text-slate-500 mt-1">Measure your starting baseline with live step-by-step AI mentoring.</div>
           </div>
-          <div class="bg-white p-3 rounded-xl border border-slate-200">
-            <div class="text-sm font-extrabold text-emerald-700">IRR ≥ 0.70</div>
-            <div class="text-[11px] text-slate-500">Proctored Gate</div>
+          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm hover:border-amber-400 transition">
+            <div class="text-xs font-extrabold uppercase text-slate-700">Step 02</div>
+            <div class="text-sm font-bold text-slate-900 mt-0.5">Hands-On Labs</div>
+            <div class="text-[11px] text-slate-500 mt-1">Build real code, dashboards, Figma systems, and CAD/BIM models.</div>
           </div>
-          <div class="bg-white p-3 rounded-xl border border-slate-200">
-            <div class="text-sm font-extrabold text-amber-600">0–1000</div>
-            <div class="text-[11px] text-slate-500">CareerScore™ Index</div>
+          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm hover:border-emerald-400 transition">
+            <div class="text-xs font-extrabold uppercase text-emerald-700">Step 03</div>
+            <div class="text-sm font-bold text-slate-900 mt-0.5">Proctored Score</div>
+            <div class="text-[11px] text-slate-500 mt-1">IRR ≥ 0.70 dual grading & score-ranked employer matching.</div>
           </div>
         </div>
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 text-[11px] text-slate-600 space-y-1">
-          <div class="font-bold text-slate-800">Operating Hours & Delivery (Section 2.12.7):</div>
-          <p>• <strong>Asynchronous Portal & Offline Queue:</strong> 24/7/365</p>
-          <p>• <strong>Live Proctored Assessments (Lagos Hub & Virtual):</strong> Mon–Fri 8:00 a.m.–6:00 p.m. WAT | Sat 9:00 a.m.–1:00 p.m. WAT</p>
+
+        <div class="bg-slate-900 text-slate-200 p-4 rounded-2xl text-xs space-y-1.5">
+          <div class="font-bold text-amber-400">Operating Hours & Proctored Assessment Schedule (Section 2.12.7):</div>
+          <p>• <strong>AI Coach, Lessons & Offline Submission Queue:</strong> Available 24/7/365</p>
+          <p>• <strong>Live Proctored Sessions (Lagos Hub & Virtual):</strong> Mon–Fri 8:00 a.m.–6:00 p.m. WAT | Sat 9:00 a.m.–1:00 p.m. WAT</p>
         </div>
       </div>
 
       <!-- Auth Card -->
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+      <div class="lg:col-span-5 bg-white rounded-2xl shadow-md border border-slate-200 p-6">
         <div class="flex border-b border-slate-200 mb-5">
           <button type="button" id="tabLogin" onclick="switchAuthTab('login')" class="flex-1 pb-2.5 text-sm font-semibold border-b-2 border-slate-900 text-slate-900">Sign In</button>
           <button type="button" id="tabSignup" onclick="switchAuthTab('signup')" class="flex-1 pb-2.5 text-sm font-semibold border-b-2 border-transparent text-slate-500">Create Account</button>
@@ -77,12 +131,12 @@
           <div id="signupFields" class="hidden space-y-3">
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name</label>
-              <input type="text" id="fullName" placeholder="e.g. Okore Victor" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
+              <input type="text" id="fullName" placeholder="e.g. Okore Victor" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-400 focus:outline-none" />
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Account Role</label>
               <select id="userRole" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white">
-                <option value="learner">Learner / Candidate (Training, Proctored Drills & CareerScore™)</option>
+                <option value="learner">Learner / Candidate (Diagnostic, Training & CareerScore™)</option>
                 <option value="employer">Employer / Hiring Manager (Talent Portal & Managed Placement)</option>
                 <option value="assessor">Certified Proctor / Assessor (Blind Rubric Grading Queue)</option>
               </select>
@@ -95,12 +149,12 @@
 
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Email Address</label>
-            <input type="email" id="email" required placeholder="you@example.com" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
+            <input type="email" id="email" required placeholder="you@example.com" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-400 focus:outline-none" />
           </div>
 
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Password</label>
-            <input type="password" id="password" required minlength="6" placeholder="••••••••" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
+            <input type="password" id="password" required minlength="6" placeholder="••••••••" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-400 focus:outline-none" />
           </div>
 
           <div id="ndpaBox" class="hidden bg-slate-50 p-3 rounded-lg border border-slate-200">
@@ -112,8 +166,8 @@
 
           <p id="authFeedback" class="text-xs text-rose-600 hidden"></p>
 
-          <button type="submit" id="authSubmitBtn" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm py-2.5 rounded-lg transition">
-            Sign In to Platform
+          <button type="submit" id="authSubmitBtn" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm py-2.5 rounded-lg transition shadow-sm">
+            Sign In to Interactive Studio
           </button>
         </form>
       </div>
@@ -122,45 +176,125 @@
     <!-- DASHBOARD CONTAINER -->
     <section id="dashboardSection" class="hidden space-y-6">
 
-      <!-- PILOT SANDBOX & GOVERNANCE BAR -->
-      <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- PILOT SANDBOX & ROLE SWITCHER -->
+      <div class="bg-gradient-to-r from-amber-50 via-amber-100/70 to-emerald-50 border border-amber-200 rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-3 shadow-sm">
         <div class="flex items-center gap-2 text-xs text-amber-950">
-          <span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-extrabold">LAGOS PILOT (500 TRAINEES • 20 EMPLOYERS)</span>
-          <span>Switch workspaces to test the Train → Verify → Match pipeline:</span>
+          <span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-extrabold tracking-wide">LAGOS PILOT STUDIO</span>
+          <span class="font-medium">Switch ecosystem views anytime:</span>
         </div>
         <div class="flex flex-wrap gap-2">
-          <button onclick="switchPreviewRole('learner')" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-amber-300 hover:bg-amber-100">
-            1. Learner Path
+          <button onclick="switchPreviewRole('learner')" id="navBtn_learner" class="text-xs font-bold px-3.5 py-1.5 rounded-xl bg-slate-900 text-white shadow-sm transition">
+            1. Learner Classroom & AI Coach
           </button>
-          <button onclick="switchPreviewRole('assessor')" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-amber-300 hover:bg-amber-100">
+          <button onclick="switchPreviewRole('assessor')" id="navBtn_assessor" class="text-xs font-bold px-3.5 py-1.5 rounded-xl bg-white text-slate-800 border border-amber-300 hover:bg-amber-100 transition">
             2. Proctor & Assessor Queue
           </button>
-          <button onclick="switchPreviewRole('employer')" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-amber-300 hover:bg-amber-100">
+          <button onclick="switchPreviewRole('employer')" id="navBtn_employer" class="text-xs font-bold px-3.5 py-1.5 rounded-xl bg-white text-slate-800 border border-amber-300 hover:bg-amber-100 transition">
             3. Employer Talent Portal
           </button>
         </div>
       </div>
 
-      <!-- PROFILE & KPI HEADER -->
-      <div class="bg-white rounded-xl border border-slate-200 p-5 flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <span id="roleBadge" class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-100 text-amber-900">LEARNER</span>
-          <h2 id="welcomeHeading" class="text-xl font-bold mt-1">Welcome back</h2>
-          <p class="text-xs text-slate-500">All prices exclusive of VAT (Table 2.5) • NDPA 2023 Consent Active • IRR ≥ 0.70 Governance</p>
+      <!-- INTERACTIVE PROFILE, NEXT-STEP BANNER & KPI HEADER -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-slate-900 text-amber-400 font-extrabold text-lg flex items-center justify-center shrink-0" id="avatarInitials">CB</div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span id="roleBadge" class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900">LEARNER</span>
+                <span class="text-[11px] text-emerald-700 font-semibold">● NDPA 2023 Verified</span>
+              </div>
+              <h2 id="welcomeHeading" class="text-xl font-extrabold text-slate-900 mt-0.5">Welcome back</h2>
+            </div>
+          </div>
+          <div id="kpiStrip" class="flex flex-wrap gap-3 text-right"></div>
         </div>
-        <div id="kpiStrip" class="flex gap-4 text-right"></div>
+
+        <!-- LIVE AI NEXT-BEST-ACTION BAR -->
+        <div id="aiNextStepBanner" class="bg-slate-900 text-white rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-3 text-xs">
+            <span class="w-7 h-7 rounded-lg bg-amber-500 text-slate-950 font-extrabold flex items-center justify-center shrink-0">✦</span>
+            <div>
+              <div class="text-[10px] font-bold uppercase tracking-wider text-amber-400">AI Learning Navigator • Recommended Next Step</div>
+              <p id="aiNextStepText" class="text-slate-100 mt-0.5">Select a track below and click "Enrol Free" to begin your Module 1 Diagnostic Baseline.</p>
+            </div>
+          </div>
+          <button onclick="toggleAICoach(true)" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 shrink-0 transition">
+            Chat With AI Mentor →
+          </button>
+        </div>
       </div>
 
-      <!-- ROLE-SPECIFIC WORKSPACE -->
+      <!-- ROLE-SPECIFIC INTERACTIVE WORKSPACE -->
       <div id="workspaceContent" class="grid grid-cols-1 lg:grid-cols-3 gap-6"></div>
     </section>
 
   </main>
 
+  <!-- FLOATING LIVE AI ASSISTANT WIDGET (CONTEXT-AWARE LEARNER GUIDE) -->
+  <div id="aiCoachDrawer" class="fixed bottom-5 right-5 z-50 w-[92vw] max-w-md bg-white rounded-2xl shadow-2xl border border-slate-300 overflow-hidden hidden flex-col">
+    <div class="bg-slate-900 text-white px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-amber-500 text-slate-950 font-extrabold flex items-center justify-center text-sm">✦</div>
+        <div>
+          <div class="font-bold text-xs flex items-center gap-1.5">
+            <span>CareerBridge AI Mentor</span>
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          </div>
+          <div class="text-[10px] text-slate-400" id="aiContextLabel">Context: Platform Guide</div>
+        </div>
+      </div>
+      <button onclick="toggleAICoach(false)" class="text-slate-400 hover:text-white text-sm font-bold px-2 py-1">✕</button>
+    </div>
+
+    <!-- Chat Messages -->
+    <div id="aiChatMessages" class="p-4 h-72 overflow-y-auto space-y-3 bg-slate-50 text-xs leading-relaxed"></div>
+
+    <!-- One-Tap Smart Prompts -->
+    <div class="px-3 py-2 bg-white border-t border-slate-200 flex gap-1.5 overflow-x-auto">
+      <button onclick="askAIQuick('What should I do next?')" class="shrink-0 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100">
+        What should I do next?
+      </button>
+      <button onclick="askAIQuick('Explain my current lab task')" class="shrink-0 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-100 text-slate-800 border border-slate-200 hover:bg-slate-200">
+        Explain current lab
+      </button>
+      <button onclick="askAIQuick('How is CareerScore calculated?')" class="shrink-0 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-900 border border-emerald-200 hover:bg-emerald-100">
+        CareerScore™ rubric
+      </button>
+    </div>
+
+    <!-- Input Box -->
+    <form onsubmit="handleAIChatSubmit(event)" class="p-2.5 bg-white border-t border-slate-200 flex gap-2">
+      <input
+        type="text"
+        id="aiChatInput"
+        placeholder="Ask for help with commands, labs, or next steps..."
+        class="flex-1 text-xs px-3 py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400"
+      />
+      <button type="submit" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3.5 py-2 rounded-xl">
+        Send
+      </button>
+    </form>
+  </div>
+
+  <!-- FLOATING LAUNCH BUTTON WHEN DRAWER IS MINIMIZED -->
+  <button
+    id="aiCoachFab"
+    onclick="toggleAICoach(true)"
+    class="fixed bottom-5 right-5 z-40 ai-pulse bg-slate-900 hover:bg-slate-800 text-white border-2 border-amber-400 px-4 py-3 rounded-full shadow-xl flex items-center gap-2.5 text-xs font-bold transition"
+  >
+    <span class="w-6 h-6 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-extrabold">✦</span>
+    <span>AI Study Coach</span>
+  </button>
+
   <script>
     const SUPABASE_URL = "https://mnzqwllkyepgxixtgafu.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_gO0gCmajqqHlq1l6H7yqfQ_duU8GmMB";
     const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Optional External LLM Edge Function Hook (Leave empty to use built-in zero-latency Capstone AI Mentor)
+    const EXTERNAL_AI_ENDPOINT = "";
 
     let authMode = "login";
     let currentUser = null;
@@ -168,10 +302,12 @@
     let activeRoleView = "learner";
     let selectedTrackId = null;
     let openLessonModule = null;
+    let trackCategoryFilter = "ALL";
+    let activeTrackContext = null;
 
-    // Timed Proctored Drill Session State (Section 2.1.2 & 2.8.1)
+    // Timed Proctored Drill Session State
     let proctorTimerInterval = null;
-    let proctorSecondsRemaining = 1800; // 30-min timed drill
+    let proctorSecondsRemaining = 1800;
     let proctorTabSwitches = 0;
     let proctorSessionActive = false;
 
@@ -186,14 +322,17 @@
       }
     });
 
-    // Exact 7 Tracks from Section 2.1.5 with Native Low-Bandwidth Lessons & Rubrics
+    // =========================================================================
+    // FULL CURRICULA FOR ALL 7 CAPSTONE TRACKS (SECTION 2.1.5)
+    // =========================================================================
     const TRACK_CURRICULA = {
       "TRK-01": {
+        group: "DIGITAL",
         pillar: "Track 1 of 7 • Section 2.1.5",
-        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored Lab",
+        duration: "12 Weeks • Diagnostic Baseline → Guided Training → Proctored Lab",
         salaryRange: "Nigeria: ₦5.5M–₦11M/yr • Remote/Global: $70k–$120k USD",
         pathways: ["Full-Stack Software Developer", "Frontend Web Engineer", "Backend API Engineer", "Cloud Application Developer"],
-        trackIntro: "Build production-grade, low-bandwidth-resilient web applications from scratch. Every module requires a verifiable code artifact tested against employer co-designed engineering rubrics.",
+        trackIntro: "Benchmark your starting web engineering knowledge, complete structured low-bandwidth lessons and hands-on labs, and verify your production skills with a 0–1000 CareerScore™.",
         outcomes: [
           "Architect mobile-first interfaces optimized for low-bandwidth Nigerian mobile networks.",
           "Develop asynchronous JavaScript ES6+ applications consuming authenticated REST APIs.",
@@ -203,36 +342,84 @@
         modules: [
           {
             title: "Module 1: Low-Bandwidth Responsive UI Architecture",
-            lessonSummary: "In African markets where learners and customers rely on prepaid mobile data, heavy frontends fail. Learn semantic HTML5 landmarks (<nav>, <main>, <section>), CSS Grid/Flexbox, and utility-first Tailwind CSS to build sub-100KB responsive interfaces.",
-            keyConcepts: ["Semantic HTML5 & Accessibility", "Mobile-First CSS Grid & Flexbox", "Tailwind Responsive Breakpoints (sm:, md:, lg:)"],
-            practicalTask: "Build and host a responsive 3-page SME service portal with mobile navigation and <150KB page weight.",
-            deliverablePlaceholder: "Paste GitHub Repo or Live Preview URL for Module 1 UI...",
+            diagnosticIntro: "Complete this quick diagnostic check first to establish your baseline before unlocking the Module 1 Training Lessons & Hands-On Lab.",
             quiz: [
               { q: "Which semantic HTML tag should wrap primary page navigation links?", options: ["<div>", "<nav>", "<aside>"], ans: 1 },
               { q: "Which Tailwind prefix applies styles on medium (≥768px) screens and up?", options: ["sm:", "md:", "lg:"], ans: 1 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 1.1: Semantic HTML5 Document Structure & Accessibility",
+                body: "Screen readers, search engines, and low-end mobile browsers rely on semantic landmarks rather than generic <div> containers. Always structure pages with <header>, <nav> (for primary navigation links), <main> (for primary content), <section>, and <footer>.",
+                syntax: "<header>\n  <nav aria-label=\"Primary\">...</nav>\n</header>\n<main>\n  <section>...</section>\n</main>"
+              },
+              {
+                heading: "Lesson 1.2: Mobile-First Responsive Grids with Tailwind CSS",
+                body: "Design for 360px Android screens first, then scale up using Tailwind breakpoint prefixes: sm: (≥640px), md: (≥768px), and lg: (≥1024px). A 1-column mobile layout becomes a 3-column desktop grid using grid-cols-1 md:grid-cols-3.",
+                syntax: "<div class=\"grid grid-cols-1 md:grid-cols-3 gap-4\">\n  <article class=\"p-4 rounded-xl border\">Card 1</article>\n</div>"
+              }
+            ],
+            labSteps: [
+              "Create an index.html file with a semantic <header>, <nav>, and <main> section.",
+              "Build a 3-card service showcase that stacks in 1 column on mobile and expands to 3 columns on md: screens.",
+              "Verify total page weight is under 150KB and push to GitHub or deploy to GitHub Pages."
+            ],
+            practicalTask: "Build and host a responsive 3-page SME service portal with mobile navigation and <150KB page weight.",
+            deliverablePlaceholder: "Paste GitHub Repo or Live Preview URL for Module 1 UI..."
           },
           {
             title: "Module 2: Asynchronous JavaScript ES6+ & REST API Integration",
-            lessonSummary: "Connect frontend interfaces to live backend services using async/await Promises, Fetch API error boundaries, local caching, and clean state transitions.",
-            keyConcepts: ["ES6+ Destructuring & Array Methods", "Async/Await & Fetch API Error Handling", "Client-Side State & LocalStorage Caching"],
-            practicalTask: "Build an interactive API-driven dashboard module with loading states, retry handling, and offline fallback.",
-            deliverablePlaceholder: "Paste GitHub Repo / CodeSandbox URL for Module 2 JS App...",
+            diagnosticIntro: "Answer the diagnostic baseline check below to record your starting familiarity with async JavaScript and unlock the Module 2 Training Classroom.",
             quiz: [
               { q: "Which keyword pauses execution inside an async function until a Promise settles?", options: ["defer", "await", "yield"], ans: 1 },
               { q: "Which HTTP status code indicates a resource was successfully created?", options: ["200", "201", "403"], ans: 1 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 2.1: Promises, async/await & HTTP Status Codes",
+                body: "Modern web apps fetch data without reloading the page. Marking a function async lets you use await to pause until a network Promise resolves. Always inspect HTTP status codes: 200 (OK), 201 (Resource Created), 401 (Unauthorized), and 403 (Forbidden).",
+                syntax: "async function createRecord(payload) {\n  const res = await fetch('/api/items', { method: 'POST', body: JSON.stringify(payload) });\n  if (res.status === 201) return await res.json();\n}"
+              },
+              {
+                heading: "Lesson 2.2: Offline-Resilient Queuing with localStorage",
+                body: "When mobile data drops mid-submission, store the JSON payload in localStorage and listen for window.addEventListener('online', syncQueue) so learner work is never lost.",
+                syntax: "if (!navigator.onLine) {\n  localStorage.setItem('offline_queue', JSON.stringify(payload));\n}"
+              }
+            ],
+            labSteps: [
+              "Write an async fetch helper with try/catch error states and loading indicators.",
+              "Add an offline check using navigator.onLine that caches unsent form entries to localStorage.",
+              "Test toggling browser Offline mode in DevTools and verify automatic sync on reconnect."
+            ],
+            practicalTask: "Build an interactive API-driven dashboard module with loading states, retry handling, and offline fallback.",
+            deliverablePlaceholder: "Paste GitHub Repo / CodeSandbox URL for Module 2 JS App..."
           },
           {
             title: "Module 3: PostgreSQL Schemas, Auth & Row-Level Security (RLS)",
-            lessonSummary: "Design normalized relational tables with foreign keys, configure token authentication, and enforce PostgreSQL Row-Level Security (RLS) so user records remain protected under NDPA 2023.",
-            keyConcepts: ["Normalized PostgreSQL Schemas & Keys", "Row-Level Security (RLS) Policies", "Public Anon Keys vs. Secret Server Keys"],
-            practicalTask: "Create an authenticated multi-user CRUD database schema with active RLS policies and test unauthorized access blocking.",
-            deliverablePlaceholder: "Paste SQL Schema / GitHub Repo URL for Module 3 Database...",
+            diagnosticIntro: "Complete the Module 3 diagnostic check first to unlock the PostgreSQL & NDPA 2023 security training lessons.",
             quiz: [
               { q: "What does Row-Level Security (RLS) enforce in PostgreSQL?", options: ["Automatic CSS minification", "Per-user row access policies at the database layer", "Static IP routing"], ans: 1 },
               { q: "Which key is safe to expose in browser client code when RLS is active?", options: ["service_role secret key", "anon / publishable key", "Database root password"], ans: 1 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 3.1: Relational Tables & Row-Level Security (RLS)",
+                body: "In multi-tenant platforms, frontend hiding is never enough—security must live inside PostgreSQL. Enabling Row-Level Security (RLS) ensures every SELECT, INSERT, or UPDATE checks auth.uid() = user_id directly in the database.",
+                syntax: "ALTER TABLE public.records ENABLE ROW LEVEL SECURITY;\nCREATE POLICY \"Owner access\" ON public.records\nFOR ALL USING (auth.uid() = user_id);"
+              },
+              {
+                heading: "Lesson 3.2: Public Anon Keys vs. Secret Service Keys",
+                body: "Only the public anon/publishable key may exist in browser HTML/JS because RLS restricts what that key can touch. Never expose a service_role secret key in frontend code.",
+                syntax: "// Safe in browser when RLS is enabled:\nconst client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);"
+              }
+            ],
+            labSteps: [
+              "Create a PostgreSQL table with a foreign key referencing auth.users(id).",
+              "Enable RLS and write a policy restricting reads/writes to auth.uid() = user_id.",
+              "Verify that an unauthenticated request cannot read another user's private rows."
+            ],
+            practicalTask: "Create an authenticated multi-user CRUD database schema with active RLS policies and test unauthorized access blocking.",
+            deliverablePlaceholder: "Paste SQL Schema / GitHub Repo URL for Module 3 Database..."
           },
           {
             title: "Module 4: Proctored Full-Stack Capstone & Executive Defense",
@@ -245,11 +432,12 @@
       },
 
       "TRK-02": {
+        group: "DIGITAL",
         pillar: "Track 2 of 7 • Section 2.1.5",
-        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored Lab",
+        duration: "12 Weeks • Diagnostic Baseline → Guided Training → Proctored Lab",
         salaryRange: "Nigeria: ₦4.8M–₦8M/yr • Remote/Global: $60k–$100k USD",
         pathways: ["Data Analyst", "Business Intelligence (BI) Analyst", "Data Visualization Specialist", "Operations Data Analyst"],
-        trackIntro: "Transform raw organizational datasets into executive decisions using structured data cleaning, relational SQL querying, Python/Pandas wrangling, and interactive BI dashboards.",
+        trackIntro: "Benchmark your analytical baseline, master data cleaning, relational SQL querying, Python/Pandas wrangling, and BI dashboards through guided labs, and earn a verified CareerScore™.",
         outcomes: [
           "Execute end-to-end data workflows: collect → clean → analyze → visualize → report.",
           "Write multi-table SQL queries (JOINs, GROUP BY, HAVING) and clean messy datasets in Excel/Python.",
@@ -259,36 +447,84 @@
         modules: [
           {
             title: "Module 1: Data Landscape, Cleaning & Spreadsheet Modeling",
-            lessonSummary: "Master structured vs. unstructured data sources, frame SMART business questions, and clean dirty transactional tables using lookup formulas, conditional aggregations, and Pivot Tables.",
-            keyConcepts: ["Collect → Clean → Analyze → Visualize → Report", "VLOOKUP / INDEX-MATCH & SUMIFS", "Dynamic Pivot Tables & Outlier Checks"],
-            practicalTask: "Clean a raw 5,000-row Nigerian retail/fintech sales sheet, remove duplicates/nulls, and generate a Pivot summary report.",
-            deliverablePlaceholder: "Paste Google Sheet / Excel / Drive Link for Module 1 Workbook...",
+            diagnosticIntro: "Take the quick Module 1 diagnostic check first to establish your starting baseline and unlock the Data Cleaning & Modeling lessons.",
             quiz: [
               { q: "Which sequence reflects the core data analysis workflow?", options: ["Report → Delete → Collect", "Collect → Clean → Analyze → Visualize → Report", "Visualize → Collect → Ignore"], ans: 1 },
               { q: "Which function sums values only when multiple criteria are met?", options: ["SUMIFS", "COUNT", "CONCAT"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 1.1: The 5-Stage Data Analysis Lifecycle",
+                body: "Every credible analysis follows five disciplined stages: Collect → Clean → Analyze → Visualize → Report. Never chart raw exports before standardizing date formats, removing duplicate transaction IDs, and auditing null values.",
+                syntax: "Workflow: Collect Raw CSV/DB → Clean Nulls & Formats → Analyze KPIs → Visualize Trends → Report Action"
+              },
+              {
+                heading: "Lesson 1.2: Conditional Aggregations (SUMIFS) & Pivot Tables",
+                body: "Use SUMIFS(sum_range, criteria_range1, criteria1, ...) to calculate multi-condition revenue (e.g., Lagos branch sales in Q3) and Pivot Tables to slice thousands of rows by region and product tier without manual formulas.",
+                syntax: "=SUMIFS(Sales[Amount], Sales[City], \"Lagos\", Sales[Status], \"Completed\")"
+              }
+            ],
+            labSteps: [
+              "Audit a transactional spreadsheet for duplicate IDs, trailing spaces, and missing currency values.",
+              "Build a summary KPI table using SUMIFS and COUNTIFS across 3 regions.",
+              "Create a Pivot Table showing monthly revenue growth and top product categories."
+            ],
+            practicalTask: "Clean a raw 5,000-row Nigerian retail/fintech sales sheet, remove duplicates/nulls, and generate a Pivot summary report.",
+            deliverablePlaceholder: "Paste Google Sheet / Excel / Drive Link for Module 1 Workbook..."
           },
           {
             title: "Module 2: Relational SQL Querying & Multi-Table Joins",
-            lessonSummary: "Query production relational databases directly using SELECT, WHERE, GROUP BY, HAVING, LEFT/INNER JOINs, and subqueries to extract customer retention and revenue metrics.",
-            keyConcepts: ["Primary & Foreign Key Relationships", "GROUP BY & HAVING Aggregations", "INNER JOIN vs. LEFT JOIN"],
-            practicalTask: "Write 8 documented SQL queries answering customer churn, cohort retention, and regional revenue questions.",
-            deliverablePlaceholder: "Paste GitHub Gist / SQL Script Link for Module 2 Queries...",
+            diagnosticIntro: "Complete the SQL diagnostic baseline check first to unlock the Module 2 Relational SQL Training Lessons.",
             quiz: [
               { q: "Which SQL clause filters aggregated groups after GROUP BY?", options: ["WHERE", "HAVING", "ORDER BY"], ans: 1 },
-              { q: "What does a LEFT JOIN return when there is no match in the right table?", options: ["Drops the row", "NULL values for right-table columns", "Throws an error"], ans: 1 }
-            ]
+              { q: "What does a LEFT JOIN return when there is no match in the right table?", options: ["NULL values for right-table columns", "Drops the row", "Throws an error"], ans: 0 }
+            ],
+            lessons: [
+              {
+                heading: "Lesson 2.1: Filtering Rows (WHERE) vs. Filtering Groups (HAVING)",
+                body: "WHERE filters individual rows *before* aggregation occurs. Once you group rows with GROUP BY, you must use HAVING to filter aggregated metrics (such as customers with more than 5 transactions).",
+                syntax: "SELECT customer_id, COUNT(*) AS tx_count, SUM(amount) AS total_ngn\nFROM transactions\nWHERE status = 'success'\nGROUP BY customer_id\nHAVING COUNT(*) >= 5;"
+              },
+              {
+                heading: "Lesson 2.2: INNER JOIN vs. LEFT JOIN",
+                body: "INNER JOIN returns only records matching in both tables. LEFT JOIN keeps every row from the left table (e.g., all enrolled learners) and returns NULL for right-table columns when no match exists—essential for finding inactive or unplaced users.",
+                syntax: "SELECT u.full_name, t.amount\nFROM users u\nLEFT JOIN transactions t ON u.id = t.user_id;"
+              }
+            ],
+            labSteps: [
+              "Write a query joining users and transactions with LEFT JOIN to identify users with zero activity.",
+              "Use GROUP BY and HAVING to isolate high-value customers exceeding ₦500,000 in volume.",
+              "Document each SQL query with a 1-sentence business takeaway."
+            ],
+            practicalTask: "Write 8 documented SQL queries answering customer churn, cohort retention, and regional revenue questions.",
+            deliverablePlaceholder: "Paste GitHub Gist / SQL Script Link for Module 2 Queries..."
           },
           {
             title: "Module 3: Python Data Wrangling & Executive BI Dashboards",
-            lessonSummary: "Automate data cleaning with Python (Pandas) and design an interactive Power BI / Looker dashboard with star-schema relationships and executive storytelling.",
-            keyConcepts: ["Pandas DataFrame Cleaning (dropna / fillna)", "Star-Schema Data Modeling", "Executive KPI Dashboard Storytelling"],
-            practicalTask: "Build an interactive 2-page BI dashboard with at least 4 KPI cards, trend visuals, and written executive recommendations.",
-            deliverablePlaceholder: "Paste Power BI / Looker / Notebook Link for Module 3 Dashboard...",
+            diagnosticIntro: "Complete the Module 3 diagnostic check first to unlock the Python Pandas & Executive BI Dashboard lessons.",
             quiz: [
               { q: "Which Pandas method removes rows with missing (NaN) values?", options: ["df.dropna()", "df.head()", "df.sort_values()"], ans: 0 },
               { q: "What should accompany every chart on an executive dashboard?", options: ["A clear business takeaway or decision recommendation", "Raw server logs", "Unfiltered 100,000-row tables"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 3.1: Cleaning DataFrames in Python with Pandas",
+                body: "Use Pandas to profile large CSV files quickly: df.isna().sum() counts missing fields, df.dropna(subset=['amount']) removes incomplete records, and df.groupby('track')['score'].mean() computes group averages.",
+                syntax: "import pandas as pd\ndf = pd.read_csv('transactions.csv').dropna(subset=['user_id', 'amount'])\nsummary = df.groupby('region')['amount'].sum()"
+              },
+              {
+                heading: "Lesson 3.2: Designing Decision-Driven BI Dashboards",
+                body: "Structure dashboards top-to-bottom: KPI summary cards at the top, trend/comparison charts in the middle, and a written 'Recommended Action' callout beside every visual so executives know what decision to make.",
+                syntax: "Dashboard Rule: Every visual = Metric + Comparison Benchmark + Recommended Business Action"
+              }
+            ],
+            labSteps: [
+              "Load a CSV dataset into Python/Pandas, drop null rows, and compute regional summary statistics.",
+              "Build a 2-page interactive dashboard in Power BI, Looker Studio, or Tableau.",
+              "Add an executive summary box stating 3 concrete actions backed by your charts."
+            ],
+            practicalTask: "Build an interactive 2-page BI dashboard with at least 4 KPI cards, trend visuals, and written executive recommendations.",
+            deliverablePlaceholder: "Paste Power BI / Looker / Notebook Link for Module 3 Dashboard..."
           },
           {
             title: "Module 4: Proctored Data Analysis Capstone & Executive Defense",
@@ -301,11 +537,12 @@
       },
 
       "TRK-03": {
+        group: "DIGITAL",
         pillar: "Track 3 of 7 • Section 2.1.5",
-        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored Lab",
+        duration: "12 Weeks • Diagnostic Baseline → Guided Training → Proctored Lab",
         salaryRange: "Nigeria: ₦5.5M–₦10M/yr • Remote/Global: $75k–$120k USD",
         pathways: ["Product Designer", "UI/UX Designer", "UX Researcher", "Design Systems Specialist"],
-        trackIntro: "Design human-centered, accessible digital products validated by real user research—moving from empathy maps and Information Architecture to scalable Figma Design Systems.",
+        trackIntro: "Benchmark your UX/UI starting baseline, complete guided lessons on Design Thinking, WCAG accessibility, and Figma Auto Layout systems, and build a verified design portfolio.",
         outcomes: [
           "Conduct qualitative user research, synthesize empathy maps, and structure Information Architecture.",
           "Design accessible mobile-first wireframes meeting WCAG AA (4.5:1) contrast standards.",
@@ -315,36 +552,84 @@
         modules: [
           {
             title: "Module 1: UX Research, Empathy Mapping & Information Architecture",
-            lessonSummary: "Apply the 5-stage Design Thinking process (Empathize, Define, Ideate, Prototype, Test). Conduct user interviews, build personas, and architect clear sitemaps and user flows.",
-            keyConcepts: ["5 Stages of Design Thinking", "User Interviews & Empathy Maps", "Information Architecture (IA) & User Flows"],
-            practicalTask: "Publish a UX research pack containing 3 user interview summaries, 2 personas, and an end-to-end user flow diagram.",
-            deliverablePlaceholder: "Paste FigJam / Notion / Drive Link for Module 1 UX Research...",
+            diagnosticIntro: "Complete this short diagnostic baseline check first to unlock the Module 1 UX Research & IA training lessons.",
             quiz: [
               { q: "What are the 5 stages of Design Thinking?", options: ["Empathize, Define, Ideate, Prototype, Test", "Code, Compile, Deploy, Market, Sell", "Sketch, Color, Export, Print, Archive"], ans: 0 },
               { q: "What does Information Architecture (IA) organize?", options: ["Content structure, navigation hierarchy, and labeling so users find features easily", "Server RAM allocation", "CSS animations"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 1.1: The 5 Stages of Design Thinking",
+                body: "Great digital products solve validated user problems rather than guessing. Follow the 5 iterative stages: Empathize (interview real users) → Define (frame the core pain point) → Ideate (sketch flows) → Prototype (build interactive screens) → Test (observe users completing tasks).",
+                syntax: "Design Thinking Loop: Empathize → Define → Ideate → Prototype → Test"
+              },
+              {
+                heading: "Lesson 1.2: Information Architecture (IA) & User Flows",
+                body: "Information Architecture organizes navigation labels, screen hierarchy, and content grouping so users find what they need without confusion. Map step-by-step User Flows (Entry → Action → Edge Case/Error → Confirmation) before drawing high-fidelity UI.",
+                syntax: "User Flow: Landing → Select Track → Enrol → Diagnostic → Training Lab → Verified Score"
+              }
+            ],
+            labSteps: [
+              "Interview 3 target users about mobile app friction and capture quotes in a 4-quadrant Empathy Map (Says, Thinks, Does, Feels).",
+              "Create a sitemap showing primary navigation and screen hierarchy.",
+              "Draw an end-to-end task flow diagram including error and empty states."
+            ],
+            practicalTask: "Publish a UX research pack containing 3 user interview summaries, 2 personas, and an end-to-end user flow diagram.",
+            deliverablePlaceholder: "Paste FigJam / Notion / Drive Link for Module 1 UX Research..."
           },
           {
             title: "Module 2: Wireframing, Visual Hierarchy & Accessibility (WCAG)",
-            lessonSummary: "Translate user flows into low-fidelity wireframes, establish typography scales and color tokens, and enforce WCAG AA contrast accessibility for mobile devices.",
-            keyConcepts: ["Low-Fidelity Wireframing & Grid Alignment", "Visual Hierarchy & Typography Scales", "WCAG AA Contrast Compliance (4.5:1)"],
-            practicalTask: "Create an 8-screen low-fidelity wireframe flow in Figma with documented WCAG contrast checks.",
-            deliverablePlaceholder: "Paste Figma Wireframe File Link for Module 2...",
+            diagnosticIntro: "Complete the Module 2 diagnostic check first to unlock the Wireframing & WCAG Accessibility training lessons.",
             quiz: [
               { q: "What minimum WCAG AA contrast ratio is required for standard body text?", options: ["4.5 : 1", "1.2 : 1", "2.0 : 1"], ans: 0 },
               { q: "Why test low-fidelity wireframes early?", options: ["Validate layout and flow rapidly before investing in high-fidelity UI", "Generate production JavaScript", "Compress PNGs"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 2.1: Low-Fidelity Wireframing & 8pt Grid Hierarchy",
+                body: "Start in grayscale low-fidelity wireframes to validate layout, spacing, and call-to-action placement before spending hours on colors. Use an 8pt spacing system (8px, 16px, 24px, 32px) and clear typographic scale.",
+                syntax: "Spacing Scale: 8px (tight) • 16px (card padding) • 24px (section gap) • 32px (block separation)"
+              },
+              {
+                heading: "Lesson 2.2: WCAG AA Contrast Accessibility (4.5:1 Standard)",
+                body: "Many African mobile users view screens outdoors in bright sunlight on budget displays. Under WCAG 2.1 AA guidelines, standard body text must maintain at least a 4.5:1 contrast ratio against its background.",
+                syntax: "WCAG AA Minimums: Normal Body Text ≥ 4.5:1 | Large Headings (≥24px) ≥ 3.0:1"
+              }
+            ],
+            labSteps: [
+              "Build an 8-screen mobile wireframe flow in Figma using an 8pt spacing grid.",
+              "Apply your color palette and verify every text/button pair passes ≥4.5:1 contrast.",
+              "Annotate tap targets to ensure all mobile buttons are at least 44×44px."
+            ],
+            practicalTask: "Create an 8-screen low-fidelity wireframe flow in Figma with documented WCAG contrast checks.",
+            deliverablePlaceholder: "Paste Figma Wireframe File Link for Module 2..."
           },
           {
             title: "Module 3: Auto Layout Component Systems & Usability Testing",
-            lessonSummary: "Build scalable Figma component variants with Auto Layout, wire interactive prototypes, and conduct 5 moderated usability tests to iterate your design.",
-            keyConcepts: ["Figma Auto Layout & Component Variants", "Interactive Prototyping & Microinteractions", "5-User Moderated Usability Testing"],
-            practicalTask: "Deliver a mini Design System (buttons, inputs, cards, nav) plus usability test notes from 5 test participants.",
-            deliverablePlaceholder: "Paste Figma Prototype & Test Report Link for Module 3...",
+            diagnosticIntro: "Complete the Module 3 diagnostic check first to unlock the Figma Auto Layout & Usability Testing training lessons.",
             quiz: [
               { q: "What does Figma Auto Layout enable?", options: ["Dynamic frames that resize and reflow automatically as content changes", "Automatic SQL table creation", "Audio transcription"], ans: 0 },
               { q: "How many users uncover ~80% of major usability bottlenecks in qualitative testing?", options: ["5 users", "1 user", "1,000 users"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 3.1: Responsive Components with Figma Auto Layout",
+                body: "Auto Layout turns static frames into dynamic components that automatically expand, shrink, and reflow when button labels or card text change—matching real CSS Flexbox behavior for smooth developer handoff.",
+                syntax: "Component Setup: Frame + Auto Layout (Horizontal/Vertical) + Padding + Gap + Variants (Default/Hover/Disabled)"
+              },
+              {
+                heading: "Lesson 3.2: Moderated Usability Testing (The 5-User Rule)",
+                body: "Testing an interactive prototype with just 5 representative users uncovers roughly 80% of major usability bottlenecks. Give users realistic tasks without hinting where to click, record hesitation points, and iterate.",
+                syntax: "Usability Script: Give Task Scenario → Observe Silently → Measure Completion & Errors → Iterate UI"
+              }
+            ],
+            labSteps: [
+              "Build a reusable Figma component library (Buttons, Form Inputs, Status Badges, Navigation Bar) using Auto Layout.",
+              "Connect screens into a clickable prototype and test with 5 participants.",
+              "Document the top 3 friction points discovered and show your before/after UI fix."
+            ],
+            practicalTask: "Deliver a mini Design System (buttons, inputs, cards, nav) plus usability test notes from 5 test participants.",
+            deliverablePlaceholder: "Paste Figma Prototype & Test Report Link for Module 3..."
           },
           {
             title: "Module 4: Proctored UI/UX Product Capstone & Executive Defense",
@@ -357,11 +642,12 @@
       },
 
       "TRK-04": {
+        group: "ENGINEERING",
         pillar: "Track 4 of 7 • Section 2.1.5",
-        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored CAD Lab",
+        duration: "12 Weeks • Diagnostic Baseline → Guided Training → Proctored CAD Lab",
         salaryRange: "Nigeria: ₦4.5M–₦8.5M/yr • Remote/Global: $60k–$95k USD",
         pathways: ["CAD Technician", "2D/3D AutoCAD Drafter", "Architectural & Engineering Drafter", "Technical Documentation Specialist"],
-        trackIntro: "Master precision 2D/3D Computer-Aided Design (CAD) drafting with AutoCAD—producing industry-standard architectural, structural, and mechanical engineering drawing sets.",
+        trackIntro: "Benchmark your CAD drafting baseline first, then master precision 2D/3D drafting with AutoCAD through guided coordinate, layer, block, and Paper Space lessons.",
         outcomes: [
           "Execute precision 2D geometric drafting using coordinate systems, OSNAP, and modify commands.",
           "Organize multi-discipline drawings with standardized Layers, dynamic Blocks, and Xrefs.",
@@ -371,36 +657,84 @@
         modules: [
           {
             title: "Module 1: AutoCAD Precision Coordinates & 2D Geometric Drafting",
-            lessonSummary: "Master absolute, relative, and polar coordinate entry, Object Snaps (OSNAP), Polar Tracking, and core construction/modify tools (Polyline, Trim, Extend, Offset, Fillet, Array).",
-            keyConcepts: ["Absolute, Relative & Polar Coordinates", "Object Snaps (OSNAP) & Polar Tracking", "Offset, Trim, Fillet & Array Commands"],
-            practicalTask: "Draft a precision 2D mechanical bracket and floor-plan perimeter to exact millimeter tolerances.",
-            deliverablePlaceholder: "Paste Google Drive DWG / PDF Link for Module 1 Drawing...",
+            diagnosticIntro: "Answer this quick diagnostic check first to establish your CAD baseline before unlocking the Module 1 AutoCAD Training Lessons & Lab.",
             quiz: [
               { q: "What is the purpose of Object Snap (OSNAP) in AutoCAD?", options: ["Lock cursor accurately onto exact geometric points like endpoints, midpoints, and centers", "Export drawings to MP4", "Delete unused layers"], ans: 0 },
               { q: "Which command creates parallel copies of lines, circles, or polylines at a specified distance?", options: ["OFFSET", "EXPLODE", "PURGE"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 1.1: Coordinate Systems & Precision Input (Absolute, Relative, Polar)",
+                body: "Professional CAD drafting never relies on eyeballing mouse clicks. Set drawing units first (UNITS → Millimeters), then enter exact geometry using Absolute coordinates (X,Y from origin 0,0), Relative Cartesian coordinates (@dX,dY from the last point), or Relative Polar coordinates (@distance<angle, e.g., @150<45).",
+                syntax: "Command: LINE\nSpecify first point: 0,0\nSpecify next point: @250,0   (250mm right)\nSpecify next point: @120<90  (120mm straight up)"
+              },
+              {
+                heading: "Lesson 1.2: Object Snaps (OSNAP) & Core Modify Commands",
+                body: "Press F3 to enable Object Snap (OSNAP) so your cursor locks mathematically onto Endpoints, Midpoints, Centers, Intersections, and Perpendicular points. Use OFFSET (O) to create parallel wall thicknesses or flange offsets, TRIM (TR) to clean intersecting lines, and FILLET (F) with Radius=0 to join sharp corners cleanly.",
+                syntax: "Essential Shortcuts: L (Line) • PL (Polyline) • O (Offset) • TR (Trim) • EX (Extend) • F (Fillet) • F3 (OSNAP)"
+              }
+            ],
+            labSteps: [
+              "Open AutoCAD (or LibreCAD/AutoCAD Web), run UNITS, and set Insertion Scale to Millimeters.",
+              "Draft a 120mm × 80mm mechanical mounting plate with four Ø10mm bolt holes positioned via @dX,dY coordinates.",
+              "Use OFFSET (230mm wall thickness) and TRIM to draft a clean 6000mm × 4500mm room perimeter."
+            ],
+            practicalTask: "Draft a precision 2D mechanical bracket and floor-plan perimeter to exact millimeter tolerances.",
+            deliverablePlaceholder: "Paste Google Drive DWG / PDF Link for Module 1 Drawing..."
           },
           {
             title: "Module 2: Layer Standards, Dynamic Blocks & Xref Collaboration",
-            lessonSummary: "Structure complex architectural and engineering drawings using ISO/AIA layer naming, lineweights, reusable dynamic Blocks with attributes, and External References (Xrefs).",
-            keyConcepts: ["Discipline Layer Naming & Lineweights", "Dynamic Blocks & Title Block Attributes", "External References (Xrefs)"],
-            practicalTask: "Create a standardized DWG template containing 12+ discipline layers and 6 reusable dynamic architectural/mechanical blocks.",
-            deliverablePlaceholder: "Paste Google Drive DWG Template Link for Module 2...",
+            diagnosticIntro: "Complete the Module 2 diagnostic baseline check first to unlock the Layer Standards, Blocks & Xrefs training lessons.",
             quiz: [
               { q: "Why organize drawing elements onto separate Layers in AutoCAD?", options: ["Control visibility, color, lineweight, and plotting independently across disciplines", "Increase file corruption", "Disable zooming"], ans: 0 },
               { q: "What is an External Reference (Xref)?", options: ["A linked DWG file referenced into a master drawing that updates automatically when modified", "A raster screenshot", "A printer driver"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 2.1: Discipline Layer Management & Lineweights",
+                body: "Never draw everything on Layer 0. Open Layer Properties (LA) and create dedicated discipline layers (e.g., A-WALL-EXTR, A-DOOR, A-GLAZ, M-PART, A-ANNO-DIMS) with distinct colors and plot lineweights (0.50mm heavy cut walls, 0.25mm medium outlines, 0.13mm thin dimensions/hatches).",
+                syntax: "Layer Standard: [Discipline]-[Element]-[Modifier]\nExample: A-WALL (0.50mm) | A-DOOR (0.25mm) | A-DIMS (0.13mm)"
+              },
+              {
+                heading: "Lesson 2.2: Reusable Blocks & External References (Xrefs)",
+                body: "Convert repeated components (doors, windows, bolts, title blocks) into Blocks (B) so editing one definition updates every instance. For multi-team buildings, attach structural grids or floor plans as External References (XREF) so updates sync automatically without duplicating geometry.",
+                syntax: "Commands: B (Create Block) • I (Insert Block) • BE (Block Editor) • XREF (External Reference Manager)"
+              }
+            ],
+            labSteps: [
+              "Create a standardized drawing template (.dwt/.dwg) with at least 10 discipline layers and proper lineweights.",
+              "Build reusable blocks for a 900mm swing door, double window, and an A3 title block with editable attributes.",
+              "Attach a column grid drawing as an Xref into your main plan."
+            ],
+            practicalTask: "Create a standardized DWG template containing 12+ discipline layers and 6 reusable dynamic architectural/mechanical blocks.",
+            deliverablePlaceholder: "Paste Google Drive DWG Template Link for Module 2..."
           },
           {
             title: "Module 3: Annotative Dimensioning, Sections & Paper Space Plotting",
-            lessonSummary: "Apply annotative dimensions, tolerances, and section hatches, and configure scaled Paper Space layout viewports with title blocks for construction plotting.",
-            keyConcepts: ["Annotative Dimensions & Text Styles", "Section Hatching & Geometric Tolerances", "Model Space (1:1) vs. Paper Space Scaled Viewports"],
-            practicalTask: "Produce a 3-sheet plotted PDF + DWG package (Plan, Cross-Section, Detail Callout) at 1:50 and 1:20 scales.",
-            deliverablePlaceholder: "Paste Google Drive PDF/DWG Sheet Set Link for Module 3...",
+            diagnosticIntro: "Complete the Module 3 diagnostic baseline check first to unlock the Dimensioning & Paper Space Plotting training lessons.",
             quiz: [
               { q: "What is the primary difference between Model Space and Paper Space (Layout)?", options: ["Model Space is drawn at 1:1 true scale; Paper Space arranges scaled viewports and title blocks for plotting", "Paper Space is only for 3D rendering", "Model Space cannot contain dimensions"], ans: 0 },
               { q: "What does an Annotative dimension automatically do when viewport scale changes?", options: ["Adjusts its display text height to remain readable on the plotted sheet", "Deletes itself", "Changes layer color to red"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 3.1: Model Space (1:1) vs. Paper Space Scaled Viewports",
+                body: "Always draw geometry in Model Space at true 1:1 full size (a 3000mm wall is drawn 3000 units long). Switch to Paper Space (Layout tabs) to place your A3/A1 title block and create MVIEW viewports set to exact engineering scales (1:50, 1:20, 1:10).",
+                syntax: "Golden Rule: Model Space = 1:1 True Scale | Paper Space = Sheet Size + Scaled Viewports (1:50, 1:20)"
+              },
+              {
+                heading: "Lesson 3.2: Annotative Dimensions & Section Hatching",
+                body: "Enable Annotative scaling on your Dimension Style (DIMSTYLE) so dimension text always prints at a crisp 2.5mm height on paper regardless of whether a viewport is 1:100 or 1:20. Use HATCH (H) with ANSI31 or AR-CONC patterns to indicate sectioned materials.",
+                syntax: "Commands: DIMSTYLE (Annotative Text = 2.5mm) • DIMLINEAR (DLI) • HATCH (H) • PLOT (Ctrl+P to PDF)"
+              }
+            ],
+            labSteps: [
+              "Configure an Annotative Dimension Style and dimension all overall and detail features cleanly without overlapping lines.",
+              "Create 3 Paper Space layout tabs (Floor Plan at 1:50, Section A-A at 1:25, Detail at 1:10).",
+              "Plot all 3 layouts to a combined high-resolution PDF using monochrome.ctb lineweights."
+            ],
+            practicalTask: "Produce a 3-sheet plotted PDF + DWG package (Plan, Cross-Section, Detail Callout) at 1:50 and 1:20 scales.",
+            deliverablePlaceholder: "Paste Google Drive PDF/DWG Sheet Set Link for Module 3..."
           },
           {
             title: "Module 4: Proctored AutoCAD Drafting Capstone & Defense",
@@ -413,11 +747,12 @@
       },
 
       "TRK-05": {
+        group: "ENGINEERING",
         pillar: "Track 5 of 7 • Section 2.1.5",
-        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored CAD Lab",
+        duration: "12 Weeks • Diagnostic Baseline → Guided Training → Proctored CAD Lab",
         salaryRange: "Nigeria: ₦5.5M–₦10M/yr • Remote/Global: $75k–$115k USD",
         pathways: ["3D Mechanical Design Engineer", "SolidWorks CAD Specialist", "Product Development Engineer", "Manufacturing & Tooling Designer"],
-        trackIntro: "Master 3D parametric mechanical design with SolidWorks—building fully defined parts, kinematic assemblies, Finite Element Analysis (FEA) simulations, and GD&T manufacturing drawings.",
+        trackIntro: "Benchmark your 3D CAD baseline first, then master parametric SolidWorks modeling, kinematic assemblies, FEA stress simulations, and GD&T manufacturing drawings.",
         outcomes: [
           "Build fully defined parametric 3D solid parts using sketches, features, and design tables.",
           "Assemble multi-component mechanical systems with mates and Interference Detection.",
@@ -427,36 +762,84 @@
         modules: [
           {
             title: "Module 1: Fully Defined Parametric Sketching & 3D Part Modeling",
-            lessonSummary: "Master geometric sketch relations, fully defined black-line sketches, Boss-Extrude, Revolve, Sweep, Loft, Shell, and FeatureManager design intent.",
-            keyConcepts: ["Fully Defined Sketches & Geometric Relations", "Extrude, Revolve, Sweep, Loft & Shell", "FeatureManager Tree & Design Intent"],
-            practicalTask: "Model 3 parametric mechanical components (shaft, flanged housing, bracket) that rebuild cleanly when key dimensions change.",
-            deliverablePlaceholder: "Paste Google Drive SLDPRT / STEP Pack Link for Module 1...",
+            diagnosticIntro: "Complete the Module 1 diagnostic baseline check first to unlock the SolidWorks Parametric Sketching & Part Modeling lessons.",
             quiz: [
               { q: "Why should every 2D sketch in SolidWorks be 'Fully Defined' (black lines) before extruding?", options: ["Prevents unintended geometry shifts when dimensions are edited later", "Required to save the file", "Enables internet sync"], ans: 0 },
               { q: "Which feature creates a 3D solid by rotating a 2D profile around a centerline axis?", options: ["Revolved Boss/Base", "Fillet", "Linear Pattern"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 1.1: Design Intent & Fully Defined Sketches",
+                body: "In parametric CAD, blue sketch lines are under-defined and will break during edits. Apply geometric relations (Horizontal, Vertical, Tangent, Concentric, Symmetric) and Smart Dimensions until the status bar reads 'Fully Defined' (all black lines) before creating 3D features.",
+                syntax: "Sketch Rule: Origin Anchor + Geometric Relations + Smart Dimensions = Fully Defined (Black Lines)"
+              },
+              {
+                heading: "Lesson 1.2: Core Solid Features (Extrude, Revolve, Sweep, Fillet)",
+                body: "Turn 2D profiles into 3D solids using Extruded Boss/Base (linear depth), Revolved Boss/Base (rotating a profile 360° around a centerline for shafts/pulleys), Extruded Cut (holes/pockets), and Hole Wizard for standardized metric threads.",
+                syntax: "Feature Order: Base Extrude/Revolve → Secondary Bosses → Cuts & Hole Wizard → Chamfers & Fillets Last"
+              }
+            ],
+            labSteps: [
+              "Model a stepped drive shaft using a single Revolved Boss/Base feature and keyway cut.",
+              "Model a mating flanged bearing housing using fully defined sketches and Hole Wizard M8 tapped holes.",
+              "Test parametric robustness by changing shaft diameter by +5mm and verifying zero rebuild errors."
+            ],
+            practicalTask: "Model 3 parametric mechanical components (shaft, flanged housing, bracket) that rebuild cleanly when key dimensions change.",
+            deliverablePlaceholder: "Paste Google Drive SLDPRT / STEP Pack Link for Module 1..."
           },
           {
             title: "Module 2: Multi-Part Mechanical Assemblies & Interference Checks",
-            lessonSummary: "Combine components into kinematic assemblies using Concentric, Coincident, Distance, and Gear mates, and verify zero part collisions with Interference Detection.",
-            keyConcepts: ["Concentric, Coincident & Mechanical Mates", "Sub-Assemblies & Standard Fasteners", "Interference Detection & Clearance Checks"],
-            practicalTask: "Assemble an 8-part mechanical gearbox/vise assembly with working motion limits and a zero-interference verification report.",
-            deliverablePlaceholder: "Paste Google Drive SLDASM / Pack-and-Go Link for Module 2...",
+            diagnosticIntro: "Complete the Module 2 diagnostic baseline check first to unlock the Mechanical Assemblies & Interference Detection lessons.",
             quiz: [
               { q: "Which mate aligns the cylindrical faces of a shaft and a bearing bore along a shared axis?", options: ["Concentric Mate", "Tangent Mate", "Symmetric Mate"], ans: 0 },
               { q: "What does Interference Detection check in a SolidWorks assembly?", options: ["Whether two or more solid components overlap or occupy the same physical volume", "Network latency", "File compression ratio"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 2.1: Standard & Mechanical Mates",
+                body: "Insert your base housing first so it is Fixed (f) to the assembly origin. Constrain moving parts using Concentric mates (aligning cylindrical axes), Coincident mates (flush face contact), and Distance/Angle limits.",
+                syntax: "Shaft-in-Bore Standard: 1x Concentric Mate (Cylindrical Faces) + 1x Coincident Mate (Shoulder Face)"
+              },
+              {
+                heading: "Lesson 2.2: Interference Detection & Clearance Verification",
+                body: "Before sending any assembly to a machine shop, run Evaluate → Interference Detection. It calculates exact cubic millimeters of overlapping volume where two solid parts collide so you can fix tolerances digitally.",
+                syntax: "Evaluate → Interference Detection → Calculate → Resolve any red overlapping volumes"
+              }
+            ],
+            labSteps: [
+              "Create a new Assembly (.SLDASM), fix the base housing, and mate the shaft, bearings, and fasteners.",
+              "Verify rotational degrees of freedom and add mechanical limit mates where required.",
+              "Run Interference Detection and save a screenshot/report confirming 'No Interferences'."
+            ],
+            practicalTask: "Assemble an 8-part mechanical gearbox/vise assembly with working motion limits and a zero-interference verification report.",
+            deliverablePlaceholder: "Paste Google Drive SLDASM / Pack-and-Go Link for Module 2..."
           },
           {
             title: "Module 3: Static Stress FEA Simulation, GD&T Drawings & BOM",
-            lessonSummary: "Apply material properties, fixtures, and loads to run static FEA stress simulations (verifying Factor of Safety > 1.0), and generate exploded 2D drawings with automated Bills of Materials.",
-            keyConcepts: ["Static Stress FEA & Factor of Safety (FoS)", "2D Production Drawings, Sections & GD&T", "Exploded Views & Bill of Materials (BOM)"],
-            practicalTask: "Run an FEA load simulation on your load-bearing part and generate a 2D assembly drawing with balloons and BOM table.",
-            deliverablePlaceholder: "Paste Google Drive FEA Report & SLDDRW PDF Link for Module 3...",
+            diagnosticIntro: "Complete the Module 3 diagnostic baseline check first to unlock the Static FEA Simulation & Production Drawings lessons.",
             quiz: [
               { q: "What does a Factor of Safety (FoS) > 1.0 indicate in a static stress FEA study?", options: ["Material yield strength exceeds maximum simulated stress", "The part fails immediately", "Zero load was applied"], ans: 0 },
               { q: "What does a Bill of Materials (BOM) table on an assembly drawing provide?", options: ["Itemized part numbers, descriptions, materials, and quantities required for manufacturing", "Software license terms", "Cloud server specs"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 3.1: Static Stress FEA & Factor of Safety (FoS)",
+                body: "Assign an engineering material (e.g., AISI 1045 Steel or 6061-T6 Aluminum), apply fixed restraints at bolt holes, apply operational force loads, mesh, and run Static Simulation. Verify that Von Mises stress stays below material Yield Strength (Factor of Safety FoS > 1.0, typically ≥ 2.0 for mechanical parts).",
+                syntax: "Factor of Safety (FoS) = Material Yield Strength / Maximum Von Mises Stress (Target FoS ≥ 2.0)"
+              },
+              {
+                heading: "Lesson 3.2: 2D Production Drawings, Balloons & Bills of Materials",
+                body: "Generate a 2D Drawing (.SLDDRW) containing orthographic views, a section view, an exploded isometric view with Auto-Balloons, and a linked Bill of Materials (BOM) table listing item numbers, part names, materials, and quantities.",
+                syntax: "Drawing Sheet Checklist: 3 Orthographic Views + Section View + Exploded View + Balloons + BOM Table"
+              }
+            ],
+            labSteps: [
+              "Run a Static FEA stress study on your bracket/housing under a 2,500N load and record the minimum Factor of Safety.",
+              "Create a 2D engineering drawing with critical tolerances, exploded view, and numbered balloons.",
+              "Insert an automated Bill of Materials (BOM) table and export the drawing sheet to PDF."
+            ],
+            practicalTask: "Run an FEA load simulation on your load-bearing part and generate a 2D assembly drawing with balloons and BOM table.",
+            deliverablePlaceholder: "Paste Google Drive FEA Report & SLDDRW PDF Link for Module 3..."
           },
           {
             title: "Module 4: Proctored 3D Mechanical Design Capstone & Defense",
@@ -469,11 +852,12 @@
       },
 
       "TRK-06": {
+        group: "ENGINEERING",
         pillar: "Track 6 of 7 • Section 2.1.5",
-        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored BIM Lab",
+        duration: "12 Weeks • Diagnostic Baseline → Guided Training → Proctored BIM Lab",
         salaryRange: "Nigeria: ₦6.0M–₦11M/yr • Remote/Global: $80k–$125k USD",
         pathways: ["BIM Modeler / Coordinator", "Revit Architectural Designer", "Structural BIM Specialist", "Digital Construction Manager"],
-        trackIntro: "Master Building Information Modelling (BIM) with Autodesk Revit—creating data-rich 3D architectural and structural building models, live quantity schedules, clash checks, and construction sheets.",
+        trackIntro: "Benchmark your BIM baseline first, then master parametric 3D modeling in Autodesk Revit, custom Revit Families, live quantity schedules, and clash coordination.",
         outcomes: [
           "Model intelligent parametric building elements (walls, floors, roofs, columns) across datum Levels & Grids.",
           "Author custom parametric Revit Families and extract live bidirectional quantity takeoff schedules.",
@@ -483,36 +867,84 @@
         modules: [
           {
             title: "Module 1: BIM Datum Levels, Grids & Architectural/Structural Modeling",
-            lessonSummary: "Establish project datum Levels and structural Grids, and model parametric walls, doors, windows, floors, stairs, curtain walls, and structural framing in Revit.",
-            keyConcepts: ["BIM Levels of Development (LOD 100–400)", "Parametric Datum Levels & Structural Grids", "Walls, Floors, Roofs, Stairs & Curtain Systems"],
-            practicalTask: "Model a 2-storey structural and architectural building shell in Revit with accurate datum levels and grid coordinates.",
-            deliverablePlaceholder: "Paste Google Drive RVT / IFC Model Link for Module 1...",
+            diagnosticIntro: "Complete the Module 1 diagnostic baseline check first to unlock the Revit BIM Datum Levels & Modeling training lessons.",
             quiz: [
               { q: "How does Building Information Modelling (BIM) differ from traditional 2D CAD?", options: ["BIM uses intelligent, parametric 3D objects containing geometry plus material, cost, and schedule metadata", "BIM cannot generate floor plans", "BIM only works for electrical circuits"], ans: 0 },
               { q: "Why establish Levels and Grids before modeling walls and columns in Revit?", options: ["They act as parametric datum references that control element heights and alignment across views", "They disable 3D views", "They export to Excel automatically"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 1.1: Information-Rich 3D BIM vs. Dumb 2D Lines",
+                body: "In BIM, you do not draw two parallel lines for a wall—you place a parametric Wall object containing real layers (concrete block, plaster, paint), thermal properties, cost data, and height constraints tied to building Levels. Moving a Level automatically updates every attached wall and column.",
+                syntax: "BIM Hierarchy: Project Base Point → Datum Levels (Level 01, Level 02, Roof) → Structural Grids (A–D, 1–4)"
+              },
+              {
+                heading: "Lesson 1.2: Modeling Walls, Slabs, Curtain Systems & Columns",
+                body: "Establish structural Grids first, place structural columns at grid intersections, model exterior/interior walls constrained from Base Level to Top Level, and add structural floor slabs, stairs, and curtain walls.",
+                syntax: "Modeling Sequence: Grids → Columns → Exterior Walls → Structural Floors → Interior Partitions → Doors/Windows"
+              }
+            ],
+            labSteps: [
+              "Start a new Revit project, configure metric units (mm), and set up 4 Datum Levels and a 4×3 Structural Grid.",
+              "Model a 2-storey building shell with structural columns, exterior cavity walls, floor slabs, and curtain wall glazing.",
+              "Cut a 3D section box and an architectural floor plan view to verify clean wall-to-floor joins."
+            ],
+            practicalTask: "Model a 2-storey structural and architectural building shell in Revit with accurate datum levels and grid coordinates.",
+            deliverablePlaceholder: "Paste Google Drive RVT / IFC Model Link for Module 1..."
           },
           {
             title: "Module 2: Custom Parametric Revit Families & Quantity Takeoffs",
-            lessonSummary: "Build loadable parametric component Families using reference planes and dimension parameters, and generate live bidirectional Door, Window, and Material Takeoff schedules.",
-            keyConcepts: ["System Families vs. Loadable Families", "Reference Planes & Flexing Parameters", "Bidirectional Material & Quantity Schedules"],
-            practicalTask: "Create 2 custom flexing Revit Families and generate a live concrete/blockwork/door quantity takeoff schedule.",
-            deliverablePlaceholder: "Paste Google Drive RFA Families & Schedule Export Link for Module 2...",
+            diagnosticIntro: "Complete the Module 2 diagnostic baseline check first to unlock the Custom Revit Families & Quantity Schedules training lessons.",
             quiz: [
               { q: "What happens when you edit a dimension in a Revit Schedule?", options: ["The corresponding 3D model element updates automatically across all plans, sections, and elevations", "The model becomes corrupted", "Only the text changes"], ans: 0 },
               { q: "What are Reference Planes used for when creating a custom Revit Family?", options: ["Define the parametric skeleton that controls geometry flexing", "Render photorealistic skies", "Compress PDF sheets"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 2.1: Creating Parametric Loadable Families (.RFA)",
+                body: "System Families (walls, floors, roofs) live inside the project, while Loadable Families (doors, windows, furniture, structural columns) are built in the Family Editor. Always draw Reference Planes first, dimension and label them as Type/Instance Parameters, and 'flex' the dimensions before locking 3D extrusions to them.",
+                syntax: "Family Workflow: Reference Planes → Labeled Dimensions → Flex Test → Lock Extrusion Geometry"
+              },
+              {
+                heading: "Lesson 2.2: Bidirectional Schedules & Material Takeoffs",
+                body: "Revit schedules are live database views of your 3D model. Changing a door's width or mark inside a Door Schedule immediately updates that door in every floor plan, section, and 3D view—eliminating manual counting errors.",
+                syntax: "View → Schedules → Schedule/Quantities (Doors, Windows, Columns) & Material Takeoff (Concrete m³)"
+              }
+            ],
+            labSteps: [
+              "Create a custom parametric window or precast concrete louver Family (.RFA) with adjustable Width and Height parameters.",
+              "Load the family into your building model and place multiple instances.",
+              "Generate a Door/Window Schedule and a Concrete Volume Material Takeoff Schedule."
+            ],
+            practicalTask: "Create 2 custom flexing Revit Families and generate a live concrete/blockwork/door quantity takeoff schedule.",
+            deliverablePlaceholder: "Paste Google Drive RFA Families & Schedule Export Link for Module 2..."
           },
           {
             title: "Module 3: Multi-Discipline Clash Detection, Sheets & IFC Export",
-            lessonSummary: "Link architectural and structural models using Copy/Monitor, run Interference Checks to eliminate spatial clashes, and publish annotated construction sheet sets and IFC files.",
-            keyConcepts: ["Linked Models & Copy/Monitor Coordination", "Interference Check & Clash Resolution", "Annotated Construction Sheets & IFC OpenBIM Export"],
-            practicalTask: "Run a model Interference Check, resolve all clashes, and publish a 4-sheet construction PDF + IFC package.",
-            deliverablePlaceholder: "Paste Google Drive Clash Report & Sheet Set Link for Module 3...",
+            diagnosticIntro: "Complete the Module 3 diagnostic baseline check first to unlock the BIM Clash Detection & OpenBIM IFC training lessons.",
             quiz: [
               { q: "What is the purpose of an Interference Check (Clash Detection) in BIM?", options: ["Identify physical collisions between architectural, structural, and MEP elements before construction", "Delete unused views", "Change project north"], ans: 0 },
               { q: "Which open-standard file format enables BIM data exchange across different software platforms?", options: ["IFC (Industry Foundation Classes)", "MP3", "DOCX"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 3.1: Linked Models & Interference Check (Clash Detection)",
+                body: "Link Structural and MEP models into your Architectural model using Origin-to-Origin alignment. Run Collaborate → Interference Check to detect hard clashes (such as a concrete beam intersecting a window opening or duct) before construction begins.",
+                syntax: "Collaborate → Coordinate → Interference Check → Run Interference Check → Export HTML Clash Report"
+              },
+              {
+                heading: "Lesson 3.2: Construction Sheet Sets & OpenBIM IFC Export",
+                body: "Place annotated plans, sections, elevations, and schedules onto numbered Title Block sheets (A101, A201, A301). Export both a multi-sheet construction PDF and an open-standard IFC (Industry Foundation Classes) file for cross-platform BIM interoperability.",
+                syntax: "Deliverables: Coordinated .RVT + Multi-Sheet Construction .PDF + OpenBIM .IFC Export"
+              }
+            ],
+            labSteps: [
+              "Run an Interference Check between your structural framing and architectural walls/floors and resolve every clash.",
+              "Create 4 numbered drawing sheets (Floor Plans, Building Sections, Elevations, Schedules).",
+              "Export your model to IFC 2x3/IFC4 and print your sheets to a combined PDF."
+            ],
+            practicalTask: "Run a model Interference Check, resolve all clashes, and publish a 4-sheet construction PDF + IFC package.",
+            deliverablePlaceholder: "Paste Google Drive Clash Report & Sheet Set Link for Module 3..."
           },
           {
             title: "Module 4: Proctored Revit BIM Capstone & Executive Defense",
@@ -525,11 +957,12 @@
       },
 
       "TRK-07": {
+        group: "ENGINEERING",
         pillar: "Track 7 of 7 • Section 2.1.5",
-        duration: "12 Weeks • Asynchronous Low-Bandwidth + Proctored Engineering Lab",
+        duration: "12 Weeks • Diagnostic Baseline → Guided Training → Proctored Engineering Lab",
         salaryRange: "Nigeria: ₦6.0M–₦11.5M/yr • Remote/Global: $80k–$130k USD",
         pathways: ["MEP BIM Engineer", "HVAC & Plumbing Design Engineer", "Electrical Building Services Designer", "Civil Infrastructure CAD/BIM Specialist"],
-        trackIntro: "Master Mechanical, Electrical, and Plumbing (MEP) building services and Civil site infrastructure design—routing HVAC ductwork, sloped drainage piping, electrical circuits, and site grading.",
+        trackIntro: "Benchmark your MEP & Civil baseline first, then master HVAC ductwork routing, sloped plumbing, electrical panel schedules, and civil site drainage through guided engineering labs.",
         outcomes: [
           "Design and route HVAC ductwork, domestic water/sloped sanitary piping, and fire-protection networks.",
           "Configure electrical lighting layouts, distribution panels, and balanced circuit load schedules.",
@@ -539,36 +972,84 @@
         modules: [
           {
             title: "Module 1: Mechanical (HVAC) & Sloped Plumbing Systems Modeling",
-            lessonSummary: "Define analytical Spaces and Zones, size HVAC airflows, and route supply/return ductwork alongside gravity-sloped sanitary drainage and domestic water piping.",
-            keyConcepts: ["Analytical Spaces, Zones & Airflow Sizing", "HVAC Supply/Return Ductwork & Diffusers", "Gravity-Sloped Sanitary & Domestic Water Piping"],
-            practicalTask: "Model a complete HVAC duct layout and sloped sanitary/domestic water piping network for a multi-room floor plate.",
-            deliverablePlaceholder: "Paste Google Drive Revit MEP Model Link for Module 1...",
+            diagnosticIntro: "Complete the Module 1 diagnostic baseline check first to unlock the HVAC & Sloped Plumbing Systems training lessons.",
             quiz: [
               { q: "Why must sanitary drainage pipes be modeled with a defined downward slope in Revit MEP?", options: ["Ensure gravity-driven flow and verify vertical clearance against structural beams", "Save hard drive space", "Change pipe color"], ans: 0 },
               { q: "What do Spaces and Zones define in an HVAC BIM model?", options: ["Analytical volumes used to calculate heating, cooling, and ventilation airflow loads", "External site boundaries", "Title block margins"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 1.1: Analytical Spaces, Zones & HVAC Ductwork Routing",
+                body: "Place MEP Spaces inside room boundaries and group them into Zones to compute cooling/airflow requirements (L/s or CFM). Place supply diffusers and return grilles, connect them to an Air Handling Unit (AHU), and size main/branch ducts to prevent excess air velocity noise.",
+                syntax: "HVAC Flow: AHU Supply Trunk → Main Rectangular Duct → VAV/Branch Takeoffs → Ceiling Diffusers"
+              },
+              {
+                heading: "Lesson 1.2: Gravity-Sloped Sanitary Piping & Domestic Water",
+                body: "Pressurized domestic cold/hot water pipes can run level, but sanitary waste pipes rely on gravity. Always enable Slope Down (typically 1% or 2% gradient) when routing sanitary drains so invert elevations drop accurately toward the main vertical soil stack.",
+                syntax: "Plumbing Rule: Sanitary Waste = 1%–2% Downward Gravity Slope | Domestic Water = Pressurized Level"
+              }
+            ],
+            labSteps: [
+              "Link an architectural floor plan, copy/monitor Levels, and place MEP Spaces in every room.",
+              "Route a supply and return HVAC duct system connecting ceiling diffusers to a mechanical plant unit.",
+              "Model a sloped (1.5%) sanitary drainage network connecting restroom fixtures to a vertical riser."
+            ],
+            practicalTask: "Model a complete HVAC duct layout and sloped sanitary/domestic water piping network for a multi-room floor plate.",
+            deliverablePlaceholder: "Paste Google Drive Revit MEP Model Link for Module 1..."
           },
           {
             title: "Module 2: Electrical Power Distribution, Lighting & Panel Schedules",
-            lessonSummary: "Place lighting fixtures, power receptacles, and distribution panels, wire electrical circuits, and generate automated load-balanced Electrical Panel Schedules.",
-            keyConcepts: ["Lighting Layouts & Lux Verification", "Power Circuits, Conduits & Cable Trays", "Automated Electrical Panel Schedules"],
-            practicalTask: "Configure lighting and power circuits for two building zones and export a load-balanced Panelboard Schedule.",
-            deliverablePlaceholder: "Paste Google Drive Electrical Model & Panel Schedule Link for Module 2...",
+            diagnosticIntro: "Complete the Module 2 diagnostic baseline check first to unlock the Electrical Power & Panel Schedules training lessons.",
             quiz: [
               { q: "What information does an automated Revit Electrical Panel Schedule track?", options: ["Connected circuit loads, phase balancing, breaker ratings, and total demand", "HVAC duct velocity", "Concrete curing time"], ans: 0 },
               { q: "Why model cable trays and main conduit runs in 3D?", options: ["Prevent spatial clashes with HVAC ducts and structural steel in ceiling plenums", "Increase rendering brightness", "Disable circuit numbering"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 2.1: Lighting Layouts, Power Circuits & Distribution Boards",
+                body: "Place ceiling lighting fixtures to meet target room lux levels (e.g., 300–500 lux for offices/labs), add wall power receptacles, and connect fixtures into numbered electrical circuits assigned to a 3-phase Distribution Board (DB).",
+                syntax: "Electrical Hierarchy: Transformer/Main Switchboard → Sub-Main Distribution Board → Branch Circuits → Loads"
+              },
+              {
+                heading: "Lesson 2.2: Automated Electrical Panel Schedules & Phase Balancing",
+                body: "Generate a Panel Schedule in Revit to inspect connected Volt-Amperes (VA), breaker amperage ratings, and load balance across Phases A, B, and C—preventing overloaded circuits before installation.",
+                syntax: "Analyze → Electrical → Create Panel Schedules → Rebalance Loads Across Phases A / B / C"
+              }
+            ],
+            labSteps: [
+              "Place lighting fixtures, switches, and duplex power sockets across two building zones.",
+              "Assign all fixtures to circuits on a 3-phase Distribution Board and route main cable trays.",
+              "Generate and balance the Electrical Panel Schedule and export it to PDF/Excel."
+            ],
+            practicalTask: "Configure lighting and power circuits for two building zones and export a load-balanced Panelboard Schedule.",
+            deliverablePlaceholder: "Paste Google Drive Electrical Model & Panel Schedule Link for Module 2..."
           },
           {
             title: "Module 3: Civil Site Grading, Drainage & Multi-Service Clash Resolution",
-            lessonSummary: "Build Digital Terrain Models (DTM), design access road grading and stormwater pipe networks, and resolve all MEP-vs-Structure ceiling plenum clashes.",
-            keyConcepts: ["Digital Terrain Models (DTM) & Site Grading", "Stormwater & Utility Pipe Networks", "Multi-Service MEP/Structural Clash Resolution"],
-            practicalTask: "Deliver a graded civil site drainage plan integrated with a clash-free coordinated MEP ceiling plenum model.",
-            deliverablePlaceholder: "Paste Google Drive Civil & Coordinated MEP Package Link for Module 3...",
+            diagnosticIntro: "Complete the Module 3 diagnostic baseline check first to unlock the Civil Grading, Drainage & Clash Coordination lessons.",
             quiz: [
               { q: "What does a Digital Terrain Model (DTM / TIN Surface) represent in Civil design?", options: ["3D elevation contours and slope geometry of existing or proposed site topography", "Indoor lighting fixture types", "Electrical circuit breakers"], ans: 0 },
               { q: "Which building service usually takes routing priority in congested ceiling plenums during clash resolution?", options: ["Gravity-sloped sanitary/storm pipes and large main HVAC ducts", "Flexible data cables", "Paint finishes"], ans: 0 }
-            ]
+            ],
+            lessons: [
+              {
+                heading: "Lesson 3.1: Digital Terrain Models (DTM), Site Grading & Storm Drainage",
+                body: "In Civil 3D / site BIM, survey points form a TIN (Triangulated Irregular Network) Digital Terrain Model representing existing ground contours. Grade building pads with positive outward slopes (≥2%) so tropical rainwater drains toward stormwater catch basins and culverts.",
+                syntax: "Civil Site Sequence: Survey Contours (Existing TIN) → Building Pad Grading (≥2% Fall) → Storm Pipe Network"
+              },
+              {
+                heading: "Lesson 3.2: Ceiling Plenum Coordination & Routing Priority",
+                body: "When HVAC ducts, sloped sanitary pipes, fire sprinklers, and cable trays share a tight ceiling plenum, resolve clashes using strict engineering priority: (1) Gravity-sloped pipes (cannot bend around beams), (2) Large main HVAC ducts, (3) Pressurized water/fire pipes, (4) Flexible electrical conduits.",
+                syntax: "Clash Priority: 1. Sloped Sanitary/Storm Pipes → 2. Main HVAC Ducts → 3. Pressurized Pipes → 4. Cable Trays"
+              }
+            ],
+            labSteps: [
+              "Create a site grading surface around your building footprint with sloped stormwater drainage runs.",
+              "Run an Interference Check across Structural, HVAC, Plumbing, and Electrical systems.",
+              "Reroute conflicting ducts/trays to achieve zero hard clashes and export your coordination sheets."
+            ],
+            practicalTask: "Deliver a graded civil site drainage plan integrated with a clash-free coordinated MEP ceiling plenum model.",
+            deliverablePlaceholder: "Paste Google Drive Civil & Coordinated MEP Package Link for Module 3..."
           },
           {
             title: "Module 4: Proctored MEP & Civil Infrastructure Capstone & Defense",
@@ -596,18 +1077,189 @@
     }
 
     function getModuleProgress(trackId, moduleCount) {
-      const key = `cb_native_${currentUser.id}_${trackId}`;
+      const key = `cb_flow_${currentUser.id}_${trackId}`;
       const saved = JSON.parse(localStorage.getItem(key) || "null");
-      if (saved && Array.isArray(saved.passed) && saved.passed.length >= moduleCount) return saved;
+      if (saved && Array.isArray(saved.passed) && saved.passed.length >= moduleCount) {
+        if (!Array.isArray(saved.diagnosed)) saved.diagnosed = new Array(moduleCount).fill(false);
+        if (!Array.isArray(saved.diagScores)) saved.diagScores = new Array(moduleCount).fill("");
+        return saved;
+      }
       return {
+        diagnosed: new Array(moduleCount).fill(false),
+        diagScores: new Array(moduleCount).fill(""),
         passed: new Array(moduleCount).fill(false),
         artifacts: new Array(moduleCount).fill("")
       };
     }
 
     function saveModuleProgress(trackId, state) {
-      const key = `cb_native_${currentUser.id}_${trackId}`;
+      const key = `cb_flow_${currentUser.id}_${trackId}`;
       localStorage.setItem(key, JSON.stringify(state));
+    }
+
+    // =========================================================================
+    // LIVE AI STUDY COACH & LEARNING NAVIGATOR
+    // =========================================================================
+    let aiChatHistory = [
+      {
+        sender: "ai",
+        text: "Welcome to CareerBridge Africa! I am your live AI Study Mentor. Tell me which track you want to master—or click <strong>What should I do next?</strong>—and I will guide you step-by-step from your diagnostic check through your practical lab and CareerScore™."
+      }
+    ];
+
+    function toggleAICoach(open) {
+      const drawer = document.getElementById("aiCoachDrawer");
+      const fab = document.getElementById("aiCoachFab");
+      if (open) {
+        drawer.classList.remove("hidden");
+        drawer.classList.add("flex");
+        fab.classList.add("hidden");
+        renderAIChatHistory();
+      } else {
+        drawer.classList.add("hidden");
+        drawer.classList.remove("flex");
+        fab.classList.remove("hidden");
+      }
+    }
+
+    function renderAIChatHistory() {
+      const box = document.getElementById("aiChatMessages");
+      if (!box) return;
+      box.innerHTML = aiChatHistory.map(m => m.sender === "user"
+        ? `<div class="flex justify-end fade-in"><div class="bg-slate-900 text-white px-3.5 py-2.5 rounded-2xl rounded-br-sm max-w-[85%]">${m.text}</div></div>`
+        : `<div class="flex items-start gap-2 fade-in"><div class="w-6 h-6 rounded-lg bg-amber-500 text-slate-950 font-extrabold flex items-center justify-center shrink-0 text-[11px]">✦</div><div class="bg-white border border-slate-200 text-slate-800 px-3.5 py-2.5 rounded-2xl rounded-bl-sm shadow-sm max-w-[88%]">${m.text}</div></div>`
+      ).join("");
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function askAIQuick(promptText) {
+      document.getElementById("aiChatInput").value = promptText;
+      handleAIChatSubmit(new Event("submit"));
+    }
+
+    async function handleAIChatSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById("aiChatInput");
+      const question = input.value.trim();
+      if (!question) return;
+      input.value = "";
+
+      aiChatHistory.push({ sender: "user", text: question });
+      renderAIChatHistory();
+
+      if (EXTERNAL_AI_ENDPOINT) {
+        try {
+          const res = await fetch(EXTERNAL_AI_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question, context: activeTrackContext })
+          });
+          const data = await res.json();
+          if (data?.reply) {
+            aiChatHistory.push({ sender: "ai", text: data.reply });
+            renderAIChatHistory();
+            return;
+          }
+        } catch (err) { /* Fall back cleanly to built-in Capstone AI Mentor */ }
+      }
+
+      const reply = generateContextAwareAIReply(question);
+      setTimeout(() => {
+        aiChatHistory.push({ sender: "ai", text: reply });
+        renderAIChatHistory();
+      }, 220);
+    }
+
+    function generateContextAwareAIReply(q) {
+      const lower = q.toLowerCase();
+      const ctx = activeTrackContext;
+
+      if (!currentUser) {
+        return "Sign in or create a free Pilot account first! Choose <strong>Learner</strong> to study the 7 technical tracks, <strong>Assessor</strong> to grade blind submissions, or <strong>Employer</strong> to hire verified talent.";
+      }
+
+      if (activeRoleView === "assessor") {
+        return "You are in the <strong>Proctor & Assessor Queue</strong>. Inspect each anonymized submission's artifact and browser proctor integrity log, enter a score from <strong>0–1000</strong> using the published track rubric, and click <strong>Simulate Dual-Assessor IRR ≥ 0.70 Pass</strong> to issue a verified CareerScore™.";
+      }
+
+      if (activeRoleView === "employer") {
+        return "You are in the <strong>Employer Talent Portal</strong>. Publish a job requisition with a minimum CareerScore™ threshold (e.g., ≥700/1000), inspect candidates' verified project deliverables and proctor records, and move shortlisted talent to <strong>Hired (90-Day Confirmed)</strong>.";
+      }
+
+      if (lower.includes("careerscore") || lower.includes("score") || lower.includes("rubric")) {
+        const rubricText = ctx?.curr?.rubric || "Technical Accuracy (400 pts) • Applied Engineering/Analysis (250 pts) • Documentation & Standards (200 pts) • Executive Defense (150 pts)";
+        return `Your <strong>CareerScore™ (0–1000)</strong> is graded blindly by two certified assessors (requiring <strong>IRR ≥ 0.70</strong> inter-rater reliability).<br/><br/><strong>Current Track Rubric:</strong> ${rubricText}<br/>• <strong>850–1000:</strong> Tier 1 Enterprise Ready<br/>• <strong>700–849:</strong> Tier 2 Job-Ready Certified`;
+      }
+
+      if (lower.includes("proctor") || lower.includes("wat") || lower.includes("hub") || lower.includes("hours")) {
+        return "CareerBridge Africa runs dual-mode verification:<br/>• <strong>Timed Proctored Drill:</strong> 30-minute countdown with real-time browser focus tracking (24/7).<br/>• <strong>Live Proctored Sessions (Lagos Hub or Virtual):</strong> Mon–Fri 8:00 a.m.–6:00 p.m. WAT & Sat 9:00 a.m.–1:00 p.m. WAT.<br/>• <strong>Offline Queue:</strong> Submit 24/7 even on unstable mobile data.";
+      }
+
+      if (!ctx || !ctx.isEnrolled) {
+        const title = ctx?.track?.title || "any of the 7 technical tracks";
+        return `Your immediate next step is to click <strong>Enrol Free to Begin Diagnostic</strong> on <strong>${title}</strong>. Pilot tuition is 100% waived, and enrolling immediately opens Module 1.`;
+      }
+
+      if (ctx.allModulesPassed) {
+        return `You have completed all <strong>${ctx.prereqCount} training modules</strong> in <strong>${ctx.track.title}</strong>! Scroll to the <strong>Proctored Assessment Center</strong> on the right, choose your proctoring mode (Timed Drill or Live WAT Proctor), paste your final capstone + defense video links, and submit for your 0–1000 CareerScore™.`;
+      }
+
+      const mod = ctx.currentModule;
+      const modNum = ctx.currentModuleIndex + 1;
+      if (!ctx.currentDiagnosed) {
+        return `You are currently on <strong>${mod.title}</strong> (<strong>Stage 1: Diagnostic Baseline</strong>). Answer the short baseline questions inside Module ${modNum} and click <strong>Submit Diagnostic & Start Training Lessons</strong>—that immediately unlocks your step-by-step lessons and hands-on lab.`;
+      }
+
+      if (lower.includes("lab") || lower.includes("explain") || lower.includes("how") || lower.includes("help")) {
+        const stepsHtml = (mod.labSteps || []).map((s, idx) => `${idx + 1}. ${s}`).join("<br/>");
+        return `Here is how to complete your <strong>Module ${modNum} Hands-On Lab</strong>:<br/>${stepsHtml}<br/><br/><strong>Deliverable:</strong> ${mod.practicalTask}<br/>Once finished, upload your file/repo to Google Drive, GitHub, or Figma and paste the share link into the Module ${modNum} submission box.`;
+      }
+
+      return `You are in <strong>Stage 2 (Guided Training & Lab)</strong> for <strong>${mod.title}</strong>. Read the syntax/command reference cards in Part 2, follow the step-by-step lab instructions (<em>${mod.practicalTask}</em>), and submit your deliverable link to unlock Module ${modNum + 1}!`;
+    }
+
+    function updateAINavigatorBanner() {
+      const bannerText = document.getElementById("aiNextStepText");
+      const ctxLabel = document.getElementById("aiContextLabel");
+      if (!bannerText) return;
+
+      if (activeRoleView === "assessor") {
+        bannerText.textContent = "Review anonymized submissions in the queue below, verify proctor integrity logs, and submit blind 0–1000 rubric scores.";
+        if (ctxLabel) ctxLabel.textContent = "Context: Proctor & Assessor Queue";
+        return;
+      }
+      if (activeRoleView === "employer") {
+        bannerText.textContent = "Filter verified talent by CareerScore™ ≥ 700, inspect work samples, and log 90-day confirmed placements.";
+        if (ctxLabel) ctxLabel.textContent = "Context: Employer Talent Portal";
+        return;
+      }
+
+      const ctx = activeTrackContext;
+      if (!ctx) return;
+      if (ctxLabel) ctxLabel.textContent = `Context: ${ctx.track.code} (${ctx.track.title})`;
+
+      if (!ctx.isEnrolled) {
+        bannerText.innerHTML = `Click <strong>Enrol Free to Begin Diagnostic</strong> on <strong>${ctx.track.code}: ${ctx.track.title}</strong> to unlock Module 1.`;
+      } else if (ctx.allModulesPassed) {
+        bannerText.innerHTML = `All ${ctx.prereqCount} modules trained! Complete your <strong>Proctored Capstone Assessment</strong> on the right to earn your 0–1000 CareerScore™.`;
+      } else if (!ctx.currentDiagnosed) {
+        bannerText.innerHTML = `<strong>Module ${ctx.currentModuleIndex + 1} (Stage 1):</strong> Complete the quick Diagnostic Baseline Check to unlock your Training Lessons.`;
+      } else {
+        bannerText.innerHTML = `<strong>Module ${ctx.currentModuleIndex + 1} (Stage 2–3):</strong> Study the Training Lessons, complete the Hands-On Lab, and submit your deliverable link.`;
+      }
+    }
+
+    function copyCodeBlock(btn, encodedText) {
+      const text = decodeURIComponent(encodedText);
+      navigator.clipboard.writeText(text);
+      const orig = btn.textContent;
+      btn.textContent = "✓ Copied";
+      setTimeout(() => { btn.textContent = orig; }, 1500);
+    }
+
+    function setTrackFilter(cat) {
+      trackCategoryFilter = cat;
+      renderLearnerWorkspace();
     }
 
     window.addEventListener("DOMContentLoaded", async () => {
@@ -637,7 +1289,7 @@
       const isSignup = mode === "signup";
       document.getElementById("signupFields").classList.toggle("hidden", !isSignup);
       document.getElementById("ndpaBox").classList.toggle("hidden", !isSignup);
-      document.getElementById("authSubmitBtn").textContent = isSignup ? "Register & Record NDPA Consent" : "Sign In to Platform";
+      document.getElementById("authSubmitBtn").textContent = isSignup ? "Register & Record NDPA Consent" : "Sign In to Interactive Studio";
       document.getElementById("tabLogin").className = isSignup
         ? "flex-1 pb-2.5 text-sm font-semibold border-b-2 border-transparent text-slate-500"
         : "flex-1 pb-2.5 text-sm font-semibold border-b-2 border-slate-900 text-slate-900";
@@ -722,12 +1374,24 @@
       document.getElementById("btnSignOut").classList.remove("hidden");
       document.getElementById("welcomeHeading").textContent = `Welcome, ${profile.full_name}`;
 
+      const initials = (profile.full_name || "CB").split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
+      document.getElementById("avatarInitials").textContent = initials;
+
       switchPreviewRole(profile.role);
     }
 
     function switchPreviewRole(role) {
       activeRoleView = role;
       document.getElementById("roleBadge").textContent = `${role.toUpperCase()} VIEW`;
+
+      ["learner", "assessor", "employer"].forEach(r => {
+        const btn = document.getElementById(`navBtn_${r}`);
+        if (!btn) return;
+        btn.className = r === role
+          ? "text-xs font-bold px-3.5 py-1.5 rounded-xl bg-slate-900 text-white shadow-sm transition"
+          : "text-xs font-bold px-3.5 py-1.5 rounded-xl bg-white text-slate-800 border border-amber-300 hover:bg-amber-100 transition";
+      });
+
       if (role === "learner") renderLearnerWorkspace();
       else if (role === "employer") renderEmployerWorkspace();
       else renderAssessorWorkspace();
@@ -739,7 +1403,7 @@
     }
 
     // =========================================================================
-    // 2. LEARNER WORKSPACE (NATIVE LESSONS + LIVE PROCTORED ASSESSMENT CENTER)
+    // 2. INTERACTIVE LEARNER WORKSPACE
     // =========================================================================
     async function renderLearnerWorkspace() {
       const container = document.getElementById("workspaceContent");
@@ -761,17 +1425,17 @@
         .eq("learner_id", currentUser.id);
 
       document.getElementById("kpiStrip").innerHTML = `
-        <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
-          <div class="text-[11px] text-slate-500">Enrolled Tracks</div>
-          <div class="text-base font-bold">${enrolments?.length || 0}</div>
+        <div class="bg-slate-50 px-3.5 py-2 rounded-xl border border-slate-200">
+          <div class="text-[10px] font-bold uppercase text-slate-500">Enrolled</div>
+          <div class="text-base font-extrabold text-slate-900">${enrolments?.length || 0} Tracks</div>
         </div>
-        <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
-          <div class="text-[11px] text-slate-500">Submissions</div>
-          <div class="text-base font-bold text-amber-700">${submissions?.length || 0}</div>
+        <div class="bg-amber-50 px-3.5 py-2 rounded-xl border border-amber-200">
+          <div class="text-[10px] font-bold uppercase text-amber-800">Capstones</div>
+          <div class="text-base font-extrabold text-amber-700">${submissions?.length || 0}</div>
         </div>
-        <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
-          <div class="text-[11px] text-slate-500">Verified CareerScores</div>
-          <div class="text-base font-bold text-emerald-700">${scores?.length || 0}</div>
+        <div class="bg-emerald-50 px-3.5 py-2 rounded-xl border border-emerald-200">
+          <div class="text-[10px] font-bold uppercase text-emerald-800">Verified Scores</div>
+          <div class="text-base font-extrabold text-emerald-700">${scores?.length || 0}</div>
         </div>
       `;
 
@@ -788,34 +1452,56 @@
         activeCurr = curr;
         const prereqCount = curr.modules.length - 1;
         const progress = getModuleProgress(activeTrack.id, prereqCount);
-        allModulesPassedForActive = progress.passed.slice(0, prereqCount).every(Boolean);
+        const passedCount = progress.passed.slice(0, prereqCount).filter(Boolean).length;
+        allModulesPassedForActive = passedCount === prereqCount;
+        const completionPct = Math.round(((passedCount + (isEnrolled ? 0.5 : 0)) / (prereqCount + 1.5)) * 100);
+
+        const firstIncompleteIdx = progress.passed.slice(0, prereqCount).findIndex(p => !p);
+        const currentModIdx = firstIncompleteIdx === -1 ? prereqCount - 1 : firstIncompleteIdx;
+
+        activeTrackContext = {
+          track: activeTrack,
+          curr,
+          isEnrolled,
+          prereqCount,
+          allModulesPassed: allModulesPassedForActive,
+          currentModuleIndex: currentModIdx,
+          currentModule: curr.modules[currentModIdx],
+          currentDiagnosed: Boolean(progress.diagnosed[currentModIdx])
+        };
 
         const latestSub = (submissions || []).find(s => s.track_id === activeTrack.id);
         const latestScore = (scores || []).find(s => s.track_id === activeTrack.id);
 
         const stageIndex = latestScore ? 4 : latestSub ? (latestSub.status === "under_dual_review" ? 3 : 2) : allModulesPassedForActive ? 1 : 0;
-        const stages = ["1. Enrol", `2. Practical Modules 1–${prereqCount}`, "3. Proctored Eval", "4. IRR ≥ 0.70 Grading", "5. CareerScore™"];
+        const stages = ["1. Enrol", `2. Baseline → Train 1–${prereqCount}`, "3. Proctored Eval", "4. IRR ≥ 0.70 Grading", "5. CareerScore™"];
 
         roadmapHtml = `
-          <div class="bg-white rounded-xl border border-slate-200 p-5 space-y-5">
-            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-5 fade-in">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
               <div>
                 <div class="flex flex-wrap items-center gap-2">
                   <span class="text-[11px] font-bold uppercase text-amber-700">${curr.pillar}</span>
+                  <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">${completionPct}% Studio Progress</span>
                 </div>
-                <h3 class="font-bold text-lg mt-0.5">${activeTrack.code}: ${activeTrack.title}</h3>
+                <h3 class="font-extrabold text-xl text-slate-900 mt-0.5">${activeTrack.code}: ${activeTrack.title}</h3>
                 <p class="text-xs text-slate-500">${curr.duration} • ${curr.salaryRange}</p>
               </div>
               ${isEnrolled
-                ? `<span class="text-xs px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold">✓ Enrolled (Pilot Scholarship)</span>`
-                : `<button onclick="enrolInPilotTrack('${activeTrack.id}', '${activeTrack.title}')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold">Enrol Free to Start Module 1</button>`
+                ? `<span class="text-xs px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold">✓ Active Studio Seat</span>`
+                : `<button onclick="enrolInPilotTrack('${activeTrack.id}', '${activeTrack.title}')" class="text-xs px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold shadow-sm">Enrol Free to Begin Diagnostic</button>`
               }
             </div>
 
+            <!-- Interactive Progress Bar -->
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div class="bg-gradient-to-r from-amber-500 to-emerald-500 h-full transition-all duration-500" style="width: ${latestScore ? 100 : completionPct}%"></div>
+            </div>
+
             <!-- Track Overview, Learning Outcomes & Career Pathways -->
-            <div class="bg-slate-900 text-slate-100 rounded-xl p-4 space-y-3 text-xs leading-relaxed">
+            <div class="bg-slate-900 text-slate-100 rounded-2xl p-4 space-y-3 text-xs leading-relaxed">
               <div>
-                <div class="text-[10px] font-bold uppercase tracking-wider text-amber-400 mb-1">Track Overview (Observable Competence Model)</div>
+                <div class="text-[10px] font-bold uppercase tracking-wider text-amber-400 mb-1">Track Overview (Diagnostic Baseline → Guided Training → Verified CareerScore™)</div>
                 <p>${curr.trackIntro}</p>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 border-t border-slate-800">
@@ -837,96 +1523,144 @@
             <!-- 5-Stage Visual Pipeline -->
             <div class="grid grid-cols-5 gap-1.5 text-center">
               ${stages.map((st, idx) => `
-                <div class="p-2 rounded-lg text-[11px] font-semibold border ${idx <= stageIndex ? "bg-emerald-50 border-emerald-300 text-emerald-900" : "bg-slate-50 border-slate-200 text-slate-400"}">
+                <div class="p-2 rounded-xl text-[11px] font-bold border ${idx <= stageIndex ? "bg-emerald-50 border-emerald-300 text-emerald-900" : "bg-slate-50 border-slate-200 text-slate-400"}">
                   ${st}
                 </div>
               `).join("")}
             </div>
 
-            <!-- Self-Contained Sequential Modules -->
+            <!-- Interactive Modules -->
             <div class="space-y-3">
-              <div class="text-xs font-bold text-slate-700">
-                Native Project-Centred Modules (Study Lesson → Submit Practical Output → Pass Gate to Unlock Next):
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-700">Interactive Curriculum (${passedCount}/${prereqCount} Prerequisite Modules Verified):</span>
+                <button onclick="askAIQuick('Explain my current lab task')" class="text-[11px] font-bold text-amber-700 hover:underline">✦ Need help? Ask AI Mentor</button>
               </div>
 
               ${curr.modules.map((mod, i) => {
                 const isUnlocked = isEnrolled && (i === 0 || progress.passed[i - 1]);
+                const isDiagnosed = !mod.isCapstone ? Boolean(progress.diagnosed[i]) : allModulesPassedForActive;
+                const diagScoreText = !mod.isCapstone ? (progress.diagScores[i] || "") : "";
                 const isPassed = !mod.isCapstone ? progress.passed[i] : Boolean(latestSub || latestScore);
-                const isLessonOpen = openLessonModule === `${activeTrack.id}_${i}` || (isUnlocked && !isPassed && !mod.isCapstone);
+                const isDrawerOpen = openLessonModule === `${activeTrack.id}_${i}` || (isUnlocked && !isPassed && !mod.isCapstone);
                 const savedArtifact = !mod.isCapstone ? (progress.artifacts[i] || "") : "";
 
                 return `
-                  <div class="p-4 rounded-xl border ${isPassed ? "border-emerald-300 bg-emerald-50/40" : isUnlocked ? "border-slate-300 bg-white" : "border-slate-200 bg-slate-50 opacity-80"} space-y-3">
+                  <div class="p-4 rounded-2xl border ${isPassed ? "border-emerald-300 bg-emerald-50/40" : isUnlocked ? "border-slate-300 bg-white shadow-sm" : "border-slate-200 bg-slate-50 opacity-80"} space-y-3 transition">
                     <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
                       <div class="flex flex-wrap items-center gap-2">
-                        <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded ${isPassed ? "bg-emerald-600 text-white" : isUnlocked ? "bg-amber-100 text-amber-900" : "bg-slate-200 text-slate-600"}">
-                          ${isPassed ? "✓ Practical Output Verified" : isUnlocked ? "Unlocked" : "🔒 Locked"}
+                        <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full ${isPassed ? "bg-emerald-600 text-white" : isUnlocked ? "bg-amber-100 text-amber-900" : "bg-slate-200 text-slate-600"}">
+                          ${isPassed ? "✓ Trained & Verified" : isUnlocked ? (isDiagnosed ? "Stage 2: In Training" : "Stage 1: Diagnostic") : "🔒 Locked"}
                         </span>
                         <span class="font-bold text-sm text-slate-900">${mod.title}</span>
                       </div>
 
                       <div class="flex items-center gap-2">
                         ${!isUnlocked ? `
-                          <span class="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded">
-                            ${!isEnrolled ? "Enrol first" : `Complete Module ${i} practical output first`}
+                          <span class="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg">
+                            ${!isEnrolled ? "Enrol first" : `Complete Module ${i} first`}
                           </span>
                         ` : mod.isCapstone ? `
-                          <a href="#proctoredAssessmentCard" class="text-[11px] font-bold px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 hover:bg-amber-600">
+                          <a href="#proctoredAssessmentCard" class="text-[11px] font-bold px-3 py-1.5 rounded-xl bg-amber-500 text-slate-950 hover:bg-amber-600">
                             Proceed to Proctored Assessment ↓
                           </a>
                         ` : `
-                          <button onclick="toggleLessonDrawer('${activeTrack.id}', ${i})" class="text-[11px] font-bold px-3 py-1.5 rounded-lg bg-slate-900 text-white hover:bg-slate-700">
-                            ${isLessonOpen ? "Hide Lesson & Lab" : "Open Lesson & Practical Lab"}
+                          <button onclick="toggleLessonDrawer('${activeTrack.id}', ${i})" class="text-[11px] font-bold px-3 py-1.5 rounded-xl bg-slate-900 text-white hover:bg-slate-700">
+                            ${isDrawerOpen ? "Hide Module" : "Open Module"}
                           </button>
                         `}
                       </div>
                     </div>
 
-                    ${isUnlocked && isLessonOpen && !mod.isCapstone ? `
-                      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3 text-xs">
-                        <div>
-                          <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">CareerBridge Native Lesson Brief</div>
-                          <p class="text-slate-800 leading-relaxed">${mod.lessonSummary}</p>
-                        </div>
+                    ${isUnlocked && isDrawerOpen && !mod.isCapstone ? `
+                      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4 text-xs fade-in">
 
-                        <div class="flex flex-wrap gap-1.5">
-                          ${mod.keyConcepts.map(kc => `<span class="text-[11px] font-semibold px-2.5 py-0.5 rounded bg-white border border-slate-200 text-slate-700">• ${kc}</span>`).join("")}
-                        </div>
+                        <!-- STAGE 1: DIAGNOSTIC BASELINE QUIZ -->
+                        <div class="bg-white p-4 rounded-xl border border-amber-200 space-y-3">
+                          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2">
+                            <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-800">
+                              Stage 1: Diagnostic Baseline Check & Initial Intake
+                            </span>
+                            ${isDiagnosed ? `<span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800">✓ Baseline Recorded (${diagScoreText})</span>` : ""}
+                          </div>
+                          <p class="text-slate-600">${mod.diagnosticIntro}</p>
 
-                        <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 space-y-1">
-                          <div class="font-bold text-amber-950">Required Practical Deliverable (Section 2.1.2):</div>
-                          <p class="text-amber-900">${mod.practicalTask}</p>
-                        </div>
-
-                        <div class="space-y-1">
-                          <label class="block font-bold text-slate-800">1. Submit Your Module ${i + 1} Practical Output Link:</label>
-                          <input type="url" id="modArtifact_${activeTrack.id}_${i}" value="${savedArtifact}" placeholder="${mod.deliverablePlaceholder}" class="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg bg-white" />
-                        </div>
-
-                        <div class="space-y-2 pt-1 border-t border-slate-200">
-                          <div class="font-bold text-slate-800">2. Module ${i + 1} Technical Verification Check (100% Required):</div>
                           ${mod.quiz.map((item, qIdx) => `
-                            <div class="space-y-1">
-                              <div class="font-semibold text-slate-700">${qIdx + 1}. ${item.q}</div>
+                            <div class="space-y-1.5">
+                              <div class="font-semibold text-slate-800">${qIdx + 1}. ${item.q}</div>
                               <div class="space-y-1 pl-2">
                                 ${item.options.map((opt, oIdx) => `
-                                  <label class="flex items-center gap-2 cursor-pointer text-slate-700">
-                                    <input type="radio" name="q_${activeTrack.id}_${i}_${qIdx}" value="${oIdx}" />
+                                  <label class="flex items-center gap-2 cursor-pointer text-slate-700 hover:text-slate-950">
+                                    <input type="radio" name="diag_${activeTrack.id}_${i}_${qIdx}" value="${oIdx}" />
                                     <span>${opt}</span>
                                   </label>
                                 `).join("")}
                               </div>
                             </div>
                           `).join("")}
+
+                          <div class="space-y-1">
+                            <label class="block font-semibold text-slate-700">Optional Prior Skill Sample Link (If you already have a draft before training):</label>
+                            <input type="url" id="diagSample_${activeTrack.id}_${i}" value="${savedArtifact}" placeholder="Optional: Paste existing draft/repo URL or leave blank to train from scratch..." class="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg bg-slate-50" />
+                          </div>
+
+                          <button onclick="submitDiagnosticBaseline('${activeTrack.id}', ${i})" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-4 py-2 rounded-xl">
+                            ${isDiagnosed ? "Re-submit Diagnostic Baseline" : "Submit Diagnostic & Start Training Lessons ↓"}
+                          </button>
                         </div>
 
-                        <button onclick="verifyModuleOutputAndGate('${activeTrack.id}', ${i})" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-lg">
-                          Save Practical Output & Unlock Module ${i + 2}
-                        </button>
+                        <!-- STAGE 2 & 3: GUIDED TRAINING LESSONS + LAB DELIVERABLE -->
+                        ${isDiagnosed ? `
+                          <div class="space-y-4 pt-2 border-t-2 border-emerald-200 fade-in">
+                            <div class="flex items-center justify-between">
+                              <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-800">
+                                Stage 2: Guided Training Lessons & Technical Reference
+                              </span>
+                              <span class="text-[10px] font-semibold text-slate-500">Interactive Low-Bandwidth Classroom</span>
+                            </div>
+
+                            ${(mod.lessons || []).map(lsn => `
+                              <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-2 shadow-sm">
+                                <div class="font-bold text-slate-900 text-xs">${lsn.heading}</div>
+                                <p class="text-slate-700 leading-relaxed">${lsn.body}</p>
+                                <div class="relative">
+                                  <button type="button" onclick="copyCodeBlock(this, '${encodeURIComponent(lsn.syntax)}')" class="absolute top-2 right-2 text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-200 hover:bg-slate-700">
+                                    Copy
+                                  </button>
+                                  <pre class="bg-slate-900 text-amber-300 font-mono text-[11px] p-3 rounded-lg overflow-x-auto whitespace-pre-wrap">${lsn.syntax}</pre>
+                                </div>
+                              </div>
+                            `).join("")}
+
+                            <!-- Guided Hands-On Practice Lab -->
+                            <div class="bg-amber-50 border border-amber-200 rounded-xl p-3.5 space-y-2">
+                              <div class="flex items-center justify-between">
+                                <div class="font-bold text-amber-950">Stage 3: Guided Hands-On Practice Lab (Step-by-Step):</div>
+                                <button type="button" onclick="askAIQuick('Explain my current lab task')" class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500 text-slate-950">✦ AI Hint</button>
+                              </div>
+                              <ol class="list-decimal pl-4 space-y-1 text-amber-900">
+                                ${(mod.labSteps || []).map(st => `<li>${st}</li>`).join("")}
+                              </ol>
+                              <div class="pt-1 font-semibold text-amber-950">Required Practical Deliverable (Section 2.1.2): ${mod.practicalTask}</div>
+                            </div>
+
+                            <!-- Final Trained Deliverable Submission -->
+                            <div class="bg-white p-4 rounded-xl border border-emerald-300 space-y-2.5">
+                              <label class="block font-bold text-slate-900">Submit Your Completed Module ${i + 1} Practical Deliverable URL:</label>
+                              <input type="url" id="modArtifact_${activeTrack.id}_${i}" value="${savedArtifact}" placeholder="${mod.deliverablePlaceholder}" class="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg bg-slate-50" />
+                              <button onclick="completeTrainedModule('${activeTrack.id}', ${i})" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-xl">
+                                Complete Training & Unlock Module ${i + 2}
+                              </button>
+                            </div>
+                          </div>
+                        ` : `
+                          <div class="text-[11px] text-slate-500 italic text-center">
+                            Submit the Stage 1 Diagnostic Check above to unlock the Module ${i + 1} Training Lessons and Hands-On Lab.
+                          </div>
+                        `}
                       </div>
                     ` : isPassed && savedArtifact ? `
-                      <div class="text-[11px] text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded border border-emerald-200">
-                        ✓ Practical Output Recorded: <a href="${savedArtifact}" target="_blank" class="underline font-mono">${savedArtifact}</a>
+                      <div class="text-[11px] text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200">
+                        ✓ Trained Deliverable Recorded: <a href="${savedArtifact}" target="_blank" class="underline font-mono">${savedArtifact}</a>
                       </div>
                     ` : ""}
                   </div>
@@ -935,7 +1669,7 @@
             </div>
 
             <!-- Capstone Brief & Published Rubric -->
-            <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 space-y-1.5 text-xs">
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1.5 text-xs">
               <div class="font-bold text-slate-900">Proctored Final Capstone Brief (Unlocks After Module ${prereqCount}):</div>
               <p class="text-slate-600">${curr.capstoneBrief}</p>
               <div class="pt-1 text-[11px] font-semibold text-amber-900">Published 1,000-Pt Rubric: ${curr.rubric}</div>
@@ -944,27 +1678,33 @@
         `;
       }
 
-      const trackCards = (tracks || []).map(t => {
+      const filteredTracks = (tracks || []).filter(t => {
+        if (trackCategoryFilter === "ALL") return true;
+        const curr = getCurriculumForTrack(t);
+        return curr.group === trackCategoryFilter;
+      });
+
+      const trackCards = filteredTracks.map(t => {
         const existing = (enrolments || []).find(e => e.track_id === t.id);
         const curr = getCurriculumForTrack(t);
         const isViewing = activeTrack && activeTrack.id === t.id;
         return `
-          <div class="border ${isViewing ? "border-amber-400 ring-1 ring-amber-300" : "border-slate-200"} rounded-xl p-4 flex flex-col justify-between bg-white">
+          <div class="border ${isViewing ? "border-amber-400 ring-2 ring-amber-300/60" : "border-slate-200"} rounded-2xl p-4 flex flex-col justify-between bg-white shadow-sm hover:shadow transition">
             <div>
               <div class="flex justify-between items-center gap-1">
-                <span class="text-[11px] font-mono text-slate-500">${t.code}</span>
-                <span class="text-[10px] font-semibold text-slate-500">${curr.modules.length} Practical Modules</span>
+                <span class="text-[11px] font-mono font-bold text-slate-500">${t.code}</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">${curr.modules.length} Modules</span>
               </div>
-              <h4 class="font-bold text-sm mt-0.5">${t.title}</h4>
-              <p class="text-xs text-slate-600 mt-1">Tuition: <strong>₦${Number(t.fee_ngn).toLocaleString()}</strong> excl. VAT (Pilot Waiver Active)</p>
+              <h4 class="font-bold text-sm text-slate-900 mt-1">${t.title}</h4>
+              <p class="text-xs text-slate-600 mt-1.5">Tuition: <strong>₦${Number(t.fee_ngn).toLocaleString()}</strong> excl. VAT (Pilot Waiver)</p>
             </div>
             <div class="mt-4 flex gap-2">
-              <button onclick="viewTrackSyllabus('${t.id}')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 rounded-lg">
-                View Curriculum
+              <button onclick="viewTrackSyllabus('${t.id}')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold py-2 rounded-xl">
+                Open Studio
               </button>
               ${existing
-                ? `<span class="flex-1 text-center text-xs font-semibold py-2 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Enrolled</span>`
-                : `<button onclick="enrolInPilotTrack('${t.id}', '${t.title}')" class="flex-1 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold py-2 rounded-lg">Enrol Free</button>`
+                ? `<span class="flex-1 text-center text-xs font-bold py-2 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Enrolled</span>`
+                : `<button onclick="enrolInPilotTrack('${t.id}', '${t.title}')" class="flex-1 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-2 rounded-xl">Enrol Free</button>`
               }
             </div>
           </div>
@@ -986,40 +1726,45 @@
             }
           </div>
         </div>
-      `).join("") || `<p class="text-xs text-slate-500">No verified CareerScores yet. Complete Modules 1–3 practical outputs and submit your proctored evaluation below.</p>`;
+      `).join("") || `<p class="text-xs text-slate-500">No verified CareerScores yet. Complete Modules 1–3 diagnostic checks, training lessons, and labs first.</p>`;
 
       container.innerHTML = `
         <div class="lg:col-span-2 space-y-6">
           ${roadmapHtml}
           <div class="space-y-3">
-            <h3 class="font-bold text-base">All Seven Technical & Engineering Tracks (Section 2.1.5)</h3>
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h3 class="font-bold text-base text-slate-900">All Seven Technical & Engineering Tracks (Section 2.1.5)</h3>
+              <div class="flex gap-1.5 text-xs">
+                <button onclick="setTrackFilter('ALL')" class="px-3 py-1 rounded-full font-bold ${trackCategoryFilter === "ALL" ? "bg-slate-900 text-white" : "bg-white border border-slate-200 text-slate-700"}">All (7)</button>
+                <button onclick="setTrackFilter('DIGITAL')" class="px-3 py-1 rounded-full font-bold ${trackCategoryFilter === "DIGITAL" ? "bg-slate-900 text-white" : "bg-white border border-slate-200 text-slate-700"}">Digital & Data (3)</button>
+                <button onclick="setTrackFilter('ENGINEERING')" class="px-3 py-1 rounded-full font-bold ${trackCategoryFilter === "ENGINEERING" ? "bg-slate-900 text-white" : "bg-white border border-slate-200 text-slate-700"}">CAD / BIM / MEP (4)</button>
+              </div>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${trackCards}</div>
           </div>
         </div>
 
         <div class="space-y-4">
-          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
             <h3 class="font-bold text-sm">Verified CareerScore™ Credentials</h3>
             ${scoreCards}
           </div>
 
-          <!-- PROCTORED ASSESSMENT & CAPSTONE CONSOLE (SECTIONS 2.3.1, 2.8.1 & 2.12.7) -->
-          <div id="proctoredAssessmentCard" class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+          <div id="proctoredAssessmentCard" class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
             <div class="flex items-center justify-between">
               <h3 class="font-bold text-sm">Proctored Assessment Center</h3>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded ${allModulesPassedForActive ? "bg-emerald-100 text-emerald-800" : "bg-slate-200 text-slate-600"}">
-                ${allModulesPassedForActive ? "Unlocked" : "🔒 Locked"}
+              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full ${allModulesPassedForActive ? "bg-emerald-100 text-emerald-800" : "bg-slate-200 text-slate-600"}">
+                ${allModulesPassedForActive ? "Unlocked" : "🔒 Complete Modules 1–3"}
               </span>
             </div>
 
-            <select id="submitEnrolmentId" onchange="onSubmissionTrackChange(this.value)" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
+            <select id="submitEnrolmentId" onchange="onSubmissionTrackChange(this.value)" class="w-full text-xs border border-slate-300 rounded-xl p-2 bg-white">
               ${(enrolments || []).map(e => `<option value="${e.id}|${e.track_id}" ${activeTrack && e.track_id === activeTrack.id ? "selected" : ""}>${e.tracks?.title}</option>`).join("") || `<option value="">Enrol in a track first</option>`}
             </select>
 
-            <!-- Proctoring Delivery Mode (Section 2.3.1 & 2.12.7) -->
             <div class="space-y-1">
               <label class="block text-[11px] font-bold text-slate-700">Proctored Verification Mode (Section 2.12.7):</label>
-              <select id="assessmentMode" onchange="toggleProctorModeUI(this.value)" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
+              <select id="assessmentMode" onchange="toggleProctorModeUI(this.value)" class="w-full text-xs border border-slate-300 rounded-xl p-2 bg-white">
                 <option value="timed_proctored_drill">1. Timed Proctored Practical Drill (Browser Integrity + Countdown)</option>
                 <option value="live_virtual_proctor">2. Live Virtual Proctored Session (Mon–Fri 8am–6pm / Sat 9am–1pm WAT)</option>
                 <option value="lagos_hub_proctor">3. Lagos Physical Assessment Hub (In-Person Proctored Terminal)</option>
@@ -1027,8 +1772,7 @@
               </select>
             </div>
 
-            <!-- Timed Proctored Drill Console -->
-            <div id="timedDrillBox" class="bg-slate-900 text-slate-100 p-3 rounded-lg space-y-2 text-xs">
+            <div id="timedDrillBox" class="bg-slate-900 text-slate-100 p-3.5 rounded-xl space-y-2 text-xs">
               <div class="flex items-center justify-between">
                 <span class="font-bold text-amber-400">Timed Proctored Drill</span>
                 <span id="proctorTimerDisplay" class="font-mono font-bold text-sm text-emerald-400">30:00</span>
@@ -1036,36 +1780,109 @@
               <p class="text-[11px] text-slate-300 leading-relaxed">${activeCurr ? activeCurr.proctoredPrompt : ""}</p>
               <div class="flex items-center justify-between pt-1">
                 <span id="proctorIntegrityStatus" class="text-[11px] text-emerald-300">● Integrity Ready (0 tab switches)</span>
-                <button type="button" onclick="startTimedProctorDrill()" class="text-[11px] font-bold px-2.5 py-1 rounded bg-amber-500 text-slate-950 hover:bg-amber-400">
+                <button type="button" onclick="startTimedProctorDrill()" class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 hover:bg-amber-400">
                   Start 30-Min Timer
                 </button>
               </div>
             </div>
 
-            <!-- Live WAT Proctor Slot Picker -->
             <div id="watSlotBox" class="hidden space-y-1">
               <label class="block text-[11px] font-bold text-slate-700">Select Live Proctoring Window (WAT):</label>
-              <select id="proctorSlotWat" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
+              <select id="proctorSlotWat" class="w-full text-xs border border-slate-300 rounded-xl p-2 bg-white">
                 <option value="Mon–Fri • 09:00 AM – 11:00 AM WAT">Mon–Fri • 09:00 AM – 11:00 AM WAT</option>
                 <option value="Mon–Fri • 02:00 PM – 04:00 PM WAT">Mon–Fri • 02:00 PM – 04:00 PM WAT</option>
                 <option value="Saturday • 10:00 AM – 12:00 PM WAT">Saturday • 10:00 AM – 12:00 PM WAT</option>
               </select>
             </div>
 
-            <input type="url" id="artifactLink" placeholder="Capstone Repo / Figma / Drive CAD / Revit Model URL" class="w-full text-xs border border-slate-300 rounded-lg p-2" />
-            <input type="url" id="defenseLink" placeholder="10-Min Executive Defense Video / Live Room URL" class="w-full text-xs border border-slate-300 rounded-lg p-2" />
+            <input type="url" id="artifactLink" placeholder="Capstone Repo / Figma / Drive CAD / Revit Model URL" class="w-full text-xs border border-slate-300 rounded-xl p-2" />
+            <input type="url" id="defenseLink" placeholder="10-Min Executive Defense Video / Live Room URL" class="w-full text-xs border border-slate-300 rounded-xl p-2" />
 
             <label class="flex items-start gap-2 text-[11px] text-slate-600 cursor-pointer">
               <input type="checkbox" id="honorPledge" class="mt-0.5 rounded border-slate-300" />
               <span>I verify this work sample is my original work completed under CareerBridge Africa proctoring standards.</span>
             </label>
 
-            <button onclick="submitCapstoneArtifact()" class="w-full ${allModulesPassedForActive ? "bg-amber-500 hover:bg-amber-600 text-slate-950" : "bg-slate-300 text-slate-600 cursor-not-allowed"} font-bold text-xs py-2 rounded-lg">
-              ${allModulesPassedForActive ? "Submit Proctored Capstone for Grading" : "Complete Modules 1–3 Practical Outputs First"}
+            <button onclick="submitCapstoneArtifact()" class="w-full ${allModulesPassedForActive ? "bg-amber-500 hover:bg-amber-600 text-slate-950" : "bg-slate-300 text-slate-600 cursor-not-allowed"} font-bold text-xs py-2.5 rounded-xl">
+              ${allModulesPassedForActive ? "Submit Proctored Capstone for Grading" : "Complete Training Modules 1–3 First"}
             </button>
           </div>
         </div>
       `;
+
+      updateAINavigatorBanner();
+    }
+
+    async function submitDiagnosticBaseline(trackId, modIndex) {
+      const { data: tracks } = await sbClient.from("tracks").select("*").eq("id", trackId);
+      const track = tracks?.[0];
+      if (!track) return;
+      const curr = getCurriculumForTrack(track);
+      const prereqCount = curr.modules.length - 1;
+      const quiz = curr.modules[modIndex]?.quiz || [];
+
+      let answered = 0;
+      let correct = 0;
+      for (let qIdx = 0; qIdx < quiz.length; qIdx++) {
+        const selected = document.querySelector(`input[name="diag_${trackId}_${modIndex}_${qIdx}"]:checked`);
+        if (selected) {
+          answered++;
+          if (parseInt(selected.value, 10) === quiz[qIdx].ans) correct++;
+        }
+      }
+
+      if (answered < quiz.length) {
+        return alert("Please answer all diagnostic baseline questions so we can record your starting level before unlocking the training lessons.");
+      }
+
+      const sampleInput = document.getElementById(`diagSample_${trackId}_${modIndex}`);
+      const sampleUrl = sampleInput ? sampleInput.value.trim() : "";
+
+      const state = getModuleProgress(trackId, prereqCount);
+      state.diagnosed[modIndex] = true;
+      state.diagScores[modIndex] = `${correct}/${quiz.length}`;
+      if (sampleUrl) state.artifacts[modIndex] = sampleUrl;
+      saveModuleProgress(trackId, state);
+
+      aiChatHistory.push({
+        sender: "ai",
+        text: `Great job recording your <strong>Module ${modIndex + 1} Diagnostic Baseline (${correct}/${quiz.length})</strong>! Your <strong>Stage 2 Training Lessons & Hands-On Lab</strong> are now unlocked. Work through the syntax/command cards and let me know if you need help with the lab deliverable.`
+      });
+      renderLearnerWorkspace();
+    }
+
+    async function completeTrainedModule(trackId, modIndex) {
+      const artifactInput = document.getElementById(`modArtifact_${trackId}_${modIndex}`);
+      const artifactUrl = artifactInput ? artifactInput.value.trim() : "";
+      if (!artifactUrl) {
+        return alert(`Per Section 2.1.2, every module requires a practical deliverable after training. Please paste your Module ${modIndex + 1} lab deliverable URL.`);
+      }
+
+      const { data: tracks } = await sbClient.from("tracks").select("*").eq("id", trackId);
+      const track = tracks?.[0];
+      if (!track) return;
+      const curr = getCurriculumForTrack(track);
+      const prereqCount = curr.modules.length - 1;
+
+      const state = getModuleProgress(trackId, prereqCount);
+      state.passed[modIndex] = true;
+      state.artifacts[modIndex] = artifactUrl;
+      saveModuleProgress(trackId, state);
+
+      if (modIndex < prereqCount - 1) {
+        openLessonModule = `${trackId}_${modIndex + 1}`;
+        aiChatHistory.push({
+          sender: "ai",
+          text: `<strong>Module ${modIndex + 1} verified!</strong> I have unlocked <strong>Module ${modIndex + 2}</strong> for you. Start with its quick diagnostic baseline check so we can jump into the next training lab.`
+        });
+      } else {
+        openLessonModule = null;
+        aiChatHistory.push({
+          sender: "ai",
+          text: `<strong>All ${prereqCount} training modules completed!</strong> Your <strong>Proctored Assessment Center</strong> is now unlocked. Choose either the 30-Minute Timed Drill or a Live WAT Proctor session to earn your 0–1000 CareerScore™.`
+        });
+      }
+      renderLearnerWorkspace();
     }
 
     function toggleProctorModeUI(mode) {
@@ -1100,47 +1917,6 @@
       renderLearnerWorkspace();
     }
 
-    async function verifyModuleOutputAndGate(trackId, modIndex) {
-      const artifactInput = document.getElementById(`modArtifact_${trackId}_${modIndex}`);
-      const artifactUrl = artifactInput ? artifactInput.value.trim() : "";
-      if (!artifactUrl) {
-        return alert(`Per Section 2.1.2, every module requires a practical output. Please paste a link to your Module ${modIndex + 1} deliverable before verifying.`);
-      }
-
-      const { data: tracks } = await sbClient.from("tracks").select("*").eq("id", trackId);
-      const track = tracks?.[0];
-      if (!track) return;
-      const curr = getCurriculumForTrack(track);
-      const prereqCount = curr.modules.length - 1;
-      const quiz = curr.modules[modIndex]?.quiz || [];
-
-      let correct = 0;
-      for (let qIdx = 0; qIdx < quiz.length; qIdx++) {
-        const selected = document.querySelector(`input[name="q_${trackId}_${modIndex}_${qIdx}"]:checked`);
-        if (selected && parseInt(selected.value, 10) === quiz[qIdx].ans) {
-          correct++;
-        }
-      }
-
-      if (correct < quiz.length) {
-        return alert(`You scored ${correct}/${quiz.length} on the technical check. Review the CareerBridge lesson brief above and answer all questions correctly to unlock the next module.`);
-      }
-
-      const state = getModuleProgress(trackId, prereqCount);
-      state.passed[modIndex] = true;
-      state.artifacts[modIndex] = artifactUrl;
-      saveModuleProgress(trackId, state);
-
-      if (modIndex < prereqCount - 1) {
-        openLessonModule = `${trackId}_${modIndex + 1}`;
-        alert(`Module ${modIndex + 1} Practical Output Verified! Module ${modIndex + 2} is now unlocked.`);
-      } else {
-        openLessonModule = null;
-        alert(`All ${prereqCount} Module Practical Outputs Verified! Your Proctored Assessment Center is now unlocked.`);
-      }
-      renderLearnerWorkspace();
-    }
-
     function onSubmissionTrackChange(val) {
       if (!val) return;
       const [, trackId] = val.split("|");
@@ -1165,6 +1941,10 @@
         amount_paid_ngn: 0
       });
       if (error) return alert("Enrolment error: " + error.message);
+      aiChatHistory.push({
+        sender: "ai",
+        text: `You are now enrolled in <strong>${trackTitle}</strong>! Complete the short <strong>Module 1 Diagnostic Baseline</strong> below to unlock your first set of training lessons.`
+      });
       renderLearnerWorkspace();
     }
 
@@ -1179,7 +1959,7 @@
       const progress = getModuleProgress(trackId, prereqCount);
 
       if (!progress.passed.slice(0, prereqCount).every(Boolean)) {
-        return alert(`Sequential Mastery Gate: You must submit practical outputs and pass Modules 1–${prereqCount} before submitting your proctored capstone.`);
+        return alert(`Sequential Mastery Gate: You must complete Modules 1–${prereqCount} training and practical deliverables before submitting your proctored capstone.`);
       }
 
       if (!document.getElementById("honorPledge").checked) {
@@ -1250,7 +2030,7 @@
     }
 
     // =========================================================================
-    // 3. EMPLOYER WORKSPACE (SECTION 2.1.4 & TABLE 2.5)
+    // 3. EMPLOYER WORKSPACE
     // =========================================================================
     async function renderEmployerWorkspace() {
       const container = document.getElementById("workspaceContent");
@@ -1273,17 +2053,17 @@
       const confirmedHires = (shortlists || []).filter(s => (s.pipeline_stage || "").includes("Hired")).length;
 
       document.getElementById("kpiStrip").innerHTML = `
-        <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
-          <div class="text-[11px] text-slate-500">Verified Talent Pool</div>
-          <div class="text-base font-bold">${verifiedPool?.length || 0}</div>
+        <div class="bg-slate-50 px-3.5 py-2 rounded-xl border border-slate-200">
+          <div class="text-[10px] font-bold uppercase text-slate-500">Verified Pool</div>
+          <div class="text-base font-extrabold">${verifiedPool?.length || 0}</div>
         </div>
-        <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
-          <div class="text-[11px] text-slate-500">Shortlisted</div>
-          <div class="text-base font-bold text-amber-700">${shortlists?.length || 0}</div>
+        <div class="bg-amber-50 px-3.5 py-2 rounded-xl border border-amber-200">
+          <div class="text-[10px] font-bold uppercase text-amber-800">Shortlisted</div>
+          <div class="text-base font-extrabold text-amber-700">${shortlists?.length || 0}</div>
         </div>
-        <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
-          <div class="text-[11px] text-slate-500">90-Day Verified Hires</div>
-          <div class="text-base font-bold text-emerald-700">${confirmedHires}</div>
+        <div class="bg-emerald-50 px-3.5 py-2 rounded-xl border border-emerald-200">
+          <div class="text-[10px] font-bold uppercase text-emerald-800">90-Day Hires</div>
+          <div class="text-base font-extrabold text-emerald-700">${confirmedHires}</div>
         </div>
       `;
 
@@ -1296,17 +2076,17 @@
         const sampleCount = (c.submissions?.module_artifacts_count || 3) + 1;
 
         return `
-          <div class="bg-white p-5 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-3">
             <div>
               <div class="flex justify-between items-start gap-2">
                 <div>
-                  <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-emerald-100 text-emerald-900">
+                  <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900">
                     ${matchPct}% Role Match • ${sampleCount} Verified Samples
                   </span>
                   <h4 class="font-bold text-sm mt-1">${c.profiles?.full_name}</h4>
                   <p class="text-xs text-slate-500">${c.tracks?.title}</p>
                 </div>
-                <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-amber-400 font-extrabold text-xs">
+                <span class="px-2.5 py-1 rounded-xl bg-slate-900 text-amber-400 font-extrabold text-xs">
                   ${c.final_score}/1000
                 </span>
               </div>
@@ -1318,21 +2098,21 @@
               </div>
             </div>
             ${alreadyShortlisted
-              ? `<span class="mt-2 block text-center text-xs font-semibold py-2 rounded-lg bg-slate-100 text-slate-700">Stage: ${alreadyShortlisted.pipeline_stage || "Shortlisted"}</span>`
-              : `<button onclick="shortlistCandidate('${c.id}', '${c.learner_id}')" class="mt-2 w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold py-2 rounded-lg">Shortlist & Request Interview</button>`
+              ? `<span class="mt-2 block text-center text-xs font-semibold py-2 rounded-xl bg-slate-100 text-slate-700">Stage: ${alreadyShortlisted.pipeline_stage || "Shortlisted"}</span>`
+              : `<button onclick="shortlistCandidate('${c.id}', '${c.learner_id}')" class="mt-2 w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-2 rounded-xl">Shortlist & Request Interview</button>`
             }
           </div>
         `;
-      }).join("") || `<p class="text-sm text-slate-500 col-span-2 bg-white p-5 rounded-xl border border-slate-200">No verified candidates published yet. Grade a submission in the Proctor & Assessor Queue first!</p>`;
+      }).join("") || `<p class="text-sm text-slate-500 col-span-2 bg-white p-5 rounded-2xl border border-slate-200">No verified candidates published yet. Grade a submission in the Proctor & Assessor Queue first!</p>`;
 
       const pipelineRows = (shortlists || []).map(s => `
-        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 space-y-2 text-xs">
+        <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 space-y-2 text-xs">
           <div class="flex justify-between font-bold">
             <span>${s.profiles?.full_name}</span>
             <span class="text-amber-700">${s.careerscores?.final_score}/1000</span>
           </div>
           <div class="text-[11px] text-slate-500">${s.careerscores?.tracks?.title}</div>
-          <select onchange="updateHiringStage('${s.id}', this.value)" class="w-full text-xs border border-slate-300 rounded p-1.5 bg-white font-semibold">
+          <select onchange="updateHiringStage('${s.id}', this.value)" class="w-full text-xs border border-slate-300 rounded-lg p-1.5 bg-white font-semibold">
             ${["Shortlisted", "Interview Scheduled", "Offer Extended", "Hired (90-Day Confirmed)"].map(st =>
               `<option value="${st}" ${(s.pipeline_stage || "Shortlisted") === st ? "selected" : ""}>${st}</option>`
             ).join("")}
@@ -1347,34 +2127,35 @@
               <h3 class="font-bold text-base">Score-Matched Verified Talent Pool</h3>
               <p class="text-xs text-slate-500">Filtered by CareerScore™ ≥ ${minScoreFilter}/1000 & verified project samples ≥ 3 (Section 2.1.4)</p>
             </div>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded bg-white border border-slate-200">${verifiedPool?.length || 0} Verified Candidates</span>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border border-slate-200">${verifiedPool?.length || 0} Verified Candidates</span>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${candidateCards}</div>
         </div>
 
         <div class="space-y-4">
-          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
             <h3 class="font-bold text-sm">Post Role & Auto-Match Criteria</h3>
             <p class="text-[11px] text-slate-500">Portal Tier: ₦50,000–₦400,000/mo • Managed Placement: 8%–12% annual gross salary (excl. VAT, Table 2.5)</p>
-            <input type="text" id="jobTitle" placeholder="Role Title (e.g. CAD Technician / Revit BIM Modeler)" class="w-full text-xs border border-slate-300 rounded-lg p-2" />
-            <select id="jobTrackId" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
+            <input type="text" id="jobTitle" placeholder="Role Title (e.g. CAD Technician / Revit BIM Modeler)" class="w-full text-xs border border-slate-300 rounded-xl p-2" />
+            <select id="jobTrackId" class="w-full text-xs border border-slate-300 rounded-xl p-2 bg-white">
               ${(tracks || []).map(t => `<option value="${t.id}">${t.title}</option>`).join("")}
             </select>
             <div class="grid grid-cols-2 gap-2">
-              <input type="number" id="jobMinScore" value="700" min="500" max="950" placeholder="Min CareerScore" class="text-xs border border-slate-300 rounded-lg p-2" />
-              <input type="text" id="jobSalary" value="₦400k - ₦650k/mo" class="text-xs border border-slate-300 rounded-lg p-2" />
+              <input type="number" id="jobMinScore" value="700" min="500" max="950" placeholder="Min CareerScore" class="text-xs border border-slate-300 rounded-xl p-2" />
+              <input type="text" id="jobSalary" value="₦400k - ₦650k/mo" class="text-xs border border-slate-300 rounded-xl p-2" />
             </div>
-            <button onclick="postEmployerJob()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-2 rounded-lg">
+            <button onclick="postEmployerJob()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-2.5 rounded-xl">
               Publish Requisition & Rank Matches
             </button>
           </div>
 
-          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
             <h3 class="font-bold text-sm">Interview & 90-Day Placement Pipeline (O-02)</h3>
             ${pipelineRows}
           </div>
         </div>
       `;
+      updateAINavigatorBanner();
     }
 
     async function postEmployerJob() {
@@ -1413,7 +2194,7 @@
     }
 
     // =========================================================================
-    // 4. PROCTOR & ASSESSOR WORKSPACE (BLIND GRADING + IRR >= 0.70 + APPEALS)
+    // 4. PROCTOR & ASSESSOR WORKSPACE
     // =========================================================================
     async function renderAssessorWorkspace() {
       const container = document.getElementById("workspaceContent");
@@ -1428,26 +2209,26 @@
         .eq("appeal_status", "requested");
 
       document.getElementById("kpiStrip").innerHTML = `
-        <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
-          <div class="text-[11px] text-slate-500">Pending Proctored Queue</div>
-          <div class="text-base font-bold text-amber-700">${queue?.length || 0}</div>
+        <div class="bg-amber-50 px-3.5 py-2 rounded-xl border border-amber-200">
+          <div class="text-[10px] font-bold uppercase text-amber-800">Pending Queue</div>
+          <div class="text-base font-extrabold text-amber-700">${queue?.length || 0}</div>
         </div>
-        <div class="bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
-          <div class="text-[11px] text-slate-500">IRR Governance Target</div>
-          <div class="text-base font-bold text-emerald-700">≥ 0.70</div>
+        <div class="bg-emerald-50 px-3.5 py-2 rounded-xl border border-emerald-200">
+          <div class="text-[10px] font-bold uppercase text-emerald-800">IRR Target</div>
+          <div class="text-base font-extrabold text-emerald-700">≥ 0.70</div>
         </div>
       `;
 
       const items = (queue || []).map(sub => {
         const curr = getCurriculumForTrack(sub.tracks || {});
         return `
-          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
             <div class="flex flex-wrap justify-between items-center gap-1">
-              <span class="text-xs font-mono bg-slate-100 px-2 py-0.5 rounded">Blind ID: ${sub.id.slice(0, 8)}</span>
-              <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">${sub.assessment_mode || "proctored"}</span>
+              <span class="text-xs font-mono bg-slate-100 px-2.5 py-0.5 rounded-lg">Blind ID: ${sub.id.slice(0, 8)}</span>
+              <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900">${sub.assessment_mode || "proctored"}</span>
             </div>
             <h4 class="font-bold text-sm">${sub.tracks?.title}</h4>
-            <div class="text-[11px] text-slate-600 bg-slate-50 p-2.5 rounded border border-slate-200 space-y-1">
+            <div class="text-[11px] text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
               <div><strong>Proctor Log:</strong> ${sub.proctor_integrity_log || "Verified"}</div>
               <div><strong>Rubric:</strong> ${curr.rubric}</div>
             </div>
@@ -1456,23 +2237,23 @@
               ${sub.defense_video_url ? `<a href="${sub.defense_video_url}" target="_blank" class="text-blue-600 underline">Open Defense / Proctor Room →</a>` : ""}
             </div>
             <div class="grid grid-cols-2 gap-2 pt-1">
-              <input type="number" id="score_${sub.id}" min="0" max="1000" value="850" placeholder="Score (0-1000)" class="text-xs border border-slate-300 rounded-lg p-2" />
-              <button onclick="submitBlindGrade('${sub.id}')" class="bg-slate-900 text-white text-xs font-semibold rounded-lg px-3 py-2">
+              <input type="number" id="score_${sub.id}" min="0" max="1000" value="850" placeholder="Score (0-1000)" class="text-xs border border-slate-300 rounded-xl p-2" />
+              <button onclick="submitBlindGrade('${sub.id}')" class="bg-slate-900 text-white text-xs font-bold rounded-xl px-3 py-2">
                 Submit Blind Grade
               </button>
             </div>
-            <button onclick="simulateDualVerification('${sub.id}', '${sub.learner_id}', '${sub.track_id}')" class="w-full text-[11px] font-semibold py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100">
+            <button onclick="simulateDualVerification('${sub.id}', '${sub.learner_id}', '${sub.track_id}')" class="w-full text-[11px] font-bold py-2 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100">
               ⚡ Pilot Test: Simulate Dual-Assessor IRR ≥ 0.70 Pass & Issue CareerScore™
             </button>
           </div>
         `;
-      }).join("") || `<p class="text-sm text-slate-500 col-span-2 bg-white p-5 rounded-xl border border-slate-200">Proctored grading queue is clear. Submit a capstone in the Learner Path tab to test grading!</p>`;
+      }).join("") || `<p class="text-sm text-slate-500 col-span-2 bg-white p-5 rounded-2xl border border-slate-200">Proctored grading queue is clear. Submit a capstone in the Learner Classroom tab to test grading!</p>`;
 
       const appealCards = (appeals || []).map(ap => `
-        <div class="bg-rose-50 border border-rose-200 p-4 rounded-xl space-y-2 text-xs">
+        <div class="bg-rose-50 border border-rose-200 p-4 rounded-2xl space-y-2 text-xs">
           <div class="font-bold text-rose-900">Appeal Request • ${ap.tracks?.title} (Current: ${ap.final_score}/1000)</div>
           <p class="text-rose-800">Reason: "${ap.appeal_reason}"</p>
-          <button onclick="resolveAppeal('${ap.id}', ${ap.final_score})" class="bg-slate-900 text-white font-semibold px-3 py-1.5 rounded-lg">
+          <button onclick="resolveAppeal('${ap.id}', ${ap.final_score})" class="bg-slate-900 text-white font-semibold px-3 py-1.5 rounded-xl">
             Complete Moderation Review
           </button>
         </div>
@@ -1485,6 +2266,7 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${items}</div>
         </div>
       `;
+      updateAINavigatorBanner();
     }
 
     async function resolveAppeal(careerscoreId, currentScore) {
@@ -1547,7 +2329,7 @@
       });
 
       if (error) return alert("Error issuing CareerScore: " + error.message);
-      alert(`Verified CareerScore™ (${score}/1000) issued! Switch to '1. Learner Path' or '3. Employer Talent Portal' in the yellow bar to see it live.`);
+      alert(`Verified CareerScore™ (${score}/1000) issued! Switch to '1. Learner Classroom & AI Coach' or '3. Employer Talent Portal' in the top bar to see it live.`);
       renderAssessorWorkspace();
     }
   </script>
